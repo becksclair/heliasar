@@ -1,0 +1,16 @@
+h1 {
+	font-size: 22px;
+	font-weight: 800;
+	margin: 0;
+
+	@media (max-width: 990px) {
+		text-align: center;
+	}
+}
+.text-gradient {
+	background-image: var(--accent-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-size: 400%;
+	background-position: 0;
+}
