@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/partytown": "^1.2.0",
+    "@astrojs/sitemap": "^1.2.2",
     "@astrojs/solid-js": "^2.1.1",
     "astro": "^2.3.2",
     "astro-compress": "^1.1.42",
