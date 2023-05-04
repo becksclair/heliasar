@@ -5,33 +5,34 @@ import Card from '../components/Card.astro';
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
+		<h1><span class="text-gradient">Rebecca Clair</span></h1>
+
+		<div class="bio-container">
+			<img class="shadow-img" src="/images/rebecca_clair.jpg" alt="Rebecca Clair" />
+
+			<div class="bio">
+				<p>
+					Experienced senior full stack engineer with a demonstrated history
+					of working in the computer software industry. Highly skilled in
+					C++ / Qt, Ruby, JavaScript, Typescript, and web technologies
+					including HTML and CSS, React.
+				</p>
+				<p>
+					Additionally, well-developed skills in Internet of Things,
+					Embedded Systems, and software development with RFID technology,
+					and distributed microservice architectures using MQTT and ZeroMQ.
+				</p>
+				<p>
+					With 10+ years of experience working and managing diverse and
+					large teams with effective communication to complete the
+					engineering of successful applications.
+				</p>
+				<p>
+					In my free time I enjoy practicing extreme sports, creating music
+					and painting.
+				</p>
+			</div>
+		</div>
 	</main>
 </Layout>
 
@@ -39,7 +40,7 @@ import Card from '../components/Card.astro';
 	main {
 		margin: auto;
 		padding: 1.5rem;
-		max-width: 60ch;
+		max-width: 80%;
 	}
 	h1 {
 		font-size: 3rem;
@@ -53,14 +54,7 @@ import Card from '../components/Card.astro';
 		background-size: 400%;
 		background-position: 0;
 	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
+
 	.instructions code {
 		font-size: 0.875em;
 		font-weight: bold;
@@ -72,6 +66,41 @@ import Card from '../components/Card.astro';
 	.instructions strong {
 		color: rgb(var(--accent));
 	}
+
+	.bio-container {
+		display: flex;
+		margin-top: 2rem;
+		gap: 40px;
+
+		& img {
+			width: 300px;
+			height: 300px;
+		}
+
+		@media (max-width: 750px) {
+			flex-direction: column;
+			margin-top: 1rem;
+			& img {
+				width: 100%;
+				height: auto;
+				/* width: 100vw; */
+				/* height: auto; */
+			}
+		}
+	}
+
+	.bio {
+		line-height: 1.6;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		padding-top: 4px;
+    padding-bottom: 4px;
+		border-radius: 0.4rem;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+		font-size: 18px;
+	}
+
 	.link-card-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
