@@ -46,6 +46,10 @@ import Card from '../components/Card.astro';
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0;
+
+		@media (max-width: 990px) {
+			text-align: center;
+		}
 	}
 	.text-gradient {
 		background-image: var(--accent-gradient);
@@ -77,14 +81,18 @@ import Card from '../components/Card.astro';
 			height: 300px;
 		}
 
-		@media (max-width: 750px) {
+		@media (max-width: 990px) {
+			flex-direction: column;
+			margin-top: 1rem;
+			align-items: center;
+		}
+
+		@media (max-width: 700px) {
 			flex-direction: column;
 			margin-top: 1rem;
 			& img {
 				width: 100%;
 				height: auto;
-				/* width: 100vw; */
-				/* height: auto; */
 			}
 		}
 	}
