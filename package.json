@@ -2,6 +2,7 @@
   "name": "heliasar",
   "type": "module",
   "version": "0.0.1",
+  "license": "MIT",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,6 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/partytown": "^1.2.0",
     "@astrojs/solid-js": "^2.1.1",
     "astro": "^2.3.2",
     "solid-js": "^1.7.4"
