@@ -9,8 +9,8 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://heliasar.com",
-  integrations: [solidJs(), partytown(), compress(), robotsTxt(), sitemap()],
-  output: "server",
-  adapter: vercel()
+	site: "https://rbclair.me",
+	integrations: [solidJs(), partytown(), compress(), robotsTxt(), sitemap()],
+	output: "server",
+	adapter: vercel(),
 });

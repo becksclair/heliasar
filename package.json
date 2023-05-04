@@ -20,5 +20,8 @@
     "astro-compress": "^1.1.42",
     "astro-robots-txt": "^0.5.0",
     "solid-js": "^1.7.4"
+  },
+  "devDependencies": {
+    "sass": "^1.62.1"
   }
 }
