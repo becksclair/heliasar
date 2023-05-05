@@ -1,6 +1,6 @@
 ---
-import '../styles/styles.scss';
-import NavBar from '../components/NavBar';
+import "../styles/styles.scss";
+import NavBar from "../components/NavBar";
 export interface Props {
 	title: string;
 }
@@ -17,11 +17,14 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} - Rebecca Clair</title>
 
-		<link rel="sitemap" href="/sitemap-index.xml">
+		<link rel="sitemap" href="/sitemap-index.xml" />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<NavBar client:load />
@@ -33,9 +36,13 @@ const { title } = Astro.props;
 <style is:global>
 	:root {
 		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			#da62c4 30%,
+			white 60%
+		);
 	}
-
 
 	.navbar {
 		display: flex;
@@ -44,7 +51,6 @@ const { title } = Astro.props;
 		background-color: #e1e1e9;
 		color: rgb(var(--accent));
 		padding: 10px;
-		width: 100%;
 	}
 
 	.navbar-logo a {
@@ -87,6 +93,10 @@ const { title } = Astro.props;
 	}
 
 	@media (max-width: 768px) {
+		.navbar {
+			width: 100%;
+		}
+
 		.navbar-links {
 			display: none;
 		}
@@ -123,5 +133,4 @@ const { title } = Astro.props;
 			color: #da62c4;
 		}
 	}
-
 </style>
