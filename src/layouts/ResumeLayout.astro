@@ -13,7 +13,7 @@ const { frontmatter } = Astro.props;
 				<img
 					class="post-img shadow-img"
 					src={frontmatter.image.url}
-					width="300"
+					height="300"
 					alt={frontmatter.image.alt}
 				/>
 			</div>
@@ -61,6 +61,8 @@ const { frontmatter } = Astro.props;
 		justify-content: center;
 	}
 	.post-img {
+		height: 300px;
+		width: auto;
 		margin-top: 2rem;
 		margin-bottom: 1rem;
 	}
