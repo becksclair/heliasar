@@ -1,0 +1,69 @@
+---
+import "../styles/styles.scss";
+import Layout from "./Layout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+	<main>
+		<h1>{frontmatter.title}</h1>
+
+		<div class="content">
+			<div class="post-image-container">
+				<img
+					class="post-img shadow-img"
+					src={frontmatter.image.url}
+					width="300"
+					alt={frontmatter.image.alt}
+				/>
+			</div>
+			<slot />
+		</div>
+
+	</main>
+</Layout>
+
+<style lang="scss">
+	h1 {
+		text-align: center;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		font-size: 2rem;
+	}
+
+	main {
+		color: #444;
+
+		& h2, & h3 {
+			color: rgb(var(--accent));
+		}
+
+		&a {
+			border-radius: 5px;
+			padding: 0.5rem 1rem;
+			color: rgb(var(--accent));
+			background-color: #e1e1e9;
+			text-decoration: none;
+			transition: all .2s ease-in-out;
+			font-weight: 500;
+
+			&:hover {
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+										0 2px 4px -2px rgba(0, 0, 0, 0.1);
+			}
+			&:active {
+				transform: translateY(2px);
+			}
+		}
+	}
+	.post-image-container {
+		display: flex;
+		justify-content: center;
+	}
+	.post-img {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	
+</style>

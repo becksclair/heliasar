@@ -1,8 +1,45 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+const allPosts = await Astro.glob('../pages/posts/*.md');
 ---
 
 <Layout title="Blog">
+	<h1>Blog Archive</h1>
+	<main>
+		<div class="content">
 
+			<ul>
+				{allPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+			</ul>
+		</div>
+	</main>
 </Layout>
+
+<style lang="scss">
+	h1 {
+		text-align: center;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		font-size: 2rem;
+	}
+	main {
+		color: #444;
+	}
+
+	.content {
+		& ul {
+			padding: 0;
+			list-style: none;
+		}
+		& a {
+			font-size: 1.15rem;
+			transition: all .2s ease-in-out;
+			color: rgb(var(--accent));
+			&:hover {
+				color: #da62c4;
+				font-size: 1.2rem;
+			}
+		}
+	}
+</style>

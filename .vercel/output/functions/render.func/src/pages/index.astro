@@ -1,10 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
-import Social from '../components/Social.astro';
 ---
 
-<Layout title="Home">
+<Layout title="Welcome to Astro.">
 	<main>
 		<h1><span class="text-gradient">Rebecca Clair</span></h1>
 
@@ -32,27 +31,21 @@ import Social from '../components/Social.astro';
 					In my free time I enjoy practicing extreme sports, creating music
 					and painting.
 				</p>
-
-				<div class="bio-social">
-					<Social url="https://github.com/becksClair" platform="github" />
-					<Social url="https://www.linkedin.com/in/rebecca-clair/" platform="linkedin"/>
-					<Social url="https://twitter.com/becksClair" platform="twitter"/>
-				</div>
 			</div>
 		</div>
 	</main>
 </Layout>
 
-<style lang="scss">
-
+<style>
+	main {
+		margin: auto;
+		padding: 1.5rem;
+		max-width: 80%;
+	}
 	h1 {
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0;
-
-		@media (max-width: 990px) {
-			text-align: center;
-		}
 	}
 	.text-gradient {
 		background-image: var(--accent-gradient);
@@ -84,18 +77,14 @@ import Social from '../components/Social.astro';
 			height: 300px;
 		}
 
-		@media (max-width: 990px) {
-			flex-direction: column;
-			margin-top: 1rem;
-			align-items: center;
-		}
-
-		@media (max-width: 700px) {
+		@media (max-width: 750px) {
 			flex-direction: column;
 			margin-top: 1rem;
 			& img {
 				width: 100%;
 				height: auto;
+				/* width: 100vw; */
+				/* height: auto; */
 			}
 		}
 	}
@@ -110,17 +99,6 @@ import Social from '../components/Social.astro';
 		border-radius: 0.4rem;
 		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 		font-size: 18px;
-	}
-
-	.bio-social {
-		margin-top: 2rem;
-		margin-bottom: 1rem;
-		display: flex;
-		gap: 1rem;
-		justify-content: center;
-		@media (max-width: 700px) {
-			flex-wrap: wrap;
-		}
 	}
 
 	.link-card-grid {

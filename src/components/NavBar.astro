@@ -1,0 +1,155 @@
+---
+---
+
+<nav class="navbar">
+	<div class="navbar-logo">
+		<a href="/">
+			<h1>
+				<span class="text-gradient">Rebecca Clair</span>
+			</h1>
+		</a>
+	</div>
+	<ul class="navbar-links">
+		<li>
+			<a href="/">Home</a>
+		</li>
+		<li>
+			<a href="/resume">Resume</a>
+		</li>
+		<li>
+			<a href="/projects">Projects</a>
+		</li>
+		<li>
+			<a href="/photography">Photography</a>
+		</li>
+		<li>
+			<a href="/music">Music</a>
+		</li>
+		<li>
+			<a href="/blog">Blog</a>
+		</li>
+	</ul>
+	<div class="navbar-toggle">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+</nav>
+
+<script>
+	const navbarToggle = document.querySelector(".navbar-toggle");
+	const navbarLinks = document.querySelector(".navbar-links");
+
+	navbarToggle?.addEventListener("click", () => {
+		navbarLinks?.classList.toggle("active");
+		navbarToggle?.classList.toggle("active");
+	});
+</script>
+
+<style lang="scss">
+	h1 {
+		font-size: 22px;
+		font-weight: 800;
+		margin: 0;
+
+		@media (max-width: 990px) {
+			text-align: center;
+		}
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0;
+	}
+	.navbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: #e1e1e9;
+		color: rgb(var(--accent));
+		padding: 10px;
+	}
+
+	.navbar-logo a {
+		font-size: 24px;
+		font-weight: bold;
+		text-decoration: none;
+		color: #fff;
+	}
+
+	.navbar-links {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		list-style: none;
+		margin: 0;
+		padding: 10px;
+	}
+
+	.navbar-links li {
+		margin: 0 10px;
+	}
+
+	.navbar-links a {
+		font-size: 18px;
+		text-decoration: none;
+		color: rgb(var(--accent));
+	}
+
+	.navbar-toggle {
+		display: none;
+		cursor: pointer;
+	}
+
+	.navbar-toggle span {
+		display: block;
+		width: 30px;
+		height: 3px;
+		background-color: #da62c4;
+		margin: 5px 0;
+	}
+
+	@media (max-width: 768px) {
+		.navbar {
+			width: 100%;
+		}
+
+		.navbar-links {
+			display: none;
+		}
+
+		.navbar-toggle {
+			display: block;
+		}
+
+		.navbar-toggle.active span:nth-child(2) {
+			opacity: 0;
+		}
+
+		.navbar-toggle.active span:nth-child(1) {
+			transform: rotate(45deg) translate(5px, 5px);
+		}
+
+		.navbar-toggle.active span:nth-child(3) {
+			transform: rotate(-45deg) translate(5px, -5px);
+		}
+
+		.navbar-links.active {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			position: absolute;
+			top: 50px;
+			left: 0;
+			width: 100%;
+			background-color: #e1e1e9;
+		}
+
+		.navbar-links.active li {
+			margin: 10px 0;
+			color: #da62c4;
+		}
+	}
+</style>
