@@ -54,7 +54,7 @@ Link to the article about the tool And implementing workflows for generating mul
 
 Analyzed client requirements and provided automations and full-stack solutions with Ruby on Rails, JavaScript, Typescript, React, C++, C#, and other technologies. Working a wide range of projects and industries, that challenged me to keep always learning and always finding creative solutions to complex business problems. Dealt with client support, managing a business and marketing it.
 
-### Senitron Corp
+### (Private Corp)
 
 #### SOFTWARE ENGINEER (SENIOR) 2014-2020
 
