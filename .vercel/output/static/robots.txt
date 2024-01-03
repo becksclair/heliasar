@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://rbclair.me/sitemap-index.xml
