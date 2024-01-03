@@ -24,9 +24,21 @@ In my free time I enjoy practicing extreme sports, creating music and painting.
 
 ## Experience
 
+### Latency Data
+
+#### FULL-STACK SOFTWARE ENGINEER (SENIOR) 2023
+
+Part of the core development team, worked on both frontend and backend aspects of an online investment analysis platform. Utilizing a diverse tech stack including React, TypeScript, D3, and SQL, I contributed to various features and improvements across the application.
+
+My role involved working collaboratively with the data science team, where I had the opportunity to improve my skills in applying economic algorithms and formulas. This was particularly pivotal in the data analysis and presentation segments of the application.
+
+Developing UI components and charts,  this work also involved tackling challenges in state management to ensure smooth and responsive application performance.
+
+Assisting in the simplification and improvement of the core architecture of the project, to allow for faster feature development, and easier maintainability.
+
 ### SEDDI
 
-#### SOFTWARE ENGINEER (SENIOR) 2023 - PRESENT
+#### SOFTWARE ENGINEER (SENIOR) 2023
 
 Member of the front-end development team creating tools for 2D and 3D for clothing design on the web using React.
 
@@ -79,7 +91,7 @@ Credited work:
 
 #### SOFTWARE ENGINEER (JUNIOR) 2010 -2011
 
-Web and mobile development in HTML / CSS - PHP and JavaScript specialized in application architecture, backend implementation and fronted coding.  
+Web and mobile development in HTML / CSS - PHP and JavaScript specialized in application architecture, backend implementation and fronted coding.
 
 Credited work:
 
@@ -90,13 +102,13 @@ Credited work:
 
 ## Courses
 
-Introduction to Neuroscience - 2013  
+Introduction to Neuroscience - 2013
 **UNIVERSIDAD DE BERKELEY**
 
-Introduction to Artificial Intelligence - 2012  
+Introduction to Artificial Intelligence - 2012
 **UNIVERSIDAD DE STANFORD**
 
-iPad and iPhone App Development - 2012  
+iPad and iPhone App Development - 2012
 **UNIVERSIDAD DE STANFORD**
 
 ## Languages
