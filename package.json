@@ -11,13 +11,25 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/partytown": "^2.0.1",
-    "@astrojs/sitemap": "^3.0.1",
-    "@astrojs/vercel": "^5.0.2",
-    "astro": "^3.3.0",
+    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/vercel": "^8.1.1",
+    "astro": "^5.4.2",
     "astro-robots-txt": "^1.0.0"
   },
   "devDependencies": {
-    "sass": "^1.69.3"
+    "sass": "^1.85.1"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "esbuild",
+    "sharp"
+  ],
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "sharp"
+    ]
   }
 }
