@@ -5,7 +5,7 @@ pubDate: 2023-05-09
 description: 'Rebecca Clair - Senior Software Engineer'
 author: 'Rebecca Clair'
 image:
-    url: '/images/rebecca_clair.webp'
+    url: '/images/rebecca_clair2.webp'
     alt: 'Rebecca Clair'
 ---
 
@@ -20,9 +20,19 @@ With +15 years of experience working and managing diverse and large teams with e
 
 In my free time I enjoy practicing extreme sports, creating music and painting.
 
-[GitHub](https://github.com/becksClair) [LinkedIn](https://linkedin.com/in/rebecca-clair) [Twitter](https://twitter.com/becksClair)
+[GitHub](https://github.com/becksClair)  
+[LinkedIn](https://linkedin.com/in/rebecca-clair)  
+[Twitter](https://twitter.com/becksClair)  
 
 ## Experience
+
+### XploreGroup Spain
+
+#### BACKEND ENGINEER (SENIOR) 2024
+
+Backend developer working with a major car maker company on data warehouse, multiple service integration from data ingestion, data sanitization pipelines to data export, and API service consumers including ElasticSearch backend. Working with Typescript and MongoDB, using high performance techniques to process large amounts of data with error recovery mechanisms to ensure mission critical high reliability.
+
+I worked on a distributed team in Belgium and Spain, to build scalable solutions writing highly tested and modular code, working together with Cloud Infrastructure teams to enhance our deployment pipelines. Optimized resource usage that had cost savings impact for the company.
 
 ### Latency Data
 
