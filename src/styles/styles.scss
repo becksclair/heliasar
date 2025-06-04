@@ -11,7 +11,7 @@
 }
 
 :root {
-	--page-bg: radial-gradient(farthest-corner at 100% 100%, var(--white-alt) 0%, var(--white) 50%);
+	--page-bg: radial-gradient(farthest-corner at 100% 100%, var(--white-alt) 55%, var(--white) 80%);
 	--color-bg: var(--white);
 	--color-fg: var(--black);
 	--color-fg-copy: rgba(0, 0, 0, 0.72);
@@ -30,7 +30,7 @@
 	--orange: #fc814a;
 	--body-horizontal-padding-sm: 1rem;
 	--body-horizontal-padding-lg: 2.5rem;
-	--font-family-main: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+	// --font-family-main: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
 	--font-weight-bold: 700;
 	--font-weight-mid: 700;
 	--font-weight-main: 400;
@@ -50,8 +50,10 @@
 	gap: 0.5rem;
 }
 
-body {
-	margin: 0;
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 html,
@@ -141,20 +143,34 @@ main {
 	background-color: #f6f6f6;
 }
 
+.btn {
+	min-width: 85px;
+}
+
 @media (max-width: 768px) {
 	::-webkit-scrollbar,
 	::-webkit-scrollbar-track,
 	::-webkit-scrollbar-thumb,
 	::-webkit-scrollbar-corner {
-		all: unset;
-		width: 0;
-		height: 0;
-		background: transparent;
+		all: unset !important;
+		width: 0 !important;
+		height: 0 !important;
+		background: transparent  !important;
+	}
+	
+	body {
+		padding-bottom: 2rem;
+		// height: fit-content !important;
 	}
 
 	nav {
-		padding-left: 0.5rem;
-		padding-right: 0.5rem;
+		// padding-left: 0.5rem;
+		// padding-right: 0.5rem;
+	}
+
+	.window {
+		// width: 100% !important;
+		// max-width: 100% !important;
 	}
 }
 
@@ -168,5 +184,18 @@ main {
 	.content {
 		border: none !important;
 		width: unset !important;
+		box-shadow: none !important;
+	}
+}
+
+.bio-actions {
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+
+	@media (max-width: 700px) {
+		flex-wrap: wrap;
 	}
 }

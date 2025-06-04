@@ -8,13 +8,13 @@ import Layout from "../layouts/Layout.astro";
 	<main>
 		<div class="bio-container">
 			<img
-				class="shadow-img noisy-image"
-				src="/images/rebecca_clair3.webp"
+				class="shadow-img"
+				src="/images/rebecca_clair4.webp"
 				alt="Rebecca Clair"
 			/>
 
 			<div class="bio">
-				<div class="window" style="">
+				<div class="window " style="">
 					<div class="title-bar">
 						<button aria-label="Close" class="close"></button>
 						<h1 class="title">Hello !!</h1>
@@ -29,7 +29,8 @@ import Layout from "../layouts/Layout.astro";
 								src="/images/rebecca_clair3.webp"
 								alt="Rebecca Clair"
 							/>
-							Hi! I'm Rebecca Clair,<br />
+							Hi! 👋🏻<br/>
+							I'm <b>Rebecca Clair,</b><br />
 							<br />
 							A senior full stack engineer with a demonstrated history of working
 							in the computer software industry. Highly skilled in C++ / Qt, Ruby,
@@ -52,7 +53,7 @@ import Layout from "../layouts/Layout.astro";
 							and painting.
 						</p>
 
-						<div class="center">
+						<div class="center bio-actions">
 							<Social url="https://github.com/becksClair" platform="GitHub" />
 							<Social
 								url="https://www.linkedin.com/in/rebecca-clair/"
@@ -67,7 +68,6 @@ import Layout from "../layouts/Layout.astro";
 					</div>
 				</div>
 
-				<div class="bio-social"></div>
 			</div>
 		</div>
 	</main>
@@ -111,16 +111,16 @@ import Layout from "../layouts/Layout.astro";
 		& img {
 			width: auto;
 			height: 300px;
-			filter: sepia(0.3) saturate(0.7) contrast(1.2) brightness(0.9)
-				hue-rotate(10deg) blur(0.4px) grayscale(0.1);
+			// filter: sepia(0.3) saturate(0.7) contrast(1.2) brightness(0.9)
+			// 	hue-rotate(10deg) blur(0.4px) grayscale(0.1);
 		}
 
 		& .inline-img {
 			border-radius: 15px;
 			height: 192px;
 			box-shadow: 0px 2px 2px 2px #d1d1d1;
-			filter: sepia(0.4) saturate(0.7) contrast(0.9) brightness(1.1)
-				hue-rotate(-10deg);
+			// filter: sepia(0.4) saturate(0.7) contrast(0.9) brightness(1.1)
+			// 	hue-rotate(-10deg);
 			display: none;
 			float: left;
 			margin-right: 1rem;
@@ -133,6 +133,8 @@ import Layout from "../layouts/Layout.astro";
 
 			& .shadow-img {
 				display: none;
+				width: 0;
+				height: 0;
 			}
 
 			& .inline-img {
@@ -141,35 +143,74 @@ import Layout from "../layouts/Layout.astro";
 		}
 
 		@media (max-width: 700px) {
+			display: inline-flex;
+			padding: 0;
+			width: 100%;
 			flex-direction: column;
-			margin-top: 1rem;
+			margin-top: 0rem;
+
 			& img {
 				width: auto;
 				height: 300px;
 			}
+
+			.title-bar {
+				display: none;
+			}
+			.separator {
+				display: none;
+			}
+			// .content {
+			// 	border: none !important;
+			// 	width: unset !important;
+			// }
 		}
 	}
 
 	.bio {
-		line-height: 1.6;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		padding-top: 4px;
-		padding-bottom: 4px;
-		border-radius: 0.4rem;
-		box-shadow:
-			0 4px 6px -1px rgba(0, 0, 0, 0.1),
-			0 2px 4px -2px rgba(0, 0, 0, 0.1);
-		font-size: 18px;
+		line-height: 1.1;
+		// border: 1px solid rgba(var(--accent), 25%);
+		// background-color: white;
+		// padding: 1rem;
+		// padding-top: 4px;
+		// padding-bottom: 4px;
+		// border-radius: 0.4rem;
+		// box-shadow:
+		// 	0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		// 	0 2px 4px -2px rgba(0, 0, 0, 0.1);
+		// font-size: 18px;
+
+		& .window {
+				box-shadow: 2px 2px;
+				margin: 0 auto;
+			}
+
+			& .window-pane {
+				overflow: auto;
+			}
+
+		@media (max-width: 700px) {
+			width: 100%;
+			padding: 0;
+			box-shadow: none;
+			border: none;
+			border-radius: 0;
+			background-color: transparent;
+
+			& .window {
+				margin: 0.5rem;
+			}
+		}
 	}
 
-	.bio-social {
+	.bio-actions {
+		line-height: unset;
 		margin-top: 2rem;
 		margin-bottom: 1rem;
 		display: flex;
 		gap: 1rem;
 		justify-content: center;
+
 		@media (max-width: 700px) {
 			flex-wrap: wrap;
 		}

@@ -5,7 +5,7 @@ pubDate: 2023-05-09
 description: 'Rebecca Clair - Senior Software Engineer'
 author: 'Rebecca Clair'
 image:
-    url: '/images/rebecca_clair3.webp'
+    url: '/images/rebecca_clair4.webp'
     alt: 'Rebecca Clair'
 ---
 
