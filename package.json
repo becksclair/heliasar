@@ -1,36 +1,30 @@
 {
-  "name": "heliasar",
-  "type": "module",
-  "version": "0.0.1",
-  "license": "MIT",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/partytown": "^2.1.4",
-    "@astrojs/sitemap": "^3.3.0",
-    "@astrojs/vercel": "^8.1.2",
-    "@vercel/analytics": "^1.5.0",
-    "astro": "^5.5.3",
-    "astro-robots-txt": "^1.0.0"
-  },
-  "devDependencies": {
-    "sass": "^1.86.0"
-  },
-  "trustedDependencies": [
-    "@parcel/watcher",
-    "esbuild",
-    "sharp"
-  ],
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild",
-      "sharp"
-    ]
-  }
+	"name": "heliasar",
+	"type": "module",
+	"version": "0.0.1",
+	"license": "MIT",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"check": "biome check --fix"
+	},
+	"dependencies": {
+		"@astrojs/partytown": "^2.1.4",
+		"@astrojs/sitemap": "^3.3.0",
+		"@astrojs/vercel": "^8.1.2",
+		"@vercel/analytics": "^1.5.0",
+		"astro": "^5.5.3",
+		"astro-robots-txt": "^1.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"sass": "^1.86.0"
+	},
+	"trustedDependencies": ["@parcel/watcher", "esbuild", "sharp"],
+	"pnpm": {
+		"onlyBuiltDependencies": ["@parcel/watcher", "esbuild", "sharp"]
+	}
 }

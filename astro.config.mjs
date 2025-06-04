@@ -1,7 +1,7 @@
-import { defineConfig } from "astro/config";
 import partytown from "@astrojs/partytown";
-import robotsTxt from "astro-robots-txt";
 import sitemap from "@astrojs/sitemap";
+import robotsTxt from "astro-robots-txt";
+import { defineConfig } from "astro/config";
 
 import vercel from "@astrojs/vercel/static";
 
