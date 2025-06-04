@@ -6,45 +6,74 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Home">
 	<main>
-		<h1><span class="text-gradient">Rebecca Clair</span></h1>
-
 		<div class="bio-container">
-			<img class="shadow-img" src="/images/rebecca_clair3.webp" alt="Rebecca Clair" />
+			<img
+				class="shadow-img noisy-image"
+				src="/images/rebecca_clair3.webp"
+				alt="Rebecca Clair"
+			/>
 
 			<div class="bio">
-				<p>
-					Experienced senior full stack engineer with a demonstrated history
-					of working in the computer software industry. Highly skilled in
-					C++ / Qt, Ruby, JavaScript, Typescript, and web technologies
-					including HTML and CSS, React.
-				</p>
-				<p>
-					Additionally, well-developed skills in Internet of Things,
-					Embedded Systems, and software development with RFID technology,
-					and distributed microservice architectures using MQTT and ZeroMQ.
-				</p>
-				<p>
-					With 15+ years of experience working and managing diverse and
-					large teams with effective communication to complete the
-					engineering of successful applications.
-				</p>
-				<p>
-					In my free time I enjoy practicing extreme sports, creating music
-					and painting.
-				</p>
+				<div class="window" style="">
+					<div class="title-bar">
+						<button aria-label="Close" class="close"></button>
+						<h1 class="title">Hello !!</h1>
+						<button aria-label="Resize" class="resize"></button>
+					</div>
+					<div class="separator"></div>
 
-				<div class="bio-social">
-					<Social url="https://github.com/becksClair" platform="github" />
-					<Social url="https://www.linkedin.com/in/rebecca-clair/" platform="linkedin"/>
-					<Social url="https://twitter.com/becksClair" platform="twitter"/>
+					<div class="window-pane">
+						<p>
+							<img
+								class="inline-img"
+								src="/images/rebecca_clair3.webp"
+								alt="Rebecca Clair"
+							/>
+							Hi! I'm Rebecca Clair,<br />
+							<br />
+							A senior full stack engineer with a demonstrated history of working
+							in the computer software industry. Highly skilled in C++ / Qt, Ruby,
+							JavaScript, Typescript, and web technologies including HTML and CSS,
+							React.
+						</p>
+
+						<p>
+							Additionally, well-developed skills in Internet of Things,
+							Embedded Systems, and software development with RFID technology,
+							and distributed microservice architectures using MQTT and ZeroMQ.
+						</p>
+						<p>
+							With 15+ years of experience working and managing diverse and
+							large teams with effective communication to complete the
+							engineering of successful applications.
+						</p>
+						<p>
+							In my free time I enjoy practicing extreme sports, creating music
+							and painting.
+						</p>
+
+						<div class="center">
+							<Social url="https://github.com/becksClair" platform="GitHub" />
+							<Social
+								url="https://www.linkedin.com/in/rebecca-clair/"
+								platform="Linkedin"
+							/>
+							<Social
+								url="https://bsky.app/profile/becksclair.bsky.social"
+								platform="BlueSky"
+							/>
+							<Social url="https://x.com/becksClair" platform="X (Twitter)" />
+						</div>
+					</div>
 				</div>
+
+				<div class="bio-social"></div>
 			</div>
 		</div>
 	</main>
 </Layout>
 
 <style lang="scss">
-
 	h1 {
 		font-size: 3rem;
 		font-weight: 800;
@@ -82,12 +111,33 @@ import Layout from "../layouts/Layout.astro";
 		& img {
 			width: auto;
 			height: 300px;
+			filter: sepia(0.3) saturate(0.7) contrast(1.2) brightness(0.9)
+				hue-rotate(10deg) blur(0.4px) grayscale(0.1);
+		}
+
+		& .inline-img {
+			border-radius: 15px;
+			height: 192px;
+			box-shadow: 0px 2px 2px 2px #d1d1d1;
+			filter: sepia(0.4) saturate(0.7) contrast(0.9) brightness(1.1)
+				hue-rotate(-10deg);
+			display: none;
+			float: left;
+			margin-right: 1rem;
 		}
 
 		@media (max-width: 990px) {
 			flex-direction: column;
 			margin-top: 1rem;
 			align-items: center;
+
+			& .shadow-img {
+				display: none;
+			}
+
+			& .inline-img {
+				display: inline;
+			}
 		}
 
 		@media (max-width: 700px) {
@@ -106,9 +156,11 @@ import Layout from "../layouts/Layout.astro";
 		background-color: white;
 		padding: 1rem;
 		padding-top: 4px;
-    padding-bottom: 4px;
+		padding-bottom: 4px;
 		border-radius: 0.4rem;
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+		box-shadow:
+			0 4px 6px -1px rgba(0, 0, 0, 0.1),
+			0 2px 4px -2px rgba(0, 0, 0, 0.1);
 		font-size: 18px;
 	}
 

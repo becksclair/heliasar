@@ -2,24 +2,6 @@
 const { url, platform } = Astro.props;
 ---
 
-<a href={url} target="_blank">{platform}</a>
-
-<style lang="scss">
-	a {
-		border-radius: 5px;
-		padding: 0.5rem 1rem;
-		color: rgb(var(--accent));
-		background-color: #e1e1e9;
-		text-decoration: none;
-		transition: all .2s ease-in-out;
-		font-weight: 500;
-
-		&:hover {
-			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-									0 2px 4px -2px rgba(0, 0, 0, 0.1);
-		}
-		&:active {
-			transform: translateY(2px);
-		}
-	}
-</style>
+<div>
+	<a class="btn" href={url} target="_blank">{platform}</a>
+</div>

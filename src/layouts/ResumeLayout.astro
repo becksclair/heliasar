@@ -6,8 +6,6 @@ const { frontmatter } = Astro.props;
 
 <Layout title={frontmatter.title}>
 	<main>
-		<h1>{frontmatter.title}</h1>
-
 		<div class="content">
 			<div class="post-image-container">
 				<img
@@ -20,11 +18,14 @@ const { frontmatter } = Astro.props;
 			</div>
 			<slot />
 		</div>
-
 	</main>
 </Layout>
 
 <style lang="scss">
+	body {
+		height: fit-content;
+	}
+
 	h1 {
 		text-align: center;
 		padding-top: 1rem;
@@ -35,7 +36,8 @@ const { frontmatter } = Astro.props;
 	main {
 		color: #444;
 
-		& h2, & h3 {
+		& h2,
+		& h3 {
 			color: rgb(var(--accent));
 		}
 
@@ -45,12 +47,13 @@ const { frontmatter } = Astro.props;
 			color: rgb(var(--accent));
 			background-color: #e1e1e9;
 			text-decoration: none;
-			transition: all .2s ease-in-out;
+			transition: all 0.2s ease-in-out;
 			font-weight: 500;
 
 			&:hover {
-				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-										0 2px 4px -2px rgba(0, 0, 0, 0.1);
+				box-shadow:
+					0 4px 6px -1px rgba(0, 0, 0, 0.1),
+					0 2px 4px -2px rgba(0, 0, 0, 0.1);
 			}
 			&:active {
 				transform: translateY(2px);
@@ -58,15 +61,22 @@ const { frontmatter } = Astro.props;
 		}
 	}
 	.post-image-container {
-		display: flex;
-		justify-content: center;
+		// display: flex;
+		// justify-content: center;
+		float: left;
+		margin-right: 2rem;
+		margin-bottom: 1rem;
+		margin-top: 1.5rem;
 	}
 	.post-img {
-		height: 300px;
+		height: 142px;
 		width: auto;
-		margin-top: 2rem;
 		margin-bottom: 1rem;
-	}
+		filter: sepia(0.3) saturate(0.7) contrast(1.2) brightness(0.9)
+			hue-rotate(10deg) blur(0.4px) grayscale(0.1);
 
-	
+		@media (max-width: 700px) {
+			height: 192px;
+		}
+	}
 </style>
