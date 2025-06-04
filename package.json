@@ -23,8 +23,17 @@
 		"@biomejs/biome": "1.9.4",
 		"sass": "^1.89.1"
 	},
-	"trustedDependencies": ["@parcel/watcher", "esbuild", "sharp"],
+	"trustedDependencies": [
+		"@parcel/watcher",
+		"esbuild",
+		"sharp"
+	],
 	"pnpm": {
-		"onlyBuiltDependencies": ["@parcel/watcher", "esbuild", "sharp"]
+		"onlyBuiltDependencies": [
+			"@biomejs/biome",
+			"@parcel/watcher",
+			"esbuild",
+			"sharp"
+		]
 	}
 }
