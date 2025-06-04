@@ -10,7 +10,7 @@ image:
 ---
 
 
-### Introduction
+## Introduction
 
 Experienced senior full stack engineer with a demonstrated history of working in the computer software industry. Highly skilled in C++ / Qt, Rust, Node, Typescript, JavaScript, Golang, Ruby and web technologies including HTML and CSS, React, Svelte, HTMX.
 
@@ -23,6 +23,8 @@ In my free time I enjoy practicing extreme sports, creating music and painting.
 [Personal Website](https://heliasar.com/)
 
 [Email](mailto:rebecca@heliasar.com) – [GitHub](https://github.com/becksClair) – [LinkedIn](https://linkedin.com/in/rebecca-clair) – [X (Formerly Twitter)](https://x.com/becksClair) – [BlueSky](https://bsky.app/profile/becksclair.bsky.social)
+
+---
 
 ## Experience
 
@@ -87,27 +89,36 @@ I  was  also  responsible  for  researching  and  implementing  new  software  t
 
 Created as well, several back-office and POS applications in C++ with Qt, Java, and C#.
 
+---
+
 ## Awards
 
 - CodeCrafters.io price for building an HTTP server from scratch in Rust in 1 month
 
+---
+
 ## Courses
 
-- Introduction to Neuroscience - 2013 **BERKELEY**
-- Introduction to Artificial Intelligence - 2012 **STANFORD**
-- iPad and iPhone App Development - 2012 **STANFORD**
+- Introduction to Neuroscience  
+&rarr; 2013 **BERKELEY**
+
+- Introduction to Artificial Intelligence  
+&rarr; 2012 **STANFORD**
+
+- iPad and iPhone App Development  
+&rarr; 2012 **STANFORD**
+
+---
 
 ## Languages
 
-- **Spanish (Native)**
+- Spanish *(Native)*
+- English *(Bilingual)*
+- Catalan *(Elementary)*
+- French *(Basic)*
+- Norwegian *(Basic)*
 
-- **English (Bilingual)**
-
-- **Catalan (Elementary)**
-
-- **French (Basic)**
-
-- **Norwegian (Basic)**
+---
 
 ## Technologies
 
