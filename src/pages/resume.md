@@ -26,7 +26,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### XploreGroup Spain
 
-#### *BACKEND ENGINEER (SENIOR) | 2024 - 2025*
+#### *SENIOR BACKEND ENGINEER | 2024 - 2025*
 
 - Implemented high-performance TypeScript and MongoDB solutions for a major automotive data warehouse, processing billions of records with robust error recovery mechanisms to ensure mission-critical high reliability.
 
@@ -36,7 +36,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### Latency Data
 
-#### *FULL-STACK SOFTWARE ENGINEER (SENIOR) | 2023 - 2024*
+#### *SENIOR FULL-STACK ENGINEER | 2023 - 2024*
 
 - Contributed to core development of an online investment analysis platform, spanning both frontend and backend.
 
@@ -50,7 +50,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### SEDDI
 
-#### *SOFTWARE ENGINEER (SENIOR) | 2023*
+#### *SENIOR SOFTWARE ENGINEER (SENIOR) | 2023*
 
 - Contributed to a front-end development team, building 2D and 3D tools for web-based clothing design using Node, NextJS, Express, React, and TypeScript.
 
@@ -64,7 +64,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### Voicemod SL
 
-#### *SOFTWARE ENGINEER (SENIOR) - TECHNICAL LEAD | 2021 - 2023*
+#### *SENIOR SOFTWARE ENGINEER - TECHNICAL LEAD | 2021 - 2023*
 
 - Led the migration of a C# desktop application to a cross-platform solution in C++ with Qt, implementing a scalable microservice architecture using ZeroMQ and a VueJS frontend.
 
@@ -76,7 +76,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### (Private Corp. NDA Protected Projects)
 
-#### SOFTWARE ENGINEER (SENIOR) | 2014-2020
+#### SENIOR SOFTWARE ENGINEER | 2014-2020
 
 - Served as Technical Lead for a startup, designing, developing, and deploying mission-critical RFID inventory control software for high-stakes clients including JPL (NASA) and Boeing.
 
@@ -90,7 +90,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### HeliaSar Productions
 
-#### SOFTWARE ENGINEER (SENIOR) | 2010-PRESENT
+#### SENIOR FULL-STACK ENGINEER | 2010-PRESENT
 
 - Operated as a successful freelance software consultant, delivering full-stack solutions and automations for diverse clients across multiple industries.
 
