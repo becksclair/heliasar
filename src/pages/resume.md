@@ -90,7 +90,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### HeliaSar Productions
 
-#### SENIOR FULL-STACK ENGINEER | 2010-PRESENT
+#### SENIOR FULL-STACK ENGINEER | 2010-2014
 
 - Operated as a successful freelance software consultant, delivering full-stack solutions and automations for diverse clients across multiple industries.
 
