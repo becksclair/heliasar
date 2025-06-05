@@ -12,13 +12,9 @@ image:
 
 ## Introduction
 
-Experienced senior full stack engineer with a demonstrated history of working in the computer software industry. Highly skilled in C++ / Qt, Rust, Node, Typescript, JavaScript, Golang, Ruby and web technologies including HTML and CSS, React, Svelte, HTMX.
+Highly accomplished Senior Full Stack Engineer with 15+ years experience designing, developing, and leading high-impact software solutions across diverse industries. Expert in Rust, TypeScript, C++, Go, and modern web frameworks (React, NextJS, Svelte), specializing in scalable distributed systems, IoT, embedded systems, and RFID technology.
 
-Additionally, well-developed skills in Internet of Things, Embedded Systems, and software development with RFID technology, and distributed microservice architectures using MQTT and ZeroMQ.
-
-With +15 years of experience working and managing diverse and large teams with effective communication to complete the engineering of successful applications.
-
-In my free time I enjoy practicing extreme sports, creating music and painting.
+Proven track record of spearheading complex projects, optimizing performance, and delivering mission-critical applications. Passionate about leveraging deep technical expertise to solve challenging problems and drive significant business value.
 
 [Personal Website](https://heliasar.com/)
 
@@ -30,96 +26,115 @@ In my free time I enjoy practicing extreme sports, creating music and painting.
 
 ### XploreGroup Spain
 
-#### *BACKEND ENGINEER (SENIOR) 2024*
+#### *BACKEND ENGINEER (SENIOR) | 2024 - 2025*
 
-Backend developer working with a major car maker company on data warehouse, multiple service integration from data ingestion, data sanitization pipelines to data export, and API service consumers including ElasticSearch backend. Working with Typescript and MongoDB, using high performance techniques to process large amounts of data with error recovery mechanisms to ensure mission critical high reliability.
+- Implemented high-performance TypeScript and MongoDB solutions for a major automotive data warehouse, processing billions of records with robust error recovery mechanisms to ensure mission-critical high reliability.
 
-I worked on a distributed team in Belgium and Spain, to build scalable solutions writing highly tested and modular code, working together with Cloud Infrastructure teams to enhance our deployment pipelines. Optimized resource usage that had cost savings impact for the company.
+- Collaborated effectively within a distributed team (Belgium, Spain) to build scalable, highly tested, and modular solutions.
+
+- Partnered with Cloud Infrastructure teams to enhance deployment pipelines, optimizing resource usage and achieving significant cost savings for the company.
 
 ### Latency Data
 
-#### *FULL-STACK SOFTWARE ENGINEER (SENIOR) 2023 - 2024*
+#### *FULL-STACK SOFTWARE ENGINEER (SENIOR) | 2023 - 2024*
 
-Part of the core development team, worked on both frontend and backend aspects of an online investment analysis platform. Utilizing a diverse tech stack including Node, NextJS, Express, React, TypeScript, D3, and SQL, I contributed to various features and improvements across the application.
+- Contributed to core development of an online investment analysis platform, spanning both frontend and backend.
 
-My role involved working collaboratively with the data science team, where I had the opportunity to improve my skills in applying economic algorithms and formulas. This was particularly pivotal in the data analysis and presentation segments of the application.
+- Utilized a diverse tech stack including Node, NextJS, Express, React, TypeScript, D3, and SQL to develop and improve application features.
 
-Developing UI components and charts,  this work also involved tackling challenges in state management to ensure smooth and responsive application performance.
+- Collaborated cross-functionally with the data science team to integrate complex economic algorithms and formulas, significantly enhancing data analysis and presentation capabilities.
 
-Assisting in the simplification and improvement of the core architecture of the project, to allow for faster feature development, and easier maintainability.
+- Developed responsive UI components and data visualization charts, mastering advanced state management techniques for optimal application performance.
+
+- Streamlined core project architecture, facilitating faster feature development and improved maintainability.
 
 ### SEDDI
 
-#### *SOFTWARE ENGINEER (SENIOR) 2023*
+#### *SOFTWARE ENGINEER (SENIOR) | 2023*
 
-Member of the front-end development team creating tools for 2D and 3D for clothing design on the web using Node, NextJS, Express, React, TypeScript.
+- Contributed to a front-end development team, building 2D and 3D tools for web-based clothing design using Node, NextJS, Express, React, and TypeScript.
 
-My role involved improving the architecture of the application, adding tooling to improve development time, and helping with the implementation of tools for image processing similarly to those on programs like Photoshop.
+- Improved application architecture and developed internal tooling to significantly enhance development time and efficiency.
 
-On this role I started a progressive migration to Typescript, used tools like Playwright for integration testing, Jest for unit testing and ESLint for error checking.
+- Implemented image processing tools akin to Photoshop functionalities.
 
-I  bootstrapped  a  new  component  architecture  of  centralized  layout  components  to  ease  the  development of future tooling and helped with the UX design of the overall application.
+- Initiated and led a progressive migration to TypeScript, establishing robust testing frameworks (Playwright for integration, Jest for unit) and linting (ESLint) to improve code quality and development workflows.
+
+- Bootstrapped a new, centralized component architecture to ease future tooling development and contributed to overall UX design.
 
 ### Voicemod SL
 
-#### *SOFTWARE ENGINEER (SENIOR) - TECHNICAL LEAD 2021 - 2023*
+#### *SOFTWARE ENGINEER (SENIOR) - TECHNICAL LEAD | 2021 - 2023*
 
-Technical lead, in the team responsible of the migration of a C# desktop app to a cross-platform app in C++ with Qt, ZeroMQ, etc. Implementing a microservice architecture using ZeroMQ. Using a frontend built with VueJS.
+- Led the migration of a C# desktop application to a cross-platform solution in C++ with Qt, implementing a scalable microservice architecture using ZeroMQ and a VueJS frontend.
 
-Part of my tasks were coordination of team resources, task assignments, project management, and unblocking tasks for the various teams.
+- Coordinated team resources, managed task assignments, oversaw project progress, and proactively unblocked technical impediments for various teams.
 
-Creating tooling with Python to ease dependency management and I created a tool to wrap and greatly simplify using the Conan package manager.
+- Developed critical Python tooling to streamline dependency management, including a wrapper to simplify Conan package manager usage.
 
-Link to the article about the tool And implementing workflows for generating multi-binary builds on the Cl pipelines with the newly introduced Apple Silicon architecture.
+- Implemented workflows for generating multi-binary builds on CI pipelines, including support for the newly introduced Apple Silicon architecture.
+
+### (Private Corp. NDA Protected Projects)
+
+#### SOFTWARE ENGINEER (SENIOR) | 2014-2020
+
+- Served as Technical Lead for a startup, designing, developing, and deploying mission-critical RFID inventory control software for high-stakes clients including JPL (NASA) and Boeing.
+
+- Spearheaded research and implementation of new software technologies to control embedded RFID devices (C++, D).
+
+- Demonstrated exceptional problem-solving and adaptability by retrofitting a modern cloud system for RHEL 5 in a secure Boeing warehouse.
+
+- Successfully debugged a critical RFID reader program remotely via satellite on a cargo ship in the middle of the sea, iteratively implementing fixes under extreme time and communication constraints.
+
+- Developed robust web applications (Ruby on Rails, SQL, JavaScript) and critical back-office/POS systems (C++/Qt, Java, C#) that underpinned core business operations.
 
 ### HeliaSar Productions
 
-#### SOFTWARE ENGINEER (SENIOR) 2010-PRESENT
+#### SOFTWARE ENGINEER (SENIOR) | 2010-PRESENT
 
-Analyzed client requirements and provided automations and full-stack solutions with Ruby on Rails, JavaScript, Typescript, React, C++, C#, and other technologies. Working a wide range of projects and industries, that challenged me to keep always learning and always finding creative solutions to complex business problems. Dealt with client support, managing a business and marketing it.
+- Operated as a successful freelance software consultant, delivering full-stack solutions and automations for diverse clients across multiple industries.
 
-### (Private Corp)
+- Provided expertise in Ruby on Rails, JavaScript, TypeScript, React, C++, C#, and other cutting-edge technologies, consistently delivering creative solutions to complex business problems.
 
-#### SOFTWARE ENGINEER (SENIOR) 2014-2020
-
-Technical Lead and Full-Stack developer
-Worked at a startup in Los Angeles, worked remote for several years, and 2 years working on-site in Los Angeles. I was the main responsible for implementing new functionality in the web application, using Ruby on Rails, SQL, JavaScript, etc.
-
-I  was  also  responsible  for  researching  and  implementing  new  software  technologies  to  control  embedded devices with RFID in C++ and D.
-
-Created as well, several back-office and POS applications in C++ with Qt, Java, and C#.
-
----
+- Managed end-to-end project lifecycle, from client requirements analysis and solution design to implementation, support, and business development.
 
 ## Awards
 
 - CodeCrafters.io price for building an HTTP server from scratch in Rust in 1 month
 
----
-
 ## Courses
 
+- Deepened understanding of Accessibility Principles  
+&rarr; 2016 **MICROSOFT ONLINE LECTURES**
+- UX Design Best Practices  
+&rarr; 2016 **MICROSOFT ONLINE LECTURES**
 - Introduction to Neuroscience  
 &rarr; 2013 **BERKELEY**
-
 - Introduction to Artificial Intelligence  
 &rarr; 2012 **STANFORD**
-
 - iPad and iPhone App Development  
 &rarr; 2012 **STANFORD**
 
----
-
 ## Languages
 
-- Spanish *(Native)*
-- English *(Bilingual)*
-- Catalan *(Elementary)*
-- French *(Basic)*
-- Norwegian *(Basic)*
-
----
+- **Spanish (Native)**
+- **English (Bilingual)**
+- **Catalan (Elementary)**
+- **French (Basic)**
+- **Norwegian (Basic)**
 
 ## Technologies
 
-NODE, NODEJS, BUN, TYPESCRIPT, RUST, CSS, HTML, JAVASCRIPT, NEXTJS, REACT, SOLIDJS, SVELTE, JEST, PLAYWRIGHT, RUBY, PHP VUE, D3, WORDPRESS, C, C++, C#, D, KOTLIN, POSTGRESQL, SQL, MYSQL, SQLITE, IOS, SWIFT, ANDROID, JAVA, JQUERY, QT, XAMARIN, XAML, WPF, UWP, REST, API, PASCAL, DELPHI, ASSEMBLY, GO, GOLANG, OPENCV, PYTHON, BASH, POWERSHELL, NGINX, UBUNTU, REDHAT, RHEL, ARDUINO, IOT, MQTT, RFID, ZEBRA, ZPL, GIT, AGILE, SCRUM, PROJECT MANAGEMENT, CHATGPT, CONTINOUS INTEGRATION, CI/CD, CODE REVIEW, PROBLEM SOLVING, PAIR PROGRAMMING, AWS, AZURE, MEMORY MANAGEMENT, LOW LEVEL PROGRAMMING, MULTITHREADING, WEBSOCKET, ASYNC, MONGODB, ELASTICSEARCH
+**Programming Languages:** Rust, TypeScript, C++, Go, JavaScript, C, C#, D, Kotlin, Python, Ruby, PHP, Java, Pascal, Delphi, Assembly, Swift
+
+**Web Technologies:** HTML, CSS, React, NextJS, Svelte, Vue, SolidJS, HTMX, jQuery, WordPress, Nginx, WebSocket, REST, API
+
+**Databases:** PostgreSQL, SQL, MySQL, SQLite, MongoDB, Elasticsearch
+
+**Tools & Methodologies:** Git, Agile, Scrum, Project Management, CI/CD (Continuous Integration/Continuous Delivery), Code Review, Problem Solving, Pair Programming, Jest, Playwright, ESLint, Conan package manager
+
+**Operating Systems & Cloud:** Linux, Ubuntu, RedHat (RHEL), AWS, Azure, iOS, Android, UWP, WPF, Windows, macOS, Apple
+
+**Embedded Systems & IoT:** Arduino, ESP32, IoT, RFID, MQTT, ZeroMQ, Memory Management, Low-Level Programming, Multithreading, Qt, XAML, Xamarin
+
+**Specialized Libraries/Tools:** D3, Three.js, OpenCV, ChatGPT, Bash, PowerShell, QML, wxWidgets
