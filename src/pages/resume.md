@@ -62,7 +62,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 - Bootstrapped a new, centralized component architecture to ease future tooling development and contributed to overall UX design.
 
-### Voicemod SL
+### Voicemod
 
 #### *SENIOR SOFTWARE ENGINEER - TECHNICAL LEAD | 2021 - 2023*
 
