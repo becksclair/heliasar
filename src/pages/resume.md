@@ -2,7 +2,7 @@
 layout: ../layouts/ResumeLayout.astro
 title: 'Resume'
 pubDate: 2023-05-09
-description: 'Rebecca Clair - Senior Software Engineer'
+description: 'Rebecca Clair - Senior Full-Stack Software Engineer'
 author: 'Rebecca Clair'
 image:
     url: '/images/rebecca_clair4.webp'
@@ -24,7 +24,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ## Experience
 
-### XploreGroup Spain
+### Xplore Group Spain
 
 #### *SENIOR BACKEND ENGINEER | 2024 - 2025*
 
@@ -50,7 +50,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### SEDDI
 
-#### *SENIOR SOFTWARE ENGINEER (SENIOR) | 2023*
+#### *SENIOR SOFTWARE ENGINEER | 2023*
 
 - Contributed to a front-end development team, building 2D and 3D tools for web-based clothing design using Node, NextJS, Express, React, and TypeScript.
 
@@ -76,7 +76,7 @@ Proven track record of spearheading complex projects, optimizing performance, an
 
 ### (Private Corp. NDA Protected Projects)
 
-#### SENIOR SOFTWARE ENGINEER | 2014-2020
+#### SENIOR SOFTWARE ENGINEER - TECHNICAL LEAD | 2014-2020
 
 - Served as Technical Lead for a startup, designing, developing, and deploying mission-critical RFID inventory control software for high-stakes clients including JPL (NASA) and Boeing.
 
