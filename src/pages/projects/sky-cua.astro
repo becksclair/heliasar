@@ -5,6 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 const architectureDiagram = `flowchart LR
   agent["Agent host"]
   mcp["MCP tool surface"]
+  action_router["Unified action surface"]
   service["Rust service"]
 
   subgraph desktop["Desktop backends"]
@@ -21,7 +22,8 @@ const architectureDiagram = `flowchart LR
   diagnostics["Structured diagnostics"]
 
   agent -->|"asks for state or action"| mcp
-  mcp -->|"validates schema"| service
+  mcp -->|"34 focused tools"| action_router
+  action_router -->|"targets active control surface"| service
   service --> linux
   service --> windows
   service --> accessibility
@@ -95,9 +97,9 @@ const actionLoopDiagram = `sequenceDiagram
 					capture, and SendInput.
 				</li>
 				<li>
-					A schema-validated agent tool surface with semantic and physical input
-					modes, screenshot delivery, explicit readiness checks, and fallback
-					reporting.
+					A reduced MCP interface that cut the exposed tool surface from 66 tools
+					to 34 by replacing one-off commands with a unified, schema-validated
+					action surface targeted at the active control surface.
 				</li>
 				<li>
 					Browser-control tooling for tab discovery, page snapshots, screenshots,
@@ -129,6 +131,14 @@ const actionLoopDiagram = `sequenceDiagram
 				a clear failure if the compositor, accessibility layer, or input backend is
 				the thing refusing to cooperate. Browser and Android workflows follow the
 				same pattern: discover first, act second, report precisely.
+			</p>
+			<p>
+				One of the important design turns was shrinking the public tool surface
+				from 66 tools to 34. Instead of making the agent choose between dozens of
+				slightly different click, type, browser, phone, and desktop operations, the
+				interface routes through a smaller set of action primitives and binds those
+				actions to the relevant control surface. That gives the model fewer knobs
+				to misuse while preserving the platform-specific detail underneath.
 			</p>
 
 			<MermaidDiagram
