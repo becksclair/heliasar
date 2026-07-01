@@ -1,0 +1,75 @@
+---
+export interface Props {
+	title: string;
+	chart: string;
+	caption?: string;
+}
+
+const { title, chart, caption } = Astro.props;
+---
+
+<figure class="mermaid-diagram">
+	<figcaption>
+		<strong>{title}</strong>
+		{caption && <span>{caption}</span>}
+	</figcaption>
+	<pre class="mermaid-diagram__chart">{chart}</pre>
+</figure>
+
+<script>
+	import mermaid from "mermaid";
+
+	mermaid.initialize({
+		startOnLoad: false,
+		securityLevel: "strict",
+		theme: "base",
+		themeVariables: {
+			background: "#ffffff",
+			primaryColor: "#faefff",
+			primaryTextColor: "#0e0016",
+			primaryBorderColor: "#7c3aed",
+			lineColor: "#475467",
+			secondaryColor: "#f7d9ff",
+			tertiaryColor: "#fff7ed",
+			fontFamily: "ChiKareGo2, Geneva, sans-serif",
+		},
+	});
+
+	const diagrams = document.querySelectorAll<HTMLElement>(
+		".mermaid-diagram__chart",
+	);
+
+	await mermaid.run({ nodes: diagrams });
+</script>
+
+<style lang="scss">
+	.mermaid-diagram {
+		margin: 1.75rem 0;
+		padding: 1rem;
+		border: 1px solid rgba(var(--accent), 24%);
+		border-radius: var(--border-radius-base);
+		background: linear-gradient(180deg, #fff, #fff7ff);
+		overflow-x: auto;
+
+		figcaption {
+			display: grid;
+			gap: 0.25rem;
+			margin-bottom: 0.75rem;
+			color: var(--color-fg-copy);
+			font-size: 0.95rem;
+
+			strong {
+				color: var(--black);
+				font-family: Chicago, sans-serif;
+				font-size: 1rem;
+			}
+		}
+	}
+
+	.mermaid-diagram__chart {
+		margin: 0;
+		padding: 0.5rem;
+		background: transparent;
+		text-align: center;
+	}
+</style>

@@ -1,5 +1,47 @@
 ---
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
 import Layout from "../../layouts/Layout.astro";
+
+const reverseEngineeringDiagram = `flowchart LR
+  vendor["Vendor app"]
+  capture["USB capture"]
+  fixture["JSONL fixtures"]
+  replay["Replay harness"]
+  rust["Rust control layer"]
+  surfaces["CLI browser native UI agent workflows"]
+  hardware["EMEET PIXY hardware"]
+  diagnostics["Diagnostics"]
+
+  vendor -->|"HID and libusb traffic"| capture
+  capture -->|"reduce to repeatable sequences"| fixture
+  fixture --> replay
+  replay -->|"verify against device"| hardware
+  replay -->|"promote confirmed commands"| rust
+  rust --> surfaces
+  rust -->|"PTZ modes discovery preview"| hardware
+  hardware -->|"state and failures"| diagnostics
+  diagnostics --> surfaces`;
+
+const previewPipelineDiagram = `flowchart LR
+  camera["Camera frames"]
+  ingest["V4L2 or GStreamer ingest"]
+  enhance["Realtime enhancement stages"]
+  denoise["Temporal denoise"]
+  superres["GPU super resolution"]
+  tone["Low light tone mapping"]
+  preview["Preview and control UI"]
+  agent["Script or agent workflow"]
+
+  camera --> ingest
+  ingest --> enhance
+  enhance --> denoise
+  enhance --> superres
+  enhance --> tone
+  denoise --> preview
+  superres --> preview
+  tone --> preview
+  preview --> agent
+  agent -->|"PTZ and mode commands"| camera`;
 ---
 
 <Layout
@@ -67,6 +109,18 @@ import Layout from "../../layouts/Layout.astro";
 				<code>/dev/video*</code> devices with <code>/dev/hidraw*</code> devices
 				instead of assuming the first camera-shaped object is the right one.
 			</p>
+
+			<MermaidDiagram
+				title="Reverse-engineering loop"
+				caption="The project keeps the proof trail close to the runtime: packet capture becomes fixtures, fixtures become verified replay, and only confirmed behavior becomes camera control."
+				chart={reverseEngineeringDiagram}
+			/>
+
+			<MermaidDiagram
+				title="Preview enhancement pipeline"
+				caption="The live-preview work is staged so each enhancement can be reasoned about, measured, and kept inside realtime constraints."
+				chart={previewPipelineDiagram}
+			/>
 
 			<h2>How it achieves the goal</h2>
 			<p>

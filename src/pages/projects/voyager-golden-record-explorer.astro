@@ -1,5 +1,42 @@
 ---
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
 import Layout from "../../layouts/Layout.astro";
+
+const decodePipelineDiagram = `flowchart LR
+  wav["Golden Record WAV"]
+  waveform["Waveform navigation"]
+  window["Decode window"]
+  sync["Line sync detection"]
+  slant["Slant correction"]
+  resample["Anti aliased resampling"]
+  normalize["Percentile normalization"]
+  image["Decoded image"]
+  export["PNG export"]
+
+  wav --> waveform
+  waveform --> window
+  window --> sync
+  sync --> slant
+  slant --> resample
+  resample --> normalize
+  normalize --> image
+  image --> export`;
+
+const workerDiagram = `sequenceDiagram
+  participant UI as egui interface
+  participant Queue as Worker queue
+  participant Decode as Decode worker
+  participant Diagnostics
+  participant Result as Result cache
+
+  UI->>Queue: Submit decode or diagnostic job
+  Queue->>Decode: Run latest requested window
+  Decode->>Diagnostics: Emit sync stats spectrogram segments
+  Decode-->>Result: Store image and metadata
+  UI->>Queue: Cancel stale work when controls change
+  Queue-->>Decode: Stop old job
+  Result-->>UI: Show only current result
+  Diagnostics-->>UI: Explain why the image looks that way`;
 ---
 
 <Layout
@@ -69,6 +106,105 @@ import Layout from "../../layouts/Layout.astro";
 				excerpt carving all produce evidence about what the signal is doing.
 			</p>
 
+			<MermaidDiagram
+				title="Decode pipeline"
+				caption="The audio is treated as an inspectable signal path, not a black-box converter."
+				chart={decodePipelineDiagram}
+			/>
+
+			<MermaidDiagram
+				title="Responsive exploration loop"
+				caption="Long-running decode and diagnostic work stays behind a queue so the UI can remain interactive while stale work is cancelled."
+				chart={workerDiagram}
+			/>
+
+			<h2>Visual evidence from the record</h2>
+			<p>
+				These are not mockups. The cover image comes from the project assets, and
+				the decoded frames below were generated from the local Golden Record audio
+				with the project's own CLI. They are imperfect in the useful way: the sync
+				stripes, slant, analog noise, and contrast decisions are visible, so the
+				page shows the actual reconstruction problem instead of pretending the
+				output falls out cleanly.
+			</p>
+
+			<div class="voyager-visuals">
+				<figure class="record-cover">
+					<img
+						src="/images/projects/voyager/golden-record-cover.jpg"
+						alt="The Voyager Golden Record cover diagram"
+						loading="lazy"
+					/>
+					<figcaption>
+						The Golden Record cover is the instruction manual: playback speed,
+						image timing, calibration, and where Voyager came from.
+					</figcaption>
+				</figure>
+				<figure class="spectrogram">
+					<img
+						src="/images/projects/voyager/spectrogram-first-frames.png"
+						alt="Spectrogram of the first decoded Voyager Golden Record image frames"
+						loading="lazy"
+					/>
+					<figcaption>
+						A spectrogram over the first decoded frames, with frequency markers,
+						used to sanity-check the signal rather than just stare at pixels and
+						hope.
+					</figcaption>
+				</figure>
+			</div>
+
+			<div class="decoded-grid" aria-label="Decoded Voyager Golden Record frames">
+				<figure>
+					<img
+						src="/images/projects/voyager/decoded-calibration-circle.png"
+						alt="Decoded Voyager Golden Record calibration circle"
+						loading="lazy"
+					/>
+					<figcaption>Calibration circle</figcaption>
+				</figure>
+				<figure>
+					<img
+						src="/images/projects/voyager/decoded-measurement-diagram.png"
+						alt="Decoded Voyager Golden Record measurement diagram"
+						loading="lazy"
+					/>
+					<figcaption>Measurement diagram</figcaption>
+				</figure>
+				<figure>
+					<img
+						src="/images/projects/voyager/decoded-earth.png"
+						alt="Decoded Voyager Golden Record image of Earth"
+						loading="lazy"
+					/>
+					<figcaption>Earth frame</figcaption>
+				</figure>
+				<figure>
+					<img
+						src="/images/projects/voyager/decoded-anatomy.png"
+						alt="Decoded Voyager Golden Record anatomical image"
+						loading="lazy"
+					/>
+					<figcaption>Anatomy frame</figcaption>
+				</figure>
+				<figure>
+					<img
+						src="/images/projects/voyager/decoded-fish.png"
+						alt="Decoded Voyager Golden Record fish image"
+						loading="lazy"
+					/>
+					<figcaption>Fish frame</figcaption>
+				</figure>
+				<figure>
+					<img
+						src="/images/projects/voyager/decoded-record-instructions.png"
+						alt="Decoded Voyager Golden Record instruction diagram"
+						loading="lazy"
+					/>
+					<figcaption>Instruction diagram</figcaption>
+				</figure>
+			</div>
+
 			<h2>How it achieves the goal</h2>
 			<p>
 				The goal is not just to get a recognizable Golden Record image once. The goal
@@ -120,5 +256,54 @@ import Layout from "../../layouts/Layout.astro";
 	.lede {
 		font-size: 1.2rem;
 		color: var(--color-fg-copy);
+	}
+
+	.voyager-visuals,
+	.decoded-grid {
+		display: grid;
+		gap: 1rem;
+		margin: 1.5rem 0;
+
+		figure {
+			margin: 0;
+			padding: 0.75rem;
+			border: 1px solid rgba(var(--accent), 20%);
+			border-radius: var(--border-radius-base);
+			background: #fff;
+		}
+
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+			border-radius: calc(var(--border-radius-base) * 0.75);
+			background: var(--black);
+		}
+
+		figcaption {
+			margin-top: 0.6rem;
+			color: var(--color-fg-copy);
+			font-size: 0.95rem;
+			line-height: 1.35;
+		}
+	}
+
+	.voyager-visuals {
+		grid-template-columns: minmax(220px, 0.7fr) minmax(320px, 1.3fr);
+		align-items: start;
+	}
+
+	.spectrogram {
+		align-self: center;
+	}
+
+	.decoded-grid {
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+
+	@media (max-width: 760px) {
+		.voyager-visuals {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>
