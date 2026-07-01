@@ -1,0 +1,82 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// TODO: Replace with real mixes. Point `href` at the track URL (or swap the
+// rendered link for the SoundCloud/Mixcloud embed <iframe>). Placeholder entries
+// keep href as "#", which renders a non-interactive "Coming soon" label.
+const mixes = [
+	{ title: "Mix One", description: "Genre · date · context.", href: "#" },
+	{ title: "Mix Two", description: "Genre · date · context.", href: "#" },
+];
+---
+
+<Layout title="Music" description="DJ sets and music by Rebecca Clair.">
+	<main>
+		<h1>Music</h1>
+		<div class="content">
+			<p>DJ sets and music I've made. More coming soon.</p>
+		</div>
+		<ul class="mix-list">
+			{
+				mixes.map((mix) => (
+					<li class="mix">
+						<h2>{mix.title}</h2>
+						<p>{mix.description}</p>
+						{mix.href === "#" ? (
+							<span class="listen-pending" aria-disabled="true">
+								Coming soon
+							</span>
+						) : (
+							<a href={mix.href} target="_blank" rel="noopener noreferrer">
+								Listen
+							</a>
+						)}
+					</li>
+				))
+			}
+		</ul>
+	</main>
+</Layout>
+
+<style lang="scss">
+	h1 {
+		text-align: center;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		font-size: 2rem;
+	}
+	.content {
+		margin-bottom: 1.5rem;
+	}
+	.mix-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 1rem;
+	}
+	.mix {
+		background-color: white;
+		border-radius: 0.4rem;
+		padding: 1rem 1.3rem;
+		box-shadow:
+			0 4px 6px -1px rgba(0, 0, 0, 0.1),
+			0 2px 4px -2px rgba(0, 0, 0, 0.1);
+
+		& h2 {
+			margin: 0 0 0.3rem;
+			font-size: 1.25rem;
+		}
+		& p {
+			margin: 0 0 0.6rem;
+			color: #444;
+		}
+		& a {
+			color: rgb(var(--accent));
+		}
+		& .listen-pending {
+			color: #6b6b6b;
+			font-style: italic;
+		}
+	}
+</style>

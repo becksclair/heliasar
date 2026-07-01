@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.1/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -7,35 +7,58 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [
-			"**/node_modules/**",
-			"**/dist/**",
-			"**/build/**",
-			"**/.next/**",
-			"**/.nuxt/**",
-			"**/.cache/**",
-			"**/coverage/**",
-			"**/out/**",
-			"**/public/**",
-			"**/tmp/**"
+		"includes": [
+			"**",
+			"!**/node_modules",
+			"!**/dist",
+			"!**/build",
+			"!**/.next",
+			"!**/.nuxt",
+			"!**/.cache",
+			"!**/coverage",
+			"!**/out",
+			"!**/public",
+			"!**/tmp",
+			"!**/.astro",
+			"!**/.vercel"
 		]
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"organizeImports": {
-		"enabled": true
-	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"preset": "recommended",
+			"complexity": {
+				// `!important` is used intentionally to override the third-party system.css framework.
+				"noImportantStyles": "off"
+			}
 		}
 	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
 		}
-	}
+	},
+	"overrides": [
+		{
+			// Biome lints .astro frontmatter as an isolated module and can't see that
+			// imports/top-level variables are used in the component template, so only
+			// these two rules misfire on .astro (verified: noUnusedFunctionParameters
+			// does not, so it stays on). `astro check` (CI: `pnpm check:types`) is the
+			// authoritative unused-symbol check for .astro via the TS language server.
+			"includes": ["**/*.astro"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUnusedImports": "off",
+						"noUnusedVariables": "off"
+					}
+				}
+			}
+		}
+	]
 }

@@ -1,7 +1,72 @@
 ---
+import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
+
+// TODO: Replace these placeholder entries with real projects.
+const projects = [
+	{
+		title: "Project One",
+		body: "What it is, the problem it solves, and the stack it's built on.",
+		href: "https://github.com/becksClair",
+	},
+	{
+		title: "Project Two",
+		body: "What it is, the problem it solves, and the stack it's built on.",
+		href: "https://github.com/becksClair",
+	},
+	{
+		title: "Project Three",
+		body: "What it is, the problem it solves, and the stack it's built on.",
+		href: "https://github.com/becksClair",
+	},
+];
 ---
 
-<Layout title="Projects">
-
+<Layout
+	title="Projects"
+	description="Selected software projects by Rebecca Clair — across systems, web, IoT, and embedded engineering."
+>
+	<main>
+		<h1>Projects</h1>
+		<div class="content">
+			<p>
+				A selection of things I've built. More to come — in the meantime,
+				you can find my open-source work on <a
+					href="https://github.com/becksClair"
+					target="_blank"
+					rel="noopener noreferrer">GitHub</a
+				>.
+			</p>
+		</div>
+		<ul class="link-card-grid">
+			{
+				projects.map((project) => (
+					<Card title={project.title} body={project.body} href={project.href} />
+				))
+			}
+		</ul>
+	</main>
 </Layout>
+
+<style lang="scss">
+	h1 {
+		text-align: center;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		font-size: 2rem;
+	}
+	.content {
+		margin-bottom: 1.5rem;
+
+		& a {
+			color: rgb(var(--accent));
+		}
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 1rem;
+		padding: 0;
+		margin: 0;
+	}
+</style>

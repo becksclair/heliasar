@@ -1,22 +1,35 @@
 ---
 import "../styles/styles.scss";
 import Layout from "./Layout.astro";
+
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={frontmatter.title}>
+<Layout
+	title={frontmatter.title}
+	description={frontmatter.description}
+	image={frontmatter.image?.url}
+	imageAlt={frontmatter.image?.alt}
+	ogType="article"
+	publishedTime={new Date(frontmatter.pubDate).toISOString()}
+	author={frontmatter.author}
+>
 	<main>
 		<div class="content">
 			<h1>{frontmatter.title}</h1>
 
-			<div class="post-image-container">
-				<img
-					class="post-img shadow-img"
-					src={frontmatter.image.url}
-					width="300"
-					alt={frontmatter.image.alt}
-				/>
-			</div>
+			{
+				frontmatter.image && (
+					<div class="post-image-container">
+						<img
+							class="post-img shadow-img"
+							src={frontmatter.image.url}
+							width="300"
+							alt={frontmatter.image.alt}
+						/>
+					</div>
+				)
+			}
 			<slot />
 		</div>
 

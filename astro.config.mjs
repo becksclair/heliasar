@@ -1,9 +1,8 @@
 import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
-import robotsTxt from "astro-robots-txt";
-import { defineConfig } from "astro/config";
-
 import vercel from "@astrojs/vercel";
+import { defineConfig } from "astro/config";
+import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({

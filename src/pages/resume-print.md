@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/ResumeLayout.astro
+layout: ../layouts/ResumePrintLayout.astro
 title: 'Rebecca Clair'
 subtitle: 'Senior Systems Engineer · AI Infrastructure · Automation · Distributed Systems'
 pubDate: 2023-05-09

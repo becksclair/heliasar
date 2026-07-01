@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// TODO: Replace these placeholder images with real photography.
+const photos = [
+	{
+		src: "/images/rebecca_clair.webp",
+		alt: "Placeholder photograph",
+		caption: "Untitled",
+	},
+	{
+		src: "/images/rebecca_clair2.webp",
+		alt: "Placeholder photograph",
+		caption: "Untitled",
+	},
+	{
+		src: "/images/rebecca_clair3.webp",
+		alt: "Placeholder photograph",
+		caption: "Untitled",
+	},
+	{
+		src: "/images/rebecca_clair4.webp",
+		alt: "Placeholder photograph",
+		caption: "Untitled",
+	},
+];
+---
+
+<Layout title="Photography" description="Photography by Rebecca Clair.">
+	<main>
+		<h1>Photography</h1>
+		<div class="content">
+			<p>A selection of photographs. This gallery is a work in progress.</p>
+		</div>
+		<div class="gallery">
+			{
+				photos.map((photo) => (
+					<figure>
+						<img src={photo.src} alt={photo.alt} loading="lazy" />
+						<figcaption>{photo.caption}</figcaption>
+					</figure>
+				))
+			}
+		</div>
+	</main>
+</Layout>
+
+<style lang="scss">
+	h1 {
+		text-align: center;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		font-size: 2rem;
+	}
+	.content {
+		margin-bottom: 1.5rem;
+	}
+	.gallery {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 1rem;
+	}
+	figure {
+		margin: 0;
+		background-color: white;
+		border-radius: 0.4rem;
+		overflow: hidden;
+		box-shadow:
+			0 4px 6px -1px rgba(0, 0, 0, 0.1),
+			0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	}
+	figure img {
+		display: block;
+		width: 100%;
+		height: 240px;
+		object-fit: cover;
+	}
+	figcaption {
+		padding: 0.6rem 0.8rem;
+		font-size: 0.95rem;
+		color: #444;
+	}
+</style>

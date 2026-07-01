@@ -11,7 +11,11 @@
 }
 
 :root {
-	--page-bg: radial-gradient(farthest-corner at 100% 100%, var(--white-alt) 55%, var(--white) 80%);
+	--page-bg: radial-gradient(
+		farthest-corner at 100% 100%,
+		var(--white-alt) 55%,
+		var(--white) 80%
+	);
 	--color-bg: var(--white);
 	--color-fg: var(--black);
 	--color-fg-copy: rgba(0, 0, 0, 0.72);
@@ -50,10 +54,11 @@
 	gap: 0.5rem;
 }
 
-html, body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
+html,
+body {
+	width: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 html,
@@ -140,12 +145,11 @@ main {
 }
 
 .unselectable-text {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none;   /* Safari */
-  -khtml-user-select: none;    /* Konqueror HTML */
-  -moz-user-select: none;      /* Old versions of Firefox */
-  -ms-user-select: none;       /* Internet Explorer/Edge */
-  user-select: none;           /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
 .window-pane {
@@ -166,9 +170,9 @@ main {
 		all: unset !important;
 		width: 0 !important;
 		height: 0 !important;
-		background: transparent  !important;
+		background: transparent !important;
 	}
-	
+
 	body {
 		padding-bottom: 2rem;
 		// height: fit-content !important;

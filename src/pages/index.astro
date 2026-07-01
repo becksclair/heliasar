@@ -3,21 +3,31 @@ import Social from "../components/Social.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Home">
+<Layout
+	title="Home"
+	description="Rebecca Clair designs software systems where operating systems, devices, browsers, cloud services, and AI work together as one coherent product."
+>
 	<main>
+		<section class="hero-thesis" aria-label="Professional focus">
+			<p>
+				I design software systems where operating systems, devices, browsers,
+				cloud services, and AI work together as one coherent product.
+			</p>
+		</section>
+
 		<div class="bio-container">
 			<img
 				class="shadow-img"
-				src="/images/rebecca_clair4.webp"
+				src="/images/rebecca_clair5.webp"
 				alt="Rebecca Clair"
 			/>
 
 			<div class="bio">
 				<div class="window " style="">
 					<div class="title-bar">
-						<button aria-label="Close" class="close"></button>
+						<button class="close" aria-hidden="true" tabindex="-1"></button>
 						<h1 class="title">Hello !!</h1>
-						<button aria-label="Resize" class="resize"></button>
+						<button class="resize" aria-hidden="true" tabindex="-1"></button>
 					</div>
 					<div class="separator"></div>
 
@@ -26,24 +36,26 @@ import Layout from "../layouts/Layout.astro";
 							<img
 								class="inline-img"
 								loading="lazy"
-								src="/images/rebecca_clair4.webp"
+								src="/images/rebecca_clair5.webp"
 								alt="Rebecca Clair"
 							/>
 							Hi! 👋🏻<br/>
 							I'm <b>Rebecca Clair,</b><br />
 							<br />
-							A senior full stack engineer with a demonstrated history of working
-							in the computer software industry. Highly skilled in C++ / Qt, Rust, Go, Node.js, Typescript, and web technologies including HTML and CSS,
-							React.
+							A senior systems engineer with 20+ years of experience designing
+							software across native applications, distributed services,
+							embedded devices, browsers, cloud infrastructure, and
+							AI-enabled automation.
 						</p>
 
 						<p>
-							Additionally, well-developed skills in Internet of Things,
-							Embedded Systems, and software development with RFID technology,
-							and distributed microservice architectures using MQTT and ZeroMQ.
+							I specialize in connecting complex components into coherent,
+							production-ready systems: developer tooling, automation,
+							AI infrastructure, diagnostics, platform engineering, and the
+							low-level debugging that makes the whole thing actually behave.
 						</p>
 						<p>
-							With 15+ years of experience working and managing diverse and
+							With 20+ years of experience working and managing diverse and
 							large teams with effective communication to complete the
 							engineering of successful applications.
 						</p>
@@ -102,9 +114,25 @@ import Layout from "../layouts/Layout.astro";
 		color: rgb(var(--accent));
 	}
 
+	.hero-thesis {
+		max-width: 980px;
+		margin: 2.5rem auto 1rem;
+		padding: 0 1rem;
+		text-align: center;
+
+		& p {
+			margin: 0;
+			color: rgb(var(--accent));
+			font-size: clamp(2rem, 4vw, 4rem);
+			font-weight: 800;
+			letter-spacing: -0.05em;
+			line-height: 0.98;
+		}
+	}
+
 	.bio-container {
 		display: flex;
-		margin-top: 2rem;
+		margin-top: 2.5rem;
 		gap: 40px;
 
 		& img {
@@ -213,12 +241,5 @@ import Layout from "../layouts/Layout.astro";
 		@media (max-width: 700px) {
 			flex-wrap: wrap;
 		}
-	}
-
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
 	}
 </style>

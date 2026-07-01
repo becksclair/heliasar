@@ -1,39 +1,103 @@
 ---
 import "../styles/styles.scss";
 import Analytics from "@vercel/analytics/astro";
-import Footer from "../components/Footer.astro";
 import NavBar from "../components/NavBar.astro";
 
 export interface Props {
 	title: string;
+	description?: string;
+	image?: string;
+	imageAlt?: string;
+	ogType?: "website" | "article";
+	publishedTime?: string;
+	author?: string;
 }
 
-const { title } = Astro.props;
+const DEFAULT_DESCRIPTION =
+	"Rebecca Clair — senior systems engineer building software where operating systems, devices, browsers, cloud services, and AI work together as one coherent product. Resume, writing, photography, and music.";
+
+// 1200x630 branded social card (public/images/og-card.jpg), generated from
+// resume.md via `pnpm generate:og`.
+const DEFAULT_OG_IMAGE = "/images/og-card.jpg";
+const DEFAULT_OG_IMAGE_ALT = "Rebecca Clair — Senior Systems Engineer";
+
+const {
+	title,
+	description = DEFAULT_DESCRIPTION,
+	image = DEFAULT_OG_IMAGE,
+	imageAlt,
+	ogType = "website",
+	publishedTime,
+	author,
+} = Astro.props;
+
+const pageTitle = `${title} - Rebecca Clair`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(image, Astro.site);
+// Only the default card has known dimensions; custom per-page images don't.
+const usingDefaultCard = image === DEFAULT_OG_IMAGE;
+// Use the card's alt only for the card; a custom image without its own alt
+// falls back to the page title rather than mislabeling it as the card.
+const resolvedImageAlt =
+	imageAlt ?? (usingDefaultCard ? DEFAULT_OG_IMAGE_ALT : pageTitle);
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<!--<link rel="icon" type="image/svg+xml" href="/favicon.svg" />-->
-		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title} - Rebecca Clair</title>
 
+		<title>{pageTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="apple-touch-icon" href="/favicon.png" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- Open Graph -->
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={socialImage} />
+		<meta property="og:image:alt" content={resolvedImageAlt} />
+		{
+			usingDefaultCard && (
+				<>
+					<meta property="og:image:width" content="1200" />
+					<meta property="og:image:height" content="630" />
+				</>
+			)
+		}
+		<meta property="og:site_name" content="Rebecca Clair" />
+		{
+			ogType === "article" && (
+				<>
+					{publishedTime && (
+						<meta property="article:published_time" content={publishedTime} />
+					)}
+					{author && <meta property="article:author" content={author} />}
+				</>
+			)
+		}
 
-		<link rel="stylesheet" href="/systemcss/system.css">
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImage} />
+		<meta name="twitter:image:alt" content={resolvedImageAlt} />
+
+		<link rel="stylesheet" href="/systemcss/system.css" />
 	</head>
 	<body>
 		<NavBar />
 
 		<slot />
 
-		<!-- <Footer /> -->
 		<Analytics />
 	</body>
 </html>

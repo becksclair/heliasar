@@ -1,5 +1,7 @@
 # build output
 dist/
+.vercel/
+runtime/
 
 # generated types
 .astro/
@@ -20,3 +22,6 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 .idea
+
+# editor / local tooling
+.claude/

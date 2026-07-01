@@ -4,50 +4,63 @@
 <nav class="navbar">
 	<div class="navbar-logo">
 		<a href="/">
-			<h1>
+			<p class="navbar-logo-text">
 				<span class="text-gradient">Rebecca Clair</span>
-			</h1>
+			</p>
 		</a>
 	</div>
-	<ul class="navbar-links">
+	<ul class="navbar-links" id="navbar-links">
 		<li>
 			<a href="/">Home</a>
 		</li>
 		<li>
 			<a href="/resume">Resume</a>
 		</li>
-		<!-- <li>
+		<li>
 			<a href="/projects">Projects</a>
 		</li>
-		<li>
-			<a href="/photography">Photography</a>
-		</li>
-		<li>
-			<a href="/music">Music</a>
-		</li> -->
 		<li>
 			<a href="/blog">Blog</a>
 		</li>
 	</ul>
-	<div class="navbar-toggle">
+	<button
+		type="button"
+		class="navbar-toggle"
+		aria-label="Toggle navigation menu"
+		aria-expanded="false"
+		aria-controls="navbar-links"
+	>
 		<span></span>
 		<span></span>
 		<span></span>
-	</div>
+	</button>
 </nav>
 
 <script>
 	const navbarToggle = document.querySelector(".navbar-toggle");
 	const navbarLinks = document.querySelector(".navbar-links");
+	const desktopQuery = window.matchMedia("(min-width: 769px)");
 
 	navbarToggle?.addEventListener("click", () => {
-		navbarLinks?.classList.toggle("active");
+		const isOpen = navbarLinks?.classList.toggle("active") ?? false;
 		navbarToggle?.classList.toggle("active");
+		navbarToggle?.setAttribute("aria-expanded", String(isOpen));
+	});
+
+	// On desktop the links are always shown via CSS, so reset the toggle state
+	// when crossing the breakpoint to keep aria-expanded from going stale.
+	desktopQuery.addEventListener("change", (event) => {
+		if (event.matches) {
+			navbarLinks?.classList.remove("active");
+			navbarToggle?.classList.remove("active");
+			navbarToggle?.setAttribute("aria-expanded", "false");
+		}
 	});
 </script>
 
 <style lang="scss">
-	h1 {
+	.navbar-logo-text {
+		font-family: Chicago, sans-serif;
 		font-size: 22px;
 		font-weight: 800;
 		margin: 0;
@@ -99,9 +112,21 @@
 		color: rgb(var(--accent));
 	}
 
+	.navbar-toggle:focus-visible,
+	.navbar-links a:focus-visible {
+		outline: 2px solid var(--color-focus-outline);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
 	.navbar-toggle {
 		display: none;
 		cursor: pointer;
+		appearance: none;
+		background: none;
+		border: none;
+		padding: 0;
+		margin: 0;
 	}
 
 	.navbar-toggle span {
@@ -113,10 +138,6 @@
 	}
 
 	@media (max-width: 768px) {
-		.navbar {
-
-		}
-
 		.navbar-links {
 			display: none;
 		}
