@@ -58,22 +58,39 @@ import Layout from "../../layouts/Layout.astro";
 				</li>
 			</ul>
 
-			<h2>Engineering shape</h2>
+			<h2>How it works</h2>
 			<p>
-				The important design decision was not to hide platform weirdness behind
-				a fake universal API. The system exposes a stable tool contract to the
-				agent while preserving enough backend-specific diagnostics to explain why
-				a capture, click, native host, or device connection failed. That makes it
-				debuggable instead of magical — and magical is usually just broken with
-				better marketing.
+				I built sky-cua around a small but stubborn idea: the agent should get a
+				stable set of capabilities, but the platform layer should never pretend
+				that Linux, Windows, browsers, and Android all fail in the same way. The
+				Rust service owns the messy native work — capture, input, accessibility,
+				browser plumbing, device state — and exposes it through MCP tools that are
+				boring on purpose.
+			</p>
+			<p>
+				Each backend reports what it can actually do before the agent starts
+				clicking at ghosts. A desktop workflow can ask for a screenshot, inspect
+				available UI structure, choose semantic or coordinate-based input, and get
+				a clear failure if the compositor, accessibility layer, or input backend is
+				the thing refusing to cooperate. Browser and Android workflows follow the
+				same pattern: discover first, act second, report precisely.
 			</p>
 
-			<h2>Why it matters</h2>
+			<h2>How it achieves the goal</h2>
 			<p>
-				sky-cua turns computer-use from a demo trick into infrastructure: agents
-				can be given durable, testable workflows across desktop, browser, and
-				mobile surfaces, with enough observability to recover when the real world
-				refuses to behave.
+				The goal is not to make agents “move the mouse.” That part is easy and
+				mostly useless. The goal is to make computer-use repeatable enough that an
+				agent can recover from reality: missing windows, stale screenshots, native
+				host failures, disconnected phones, unsupported capture modes, or a UI that
+				moved between attempts. sky-cua achieves that by making readiness,
+				capability, action, and diagnosis separate parts of the contract instead
+				of one big optimistic “do the thing” button.
+			</p>
+			<p>
+				That shape makes it portable across hosts like Codex, OpenClaw, Claude Code,
+				and OpenCode, but still honest about the machine underneath. I care about
+				that distinction because real automation lives or dies in the gap between
+				the clean schema and the cursed desktop it has to operate.
 			</p>
 		</article>
 	</main>

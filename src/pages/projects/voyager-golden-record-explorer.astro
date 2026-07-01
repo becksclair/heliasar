@@ -52,21 +52,38 @@ import Layout from "../../layouts/Layout.astro";
 				</li>
 			</ul>
 
-			<h2>Engineering shape</h2>
+			<h2>How it works</h2>
 			<p>
-				The app treats decoding as an interactive investigation. The UI exposes
-				controls that matter to the reconstruction, while the diagnostics preserve
-				a reproducible trail for each assumption: where sync was found, how lines
-				were segmented, how the signal was normalized, and when a result should be
-				rejected as stale.
+				I built the explorer as an interactive decoding bench rather than a single
+				“convert this WAV to an image” script. The audio is loaded once, navigated
+				through a waveform view, and decoded through a baseband slow-scan pipeline
+				that looks for line sync, estimates line boundaries, corrects slant,
+				resamples into pixels, and normalizes the result into an image you can
+				actually inspect.
+			</p>
+			<p>
+				The controls exist because the source material is analog and imperfect. You
+				can adjust polarity, gamma, normalization, sync interpretation, and decode
+				windows while seeing the result change. The diagnostics mirror the UI path:
+				decode runs, spectrograms, sync detection, segmentation, statistics, and
+				excerpt carving all produce evidence about what the signal is doing.
 			</p>
 
-			<h2>Why it matters</h2>
+			<h2>How it achieves the goal</h2>
 			<p>
-				It shows a different side of systems work: fast native UI, practical DSP,
-				batch diagnostics, concurrency, and careful feedback loops, all applied to
-				a historically delightful problem where the output is both technical and
-				visceral.
+				The goal is not just to get a recognizable Golden Record image once. The goal
+				is to make reconstruction explainable and repeatable. The app achieves that
+				by tying visual exploration to reproducible analysis: every promising image
+				can be traced back to the sync choices, window, normalization, and decode
+				parameters that produced it.
+			</p>
+			<p>
+				The worker system keeps that exploration responsive. Long-running decodes and
+				diagnostics run behind queue-depth tracking, cancellation, stale-result
+				suppression, health checks, and restart logic, so the interface stays usable
+				while the signal-processing work happens underneath. It is a tiny lab bench
+				for a beautiful, weird artifact from deep-space history, which is exactly my
+				kind of nonsense.
 			</p>
 		</article>
 	</main>

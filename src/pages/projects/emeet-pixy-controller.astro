@@ -51,20 +51,38 @@ import Layout from "../../layouts/Layout.astro";
 				</li>
 			</ul>
 
-			<h2>Engineering shape</h2>
+			<h2>How it works</h2>
 			<p>
-				The project is built around evidence. Captures become fixtures; fixtures
-				become replayable tests; replay becomes tooling; tooling becomes a stable
-				interface that other software — including AI agents — can drive without
-				needing to understand the entire reverse-engineering history.
+				I treated the camera like a black box that could be made legible one packet
+				at a time. First, I captured the vendor application's HID/libusb traffic and
+				separated repeatable control sequences from incidental noise. Those captures
+				became JSONL logs and protocol fixtures, so each suspected command could be
+				replayed, compared, and promoted only when the hardware confirmed it.
+			</p>
+			<p>
+				The control layer then maps that evidence into Rust abstractions: device
+				discovery, HID transport, PTZ commands, camera modes, preview orchestration,
+				and platform-specific video controls. On Linux, the awkward bit is that the
+				video node and the HID control node are separate, so the tooling correlates
+				<code>/dev/video*</code> devices with <code>/dev/hidraw*</code> devices
+				instead of assuming the first camera-shaped object is the right one.
 			</p>
 
-			<h2>Why it matters</h2>
+			<h2>How it achieves the goal</h2>
 			<p>
-				It demonstrates the full loop from black-box hardware behavior to a usable
-				developer platform: protocol discovery, systems boundaries, native Linux
-				integration, browser-facing controls, diagnostics, and performance-aware
-				video pipeline design.
+				The goal is reliable camera control without depending on the vendor app. It
+				achieves that by keeping the reverse-engineering trail close to the runtime:
+				observe, replay, verify, wrap, and then expose the result through CLI probes,
+				browser controls, native UI experiments, and agent-callable workflows. When
+				a command fails, the system can tell whether the problem is discovery,
+				transport, protocol state, video pipeline, or unsupported hardware behavior.
+			</p>
+			<p>
+				The enhancement pipeline follows the same philosophy. Super-resolution,
+				temporal denoising, and low-light tone mapping are designed as stages with
+				real-time constraints, not as a magic beautify filter slapped on top. The
+				point is control: know what the device is doing, know what the video path is
+				doing, and make the whole thing scriptable enough to build on.
 			</p>
 		</article>
 	</main>
