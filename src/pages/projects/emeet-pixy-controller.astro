@@ -1,0 +1,105 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="EMEET PIXY Controller"
+	description="EMEET PIXY Controller is Rebecca Clair's reverse-engineered USB camera automation platform, with Linux tooling, protocol replay, browser controls, diagnostics, and live-preview pipeline design."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">Reverse engineering · USB/HID · Native tooling</p>
+			<h1>EMEET PIXY Controller</h1>
+			<p class="lede">
+				EMEET PIXY Controller started as a practical problem — control an
+				undocumented USB camera properly on Linux — and became a full automation
+				platform for camera discovery, PTZ control, protocol replay, diagnostics,
+				browser interfaces, native UI work, and real-time preview enhancement.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				The camera exposed useful behavior through a vendor application, but not
+				through a clean public protocol. To make it scriptable and agent-friendly,
+				the protocol had to be observed, reduced to confirmed sequences, replayed
+				safely, and wrapped in tooling that could distinguish device failures,
+				transport problems, and unsupported states.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					Reverse-engineered vendor HID/libusb traffic from a native Qt
+					application and codified confirmed camera mode and PTZ report sequences
+					into reusable Rust tooling.
+				</li>
+				<li>
+					Transport seams for HID access, camera discovery, preview orchestration,
+					DirectShow/UVC/V4L2 controls, GStreamer video handling, and Linux
+					<code>/dev/video*</code> to <code>/dev/hidraw*</code> correlation.
+				</li>
+				<li>
+					Repeatable observe/replay/verify workflows with protocol fixtures,
+					JSONL capture logs, fakeable transport boundaries, CLI probes, browser
+					controls, and native GTK/libadwaita UI experiments.
+				</li>
+				<li>
+					A real-time enhancement architecture using GPU ONNX/TensorRT
+					super-resolution, motion-adaptive temporal denoising, and low-light tone
+					mapping/local contrast enhancement for live-preview constraints.
+				</li>
+			</ul>
+
+			<h2>Engineering shape</h2>
+			<p>
+				The project is built around evidence. Captures become fixtures; fixtures
+				become replayable tests; replay becomes tooling; tooling becomes a stable
+				interface that other software — including AI agents — can drive without
+				needing to understand the entire reverse-engineering history.
+			</p>
+
+			<h2>Why it matters</h2>
+			<p>
+				It demonstrates the full loop from black-box hardware behavior to a usable
+				developer platform: protocol discovery, systems boundaries, native Linux
+				integration, browser-facing controls, diagnostics, and performance-aware
+				video pipeline design.
+			</p>
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

@@ -1,0 +1,107 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="Voyager Golden Record Explorer"
+	description="Voyager Golden Record Explorer is Rebecca Clair's Rust/egui signal-processing application for recovering NASA Golden Record images from audio, with decoding, diagnostics, visualization, and export tools."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">Rust · Signal processing · Diagnostic tooling</p>
+			<h1>Voyager Golden Record Explorer</h1>
+			<p class="lede">
+				Voyager Golden Record Explorer is a Rust/egui application for recovering
+				the images encoded in NASA's Voyager Golden Record audio. It turns noisy
+				analog source material into inspectable, adjustable, exportable image
+				reconstructions, with diagnostics for understanding what the signal is
+				doing rather than just hoping the decode looks right.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				The Golden Record images are encoded as audio, so reconstruction is part
+				signal-processing problem and part interface problem. You need to detect
+				sync, correct slant, normalize uncertain analog levels, inspect the
+				waveform, and iterate quickly enough that exploration does not become a
+				pile of one-off scripts.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A baseband slow-scan video decoding pipeline with per-line sync
+					detection, slant correction, anti-aliased resampling, polarity and gamma
+					controls, and percentile normalization.
+				</li>
+				<li>
+					Audio-device-clock anchored playback, zero-copy WAV loading, waveform
+					navigation, sync markers, live decode windows, and PNG export for large
+					audio assets.
+				</li>
+				<li>
+					CLI and batch diagnostics for reproducible analysis: decode,
+					spectrogram generation, sync detection, signal classification,
+					statistics, segmentation, and excerpt carving.
+				</li>
+				<li>
+					Worker orchestration with queue-depth tracking, health monitoring,
+					restart logic, cancellation, stale-result suppression, and independent
+					forward-model validation.
+				</li>
+			</ul>
+
+			<h2>Engineering shape</h2>
+			<p>
+				The app treats decoding as an interactive investigation. The UI exposes
+				controls that matter to the reconstruction, while the diagnostics preserve
+				a reproducible trail for each assumption: where sync was found, how lines
+				were segmented, how the signal was normalized, and when a result should be
+				rejected as stale.
+			</p>
+
+			<h2>Why it matters</h2>
+			<p>
+				It shows a different side of systems work: fast native UI, practical DSP,
+				batch diagnostics, concurrency, and careful feedback loops, all applied to
+				a historically delightful problem where the output is both technical and
+				visceral.
+			</p>
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

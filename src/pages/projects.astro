@@ -2,36 +2,39 @@
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
-// TODO: Replace these placeholder entries with real projects.
 const projects = [
 	{
-		title: "Project One",
-		body: "What it is, the problem it solves, and the stack it's built on.",
-		href: "https://github.com/becksClair",
+		title: "sky-cua",
+		body: "A cross-platform computer-use platform for AI agents, spanning desktop automation, browser control, Android integration, diagnostics, and MCP host packaging.",
+		href: "/projects/sky-cua/",
 	},
 	{
-		title: "Project Two",
-		body: "What it is, the problem it solves, and the stack it's built on.",
-		href: "https://github.com/becksClair",
+		title: "EMEET PIXY Controller",
+		body: "A reverse-engineered USB camera automation platform with native Linux tooling, browser controls, diagnostics, protocol replay, and live-preview enhancement design.",
+		href: "/projects/emeet-pixy-controller/",
 	},
 	{
-		title: "Project Three",
-		body: "What it is, the problem it solves, and the stack it's built on.",
-		href: "https://github.com/becksClair",
+		title: "Voyager Golden Record Explorer",
+		body: "A Rust/egui signal-processing application for recovering NASA Voyager Golden Record images from audio, with diagnostics, export, and responsive visual exploration.",
+		href: "/projects/voyager-golden-record-explorer/",
 	},
 ];
 ---
 
 <Layout
 	title="Projects"
-	description="Selected software projects by Rebecca Clair — across systems, web, IoT, and embedded engineering."
+	description="Selected software projects by Rebecca Clair — AI-agent infrastructure, native automation, reverse engineering, and signal-processing tools."
 >
 	<main>
 		<h1>Projects</h1>
-		<div class="content">
+		<div class="content intro">
 			<p>
-				A selection of things I've built. More to come — in the meantime,
-				you can find my open-source work on <a
+				Selected engineering projects with more room to breathe than a resume allows:
+				the systems work, architecture decisions, reverse engineering, diagnostics,
+				and platform thinking behind them.
+			</p>
+			<p>
+				You can also find my open-source work on <a
 					href="https://github.com/becksClair"
 					target="_blank"
 					rel="noopener noreferrer">GitHub</a
@@ -55,16 +58,18 @@ const projects = [
 		padding-bottom: 1rem;
 		font-size: 2rem;
 	}
-	.content {
+
+	.intro {
 		margin-bottom: 1.5rem;
 
 		& a {
 			color: rgb(var(--accent));
 		}
 	}
+
 	.link-card-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(28ch, 1fr));
 		gap: 1rem;
 		padding: 0;
 		margin: 0;

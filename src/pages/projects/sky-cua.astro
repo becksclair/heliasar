@@ -1,0 +1,114 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="sky-cua"
+	description="sky-cua is Rebecca Clair's cross-platform computer-use platform for AI agents, covering desktop automation, browser control, Android integration, diagnostics, and MCP tooling."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">AI infrastructure · Native automation · MCP tooling</p>
+			<h1>sky-cua</h1>
+			<p class="lede">
+				sky-cua is a cross-platform computer-use platform for AI agents: a
+				native automation layer that lets agents inspect screens, control desktop
+				apps, drive browsers, operate Android devices, and report failure modes
+				cleanly enough to be useful in real workflows.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				Most agent automation breaks down at the boundary between the model and
+				the real machine. Screenshots are flaky, accessibility trees vary wildly,
+				browser state lives behind a separate protocol, Android needs ADB, and
+				every host expects tools to be packaged slightly differently. sky-cua was
+				built to make that messy boundary explicit, observable, and portable.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A long-lived Rust client/service architecture with platform IPC,
+					backend abstraction, structured diagnostics, and host-portable MCP
+					tools.
+				</li>
+				<li>
+					Desktop automation foundations across Linux and Windows, including
+					AT-SPI, Wayland/X11 capture and input, Win32/UIA discovery, GDI
+					capture, and SendInput.
+				</li>
+				<li>
+					A schema-validated agent tool surface with semantic and physical input
+					modes, screenshot delivery, explicit readiness checks, and fallback
+					reporting.
+				</li>
+				<li>
+					Browser-control tooling for tab discovery, page snapshots, screenshots,
+					CLI integration, and native-host validation.
+				</li>
+				<li>
+					Android integration through ADB for discovery, pairing, connection,
+					UI inspection, screenshots, and input control.
+				</li>
+				<li>
+					Packaging and smoke-test workflows for Codex, OpenClaw, Claude Code,
+					OpenCode, and other MCP hosts.
+				</li>
+			</ul>
+
+			<h2>Engineering shape</h2>
+			<p>
+				The important design decision was not to hide platform weirdness behind
+				a fake universal API. The system exposes a stable tool contract to the
+				agent while preserving enough backend-specific diagnostics to explain why
+				a capture, click, native host, or device connection failed. That makes it
+				debuggable instead of magical — and magical is usually just broken with
+				better marketing.
+			</p>
+
+			<h2>Why it matters</h2>
+			<p>
+				sky-cua turns computer-use from a demo trick into infrastructure: agents
+				can be given durable, testable workflows across desktop, browser, and
+				mobile surfaces, with enough observability to recover when the real world
+				refuses to behave.
+			</p>
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>
