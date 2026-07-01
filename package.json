@@ -30,6 +30,18 @@
 		"sass": "^1.101.0",
 		"typescript": "^6.0.3"
 	},
+	"pnpm": {
+		"overrides": {
+			"ajv@6": "^6.14.0",
+			"mdast-util-to-hast": "^13.2.1",
+			"path-to-regexp@6": "^6.3.0",
+			"picomatch@2": "^2.3.2",
+			"picomatch@4": "^4.0.4",
+			"rollup": "^4.59.0",
+			"tar": "^7.5.16",
+			"yaml@2": "^2.8.3"
+		}
+	},
 	"engines": {
 		"node": ">=22.12.0"
 	}
