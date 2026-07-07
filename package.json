@@ -15,10 +15,11 @@
 		"generate:og": "node tools/generate-og-card.mjs",
 		"check": "biome check --fix",
 		"check:types": "astro check",
-		"check:links": "linkinator ./dist --recurse --skip \"^(?!http://localhost)\""
+		"check:links": "linkinator ./dist --recurse --skip \"^(?!http://localhost)\"",
+		"check:overrides": "node tools/check-overrides-sync.mjs",
+		"test": "node --test \"tools/**/*.test.mjs\""
 	},
 	"dependencies": {
-		"@astrojs/partytown": "^2.1.7",
 		"@astrojs/sitemap": "^3.7.3",
 		"@astrojs/vercel": "^11.0.0",
 		"@vercel/analytics": "^2.0.1",
