@@ -1,34 +1,18 @@
 %% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
-flowchart LR
-  agent["Agent host"]
-  mcp["MCP tool surface"]
-  action_router["Unified action surface"]
-  service["Rust service"]
-
+flowchart TD
+  agent["Agent host"] -->|"asks for state or action"| mcp["MCP tool surface"]
+  mcp -->|"34 focused tools"| action_router["Unified action surface"]
+  action_router -->|"targets active control surface"| service["Rust service"]
   subgraph desktop["Desktop backends"]
     linux["Linux capture and input"]
     windows["Windows UIA and input"]
     accessibility["Accessibility tree"]
   end
-
   subgraph adjacent["Adjacent device surfaces"]
     browser["Browser tabs and snapshots"]
     android["Android ADB control"]
   end
-
-  diagnostics["Structured diagnostics"]
-
-  agent -->|"asks for state or action"| mcp
-  mcp -->|"34 focused tools"| action_router
-  action_router -->|"targets active control surface"| service
-  service --> linux
-  service --> windows
-  service --> accessibility
-  service --> browser
-  service --> android
-  linux --> diagnostics
-  windows --> diagnostics
-  accessibility --> diagnostics
-  browser --> diagnostics
-  android --> diagnostics
-  diagnostics -->|"capability and failure reports"| agent
+  service --> desktop
+  service --> adjacent
+  desktop --> diagnostics["Structured diagnostics<br>capability and failure reports return to the agent"]
+  adjacent --> diagnostics
