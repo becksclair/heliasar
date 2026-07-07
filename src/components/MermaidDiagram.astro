@@ -13,7 +13,8 @@ const { title, svg, caption } = Astro.props;
 		<strong>{title}</strong>
 		{caption && <span>{caption}</span>}
 	</figcaption>
-	<div class="mermaid-diagram__chart" set:html={svg} />
+	{/* The figcaption names the figure; the SVG itself is decorative. */}
+	<div class="mermaid-diagram__chart" aria-hidden="true" set:html={svg} />
 </figure>
 
 <style lang="scss">
