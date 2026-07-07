@@ -1,20 +1,11 @@
 %% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
-flowchart LR
-  vendor["Vendor app"]
-  capture["USB capture"]
-  fixture["JSONL fixtures"]
-  replay["Replay harness"]
-  rust["Rust control layer"]
-  surfaces["CLI browser native UI agent workflows"]
-  hardware["EMEET PIXY hardware"]
-  diagnostics["Diagnostics"]
-
-  vendor -->|"HID and libusb traffic"| capture
-  capture -->|"reduce to repeatable sequences"| fixture
-  fixture --> replay
-  replay -->|"verify against device"| hardware
-  replay -->|"promote confirmed commands"| rust
-  rust --> surfaces
+flowchart TD
+  vendor["Vendor app"] -->|"HID and libusb traffic"| capture["USB capture"]
+  capture -->|"reduce to repeatable sequences"| fixture["JSONL fixtures"]
+  fixture --> replay["Replay harness"]
+  replay -->|"verify against device"| hardware["EMEET PIXY hardware"]
+  replay -->|"promote confirmed commands"| rust["Rust control layer"]
+  rust --> surfaces["CLI · browser · native UI · agent workflows"]
   rust -->|"PTZ modes discovery preview"| hardware
-  hardware -->|"state and failures"| diagnostics
+  hardware -->|"state and failures"| diagnostics["Diagnostics"]
   diagnostics --> surfaces

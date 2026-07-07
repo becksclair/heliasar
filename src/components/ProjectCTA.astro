@@ -1,0 +1,35 @@
+---
+// End-of-article navigation for project pages: keeps a reader (typically a
+// recruiter or fellow engineer) moving instead of hitting a dead end.
+---
+
+<nav class="project-cta" aria-label="Continue exploring">
+	<a href="/projects/">← All projects</a>
+	<a href="/resume">Resume</a>
+	<a href="https://github.com/becksClair" target="_blank" rel="noopener noreferrer"
+		>GitHub</a
+	>
+</nav>
+
+<style lang="scss">
+	.project-cta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 2rem;
+		margin-top: 2.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid rgba(var(--accent), 24%);
+
+		a {
+			font-family: Chicago, sans-serif;
+			font-size: 1rem;
+			color: rgb(var(--accent));
+			text-decoration: none;
+
+			&:hover,
+			&:focus-visible {
+				text-decoration: underline;
+			}
+		}
+	}
+</style>

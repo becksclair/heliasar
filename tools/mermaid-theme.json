@@ -8,6 +8,9 @@
 		"lineColor": "#475467",
 		"secondaryColor": "#f7d9ff",
 		"tertiaryColor": "#fff7ed",
-		"fontFamily": "ChiKareGo2, Geneva, sans-serif"
+		"fontFamily": "ChiKareGo2, Geneva, sans-serif",
+		"fontSize": "16px",
+		"clusterBkg": "#fdf7ff",
+		"clusterBorder": "#c4b5fd"
 	}
 }
