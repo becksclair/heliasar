@@ -1,4 +1,3 @@
-import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
@@ -8,7 +7,6 @@ import robotsTxt from "astro-robots-txt";
 export default defineConfig({
 	site: "https://heliasar.com",
 	integrations: [
-		partytown(),
 		robotsTxt(),
 		sitemap({ filter: (page) => !page.includes("/resume-print") }),
 	],
