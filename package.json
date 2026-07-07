@@ -20,6 +20,7 @@
 		"test": "node --test \"tools/**/*.test.mjs\""
 	},
 	"dependencies": {
+		"@astrojs/rss": "^4.0.19",
 		"@astrojs/sitemap": "^3.7.3",
 		"@astrojs/vercel": "^11.0.0",
 		"@vercel/analytics": "^2.0.1",
