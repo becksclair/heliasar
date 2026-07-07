@@ -14,7 +14,8 @@
 		"export:resume-pdf": "node tools/export-resume-pdf.mjs",
 		"generate:og": "node tools/generate-og-card.mjs",
 		"check": "biome check --fix",
-		"check:types": "astro check"
+		"check:types": "astro check",
+		"check:overrides": "node tools/check-overrides-sync.mjs"
 	},
 	"dependencies": {
 		"@astrojs/partytown": "^2.1.7",
