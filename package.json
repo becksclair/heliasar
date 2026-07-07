@@ -15,7 +15,8 @@
 		"generate:og": "node tools/generate-og-card.mjs",
 		"check": "biome check --fix",
 		"check:types": "astro check",
-		"check:overrides": "node tools/check-overrides-sync.mjs"
+		"check:overrides": "node tools/check-overrides-sync.mjs",
+		"test": "node --test \"tools/**/*.test.mjs\""
 	},
 	"dependencies": {
 		"@astrojs/sitemap": "^3.7.3",

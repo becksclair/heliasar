@@ -31,7 +31,9 @@ for (const line of workspace.split("\n")) {
 const a = JSON.stringify(Object.entries(pkgOverrides).sort());
 const b = JSON.stringify(Object.entries(wsOverrides).sort());
 if (a !== b) {
-	console.error("Override maps differ between package.json and pnpm-workspace.yaml:");
+	console.error(
+		"Override maps differ between package.json and pnpm-workspace.yaml:",
+	);
 	console.error("package.json:", pkgOverrides);
 	console.error("pnpm-workspace.yaml:", wsOverrides);
 	process.exit(1);
