@@ -1,62 +1,8 @@
 ---
+import actionLoopSvg from "../../assets/diagrams/sky-cua-action-loop.svg?raw";
+import architectureSvg from "../../assets/diagrams/sky-cua-architecture.svg?raw";
 import MermaidDiagram from "../../components/MermaidDiagram.astro";
 import Layout from "../../layouts/Layout.astro";
-
-const architectureDiagram = `flowchart LR
-  agent["Agent host"]
-  mcp["MCP tool surface"]
-  action_router["Unified action surface"]
-  service["Rust service"]
-
-  subgraph desktop["Desktop backends"]
-    linux["Linux capture and input"]
-    windows["Windows UIA and input"]
-    accessibility["Accessibility tree"]
-  end
-
-  subgraph adjacent["Adjacent device surfaces"]
-    browser["Browser tabs and snapshots"]
-    android["Android ADB control"]
-  end
-
-  diagnostics["Structured diagnostics"]
-
-  agent -->|"asks for state or action"| mcp
-  mcp -->|"34 focused tools"| action_router
-  action_router -->|"targets active control surface"| service
-  service --> linux
-  service --> windows
-  service --> accessibility
-  service --> browser
-  service --> android
-  linux --> diagnostics
-  windows --> diagnostics
-  accessibility --> diagnostics
-  browser --> diagnostics
-  android --> diagnostics
-  diagnostics -->|"capability and failure reports"| agent`;
-
-const actionLoopDiagram = `sequenceDiagram
-  participant Agent
-  participant Tools as MCP tools
-  participant Service as Rust service
-  participant Backend as Native backend
-  participant UI as Real UI
-
-  Agent->>Tools: Discover capabilities
-  Tools->>Service: Request backend readiness
-  Service->>Backend: Probe capture input accessibility
-  Backend-->>Service: Ready partial or blocked
-  Service-->>Agent: Capability report
-  Agent->>Tools: Inspect screen or tree
-  Tools->>Service: Capture current state
-  Service->>UI: Screenshot or UI query
-  UI-->>Service: Current evidence
-  Service-->>Agent: Observable state
-  Agent->>Tools: Act with semantic or coordinate input
-  Tools->>Service: Execute checked action
-  Service->>Backend: Native input
-  Backend-->>Agent: Result or precise failure`;
 ---
 
 <Layout
@@ -144,13 +90,13 @@ const actionLoopDiagram = `sequenceDiagram
 			<MermaidDiagram
 				title="Architecture"
 				caption="sky-cua keeps the model-facing contract stable while each native backend reports its own real capabilities and failures."
-				chart={architectureDiagram}
+				svg={architectureSvg}
 			/>
 
 			<MermaidDiagram
 				title="Agent action loop"
 				caption="The important part is the evidence loop: discover, inspect, act, and return a useful result instead of pretending the desktop is a clean API."
-				chart={actionLoopDiagram}
+				svg={actionLoopSvg}
 			/>
 
 			<h2>How it achieves the goal</h2>

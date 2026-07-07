@@ -1,0 +1,19 @@
+flowchart LR
+  wav["Golden Record WAV"]
+  waveform["Waveform navigation"]
+  window["Decode window"]
+  sync["Line sync detection"]
+  slant["Slant correction"]
+  resample["Anti aliased resampling"]
+  normalize["Percentile normalization"]
+  image["Decoded image"]
+  export["PNG export"]
+
+  wav --> waveform
+  waveform --> window
+  window --> sync
+  sync --> slant
+  slant --> resample
+  resample --> normalize
+  normalize --> image
+  image --> export

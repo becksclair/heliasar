@@ -1,0 +1,20 @@
+flowchart LR
+  camera["Camera frames"]
+  ingest["V4L2 or GStreamer ingest"]
+  enhance["Realtime enhancement stages"]
+  denoise["Temporal denoise"]
+  superres["GPU super resolution"]
+  tone["Low light tone mapping"]
+  preview["Preview and control UI"]
+  agent["Script or agent workflow"]
+
+  camera --> ingest
+  ingest --> enhance
+  enhance --> denoise
+  enhance --> superres
+  enhance --> tone
+  denoise --> preview
+  superres --> preview
+  tone --> preview
+  preview --> agent
+  agent -->|"PTZ and mode commands"| camera

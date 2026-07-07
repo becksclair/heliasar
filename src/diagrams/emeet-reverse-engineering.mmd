@@ -1,0 +1,19 @@
+flowchart LR
+  vendor["Vendor app"]
+  capture["USB capture"]
+  fixture["JSONL fixtures"]
+  replay["Replay harness"]
+  rust["Rust control layer"]
+  surfaces["CLI browser native UI agent workflows"]
+  hardware["EMEET PIXY hardware"]
+  diagnostics["Diagnostics"]
+
+  vendor -->|"HID and libusb traffic"| capture
+  capture -->|"reduce to repeatable sequences"| fixture
+  fixture --> replay
+  replay -->|"verify against device"| hardware
+  replay -->|"promote confirmed commands"| rust
+  rust --> surfaces
+  rust -->|"PTZ modes discovery preview"| hardware
+  hardware -->|"state and failures"| diagnostics
+  diagnostics --> surfaces

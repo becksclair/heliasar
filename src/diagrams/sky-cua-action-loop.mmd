@@ -1,0 +1,21 @@
+sequenceDiagram
+  participant Agent
+  participant Tools as MCP tools
+  participant Service as Rust service
+  participant Backend as Native backend
+  participant UI as Real UI
+
+  Agent->>Tools: Discover capabilities
+  Tools->>Service: Request backend readiness
+  Service->>Backend: Probe capture input accessibility
+  Backend-->>Service: Ready partial or blocked
+  Service-->>Agent: Capability report
+  Agent->>Tools: Inspect screen or tree
+  Tools->>Service: Capture current state
+  Service->>UI: Screenshot or UI query
+  UI-->>Service: Current evidence
+  Service-->>Agent: Observable state
+  Agent->>Tools: Act with semantic or coordinate input
+  Tools->>Service: Execute checked action
+  Service->>Backend: Native input
+  Backend-->>Agent: Result or precise failure

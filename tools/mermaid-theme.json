@@ -1,0 +1,13 @@
+{
+	"theme": "base",
+	"themeVariables": {
+		"background": "#ffffff",
+		"primaryColor": "#faefff",
+		"primaryTextColor": "#0e0016",
+		"primaryBorderColor": "#7c3aed",
+		"lineColor": "#475467",
+		"secondaryColor": "#f7d9ff",
+		"tertiaryColor": "#fff7ed",
+		"fontFamily": "ChiKareGo2, Geneva, sans-serif"
+	}
+}
