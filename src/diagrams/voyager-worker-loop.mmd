@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant UI as egui interface
+  participant Queue as Worker queue
+  participant Decode as Decode worker
+  participant Diagnostics
+  participant Result as Result cache
+
+  UI->>Queue: Submit decode or diagnostic job
+  Queue->>Decode: Run latest requested window
+  Decode->>Diagnostics: Emit sync stats spectrogram segments
+  Decode-->>Result: Store image and metadata
+  UI->>Queue: Cancel stale work when controls change
+  Queue-->>Decode: Stop old job
+  Result-->>UI: Show only current result
+  Diagnostics-->>UI: Explain why the image looks that way
