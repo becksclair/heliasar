@@ -1,47 +1,8 @@
 ---
+import previewPipelineSvg from "../../assets/diagrams/emeet-preview-pipeline.svg?raw";
+import reverseEngineeringSvg from "../../assets/diagrams/emeet-reverse-engineering.svg?raw";
 import MermaidDiagram from "../../components/MermaidDiagram.astro";
 import Layout from "../../layouts/Layout.astro";
-
-const reverseEngineeringDiagram = `flowchart LR
-  vendor["Vendor app"]
-  capture["USB capture"]
-  fixture["JSONL fixtures"]
-  replay["Replay harness"]
-  rust["Rust control layer"]
-  surfaces["CLI browser native UI agent workflows"]
-  hardware["EMEET PIXY hardware"]
-  diagnostics["Diagnostics"]
-
-  vendor -->|"HID and libusb traffic"| capture
-  capture -->|"reduce to repeatable sequences"| fixture
-  fixture --> replay
-  replay -->|"verify against device"| hardware
-  replay -->|"promote confirmed commands"| rust
-  rust --> surfaces
-  rust -->|"PTZ modes discovery preview"| hardware
-  hardware -->|"state and failures"| diagnostics
-  diagnostics --> surfaces`;
-
-const previewPipelineDiagram = `flowchart LR
-  camera["Camera frames"]
-  ingest["V4L2 or GStreamer ingest"]
-  enhance["Realtime enhancement stages"]
-  denoise["Temporal denoise"]
-  superres["GPU super resolution"]
-  tone["Low light tone mapping"]
-  preview["Preview and control UI"]
-  agent["Script or agent workflow"]
-
-  camera --> ingest
-  ingest --> enhance
-  enhance --> denoise
-  enhance --> superres
-  enhance --> tone
-  denoise --> preview
-  superres --> preview
-  tone --> preview
-  preview --> agent
-  agent -->|"PTZ and mode commands"| camera`;
 ---
 
 <Layout
@@ -113,13 +74,13 @@ const previewPipelineDiagram = `flowchart LR
 			<MermaidDiagram
 				title="Reverse-engineering loop"
 				caption="The project keeps the proof trail close to the runtime: packet capture becomes fixtures, fixtures become verified replay, and only confirmed behavior becomes camera control."
-				chart={reverseEngineeringDiagram}
+				svg={reverseEngineeringSvg}
 			/>
 
 			<MermaidDiagram
 				title="Preview enhancement pipeline"
 				caption="The live-preview work is staged so each enhancement can be reasoned about, measured, and kept inside realtime constraints."
-				chart={previewPipelineDiagram}
+				svg={previewPipelineSvg}
 			/>
 
 			<h2>How it achieves the goal</h2>

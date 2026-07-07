@@ -1,11 +1,11 @@
 ---
 export interface Props {
 	title: string;
-	chart: string;
+	svg: string;
 	caption?: string;
 }
 
-const { title, chart, caption } = Astro.props;
+const { title, svg, caption } = Astro.props;
 ---
 
 <figure class="mermaid-diagram">
@@ -13,34 +13,8 @@ const { title, chart, caption } = Astro.props;
 		<strong>{title}</strong>
 		{caption && <span>{caption}</span>}
 	</figcaption>
-	<pre class="mermaid-diagram__chart">{chart}</pre>
+	<div class="mermaid-diagram__chart" set:html={svg} />
 </figure>
-
-<script>
-	import mermaid from "mermaid";
-
-	mermaid.initialize({
-		startOnLoad: false,
-		securityLevel: "strict",
-		theme: "base",
-		themeVariables: {
-			background: "#ffffff",
-			primaryColor: "#faefff",
-			primaryTextColor: "#0e0016",
-			primaryBorderColor: "#7c3aed",
-			lineColor: "#475467",
-			secondaryColor: "#f7d9ff",
-			tertiaryColor: "#fff7ed",
-			fontFamily: "ChiKareGo2, Geneva, sans-serif",
-		},
-	});
-
-	const diagrams = document.querySelectorAll<HTMLElement>(
-		".mermaid-diagram__chart",
-	);
-
-	await mermaid.run({ nodes: diagrams });
-</script>
 
 <style lang="scss">
 	.mermaid-diagram {
@@ -71,5 +45,10 @@ const { title, chart, caption } = Astro.props;
 		padding: 0.5rem;
 		background: transparent;
 		text-align: center;
+
+		svg {
+			max-width: 100%;
+			height: auto;
+		}
 	}
 </style>

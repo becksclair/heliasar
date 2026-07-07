@@ -20,7 +20,8 @@
 			"!**/public",
 			"!**/tmp",
 			"!**/.astro",
-			"!**/.vercel"
+			"!**/.vercel",
+			"!src/assets/diagrams"
 		]
 	},
 	"formatter": {

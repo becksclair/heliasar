@@ -1,5 +1,7 @@
 ---
 import { Image } from "astro:assets";
+import decodePipelineSvg from "../../assets/diagrams/voyager-decode-pipeline.svg?raw";
+import workerLoopSvg from "../../assets/diagrams/voyager-worker-loop.svg?raw";
 import decodedAnatomy from "../../assets/projects/voyager/decoded-anatomy.png";
 import decodedCalibrationCircle from "../../assets/projects/voyager/decoded-calibration-circle.png";
 import decodedEarth from "../../assets/projects/voyager/decoded-earth.png";
@@ -10,42 +12,6 @@ import goldenRecordCover from "../../assets/projects/voyager/golden-record-cover
 import spectrogramFirstFrames from "../../assets/projects/voyager/spectrogram-first-frames.png";
 import MermaidDiagram from "../../components/MermaidDiagram.astro";
 import Layout from "../../layouts/Layout.astro";
-
-const decodePipelineDiagram = `flowchart LR
-  wav["Golden Record WAV"]
-  waveform["Waveform navigation"]
-  window["Decode window"]
-  sync["Line sync detection"]
-  slant["Slant correction"]
-  resample["Anti aliased resampling"]
-  normalize["Percentile normalization"]
-  image["Decoded image"]
-  export["PNG export"]
-
-  wav --> waveform
-  waveform --> window
-  window --> sync
-  sync --> slant
-  slant --> resample
-  resample --> normalize
-  normalize --> image
-  image --> export`;
-
-const workerDiagram = `sequenceDiagram
-  participant UI as egui interface
-  participant Queue as Worker queue
-  participant Decode as Decode worker
-  participant Diagnostics
-  participant Result as Result cache
-
-  UI->>Queue: Submit decode or diagnostic job
-  Queue->>Decode: Run latest requested window
-  Decode->>Diagnostics: Emit sync stats spectrogram segments
-  Decode-->>Result: Store image and metadata
-  UI->>Queue: Cancel stale work when controls change
-  Queue-->>Decode: Stop old job
-  Result-->>UI: Show only current result
-  Diagnostics-->>UI: Explain why the image looks that way`;
 ---
 
 <Layout
@@ -118,13 +84,13 @@ const workerDiagram = `sequenceDiagram
 			<MermaidDiagram
 				title="Decode pipeline"
 				caption="The audio is treated as an inspectable signal path, not a black-box converter."
-				chart={decodePipelineDiagram}
+				svg={decodePipelineSvg}
 			/>
 
 			<MermaidDiagram
 				title="Responsive exploration loop"
 				caption="Long-running decode and diagnostic work stays behind a queue so the UI can remain interactive while stale work is cancelled."
-				chart={workerDiagram}
+				svg={workerLoopSvg}
 			/>
 
 			<h2>Visual evidence from the record</h2>
