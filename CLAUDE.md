@@ -15,7 +15,7 @@ Commands and traps for this repo. See `README.md` for the full project overview.
 - `pnpm sync:resume` / `pnpm export:resume-pdf` / `pnpm generate:og` — resume/OG pipeline, see below.
 - `pnpm generate:diagrams` — re-render committed diagram SVGs from `src/diagrams/*.mmd`.
 
-pnpm only — never `npm` or `yarn`. Node >= 22.12.0.
+pnpm only — never `npm` or `yarn`. Node >= 22.13.0.
 
 ## Traps
 

@@ -11,7 +11,7 @@ Personal website of Rebecca Clair: resume, projects, and blog. Built with Astro,
 - Styling: one global stylesheet (`src/styles/styles.scss`) plus scoped `<style lang="scss">` blocks in components, layered on top of the retro `public/systemcss/system.css` theme.
 - Linting/formatting: [Biome](https://biomejs.dev) (`biome.jsonc`, tabs).
 - Types: `astro check` via `@astrojs/check`.
-- Package manager: pnpm 11 (`packageManager` field in `package.json`). Node >= 22.12.0 (see `.nvmrc` / `engines`).
+- Package manager: pnpm 11 (`packageManager` field in `package.json`). Node >= 22.13.0 (see `.nvmrc` / `engines`).
 
 ## Getting started
 
