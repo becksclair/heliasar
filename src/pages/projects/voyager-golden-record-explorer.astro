@@ -1,4 +1,13 @@
 ---
+import { Image } from "astro:assets";
+import decodedAnatomy from "../../assets/projects/voyager/decoded-anatomy.png";
+import decodedCalibrationCircle from "../../assets/projects/voyager/decoded-calibration-circle.png";
+import decodedEarth from "../../assets/projects/voyager/decoded-earth.png";
+import decodedFish from "../../assets/projects/voyager/decoded-fish.png";
+import decodedMeasurementDiagram from "../../assets/projects/voyager/decoded-measurement-diagram.png";
+import decodedRecordInstructions from "../../assets/projects/voyager/decoded-record-instructions.png";
+import goldenRecordCover from "../../assets/projects/voyager/golden-record-cover.jpg";
+import spectrogramFirstFrames from "../../assets/projects/voyager/spectrogram-first-frames.png";
 import MermaidDiagram from "../../components/MermaidDiagram.astro";
 import Layout from "../../layouts/Layout.astro";
 
@@ -130,10 +139,11 @@ const workerDiagram = `sequenceDiagram
 
 			<div class="voyager-visuals">
 				<figure class="record-cover">
-					<img
-						src="/images/projects/voyager/golden-record-cover.jpg"
+					<Image
+						src={goldenRecordCover}
 						alt="The Voyager Golden Record cover diagram"
-						loading="lazy"
+						widths={[480, 760, 980]}
+						sizes="(max-width: 760px) 100vw, 760px"
 					/>
 					<figcaption>
 						The Golden Record cover is the instruction manual: playback speed,
@@ -141,10 +151,11 @@ const workerDiagram = `sequenceDiagram
 					</figcaption>
 				</figure>
 				<figure class="spectrogram">
-					<img
-						src="/images/projects/voyager/spectrogram-first-frames.png"
+					<Image
+						src={spectrogramFirstFrames}
 						alt="Spectrogram of the first decoded Voyager Golden Record image frames"
-						loading="lazy"
+						widths={[480, 760, 980]}
+						sizes="(max-width: 760px) 100vw, 760px"
 					/>
 					<figcaption>
 						A spectrogram over the first decoded frames, with frequency markers,
@@ -156,50 +167,56 @@ const workerDiagram = `sequenceDiagram
 
 			<div class="decoded-grid" aria-label="Decoded Voyager Golden Record frames">
 				<figure>
-					<img
-						src="/images/projects/voyager/decoded-calibration-circle.png"
+					<Image
+						src={decodedCalibrationCircle}
 						alt="Decoded Voyager Golden Record calibration circle"
-						loading="lazy"
+						widths={[320, 480, 640]}
+						sizes="(max-width: 760px) 100vw, 320px"
 					/>
 					<figcaption>Calibration circle</figcaption>
 				</figure>
 				<figure>
-					<img
-						src="/images/projects/voyager/decoded-measurement-diagram.png"
+					<Image
+						src={decodedMeasurementDiagram}
 						alt="Decoded Voyager Golden Record measurement diagram"
-						loading="lazy"
+						widths={[320, 480, 640]}
+						sizes="(max-width: 760px) 100vw, 320px"
 					/>
 					<figcaption>Measurement diagram</figcaption>
 				</figure>
 				<figure>
-					<img
-						src="/images/projects/voyager/decoded-earth.png"
+					<Image
+						src={decodedEarth}
 						alt="Decoded Voyager Golden Record image of Earth"
-						loading="lazy"
+						widths={[320, 480, 640]}
+						sizes="(max-width: 760px) 100vw, 320px"
 					/>
 					<figcaption>Earth frame</figcaption>
 				</figure>
 				<figure>
-					<img
-						src="/images/projects/voyager/decoded-anatomy.png"
+					<Image
+						src={decodedAnatomy}
 						alt="Decoded Voyager Golden Record anatomical image"
-						loading="lazy"
+						widths={[320, 480, 640]}
+						sizes="(max-width: 760px) 100vw, 320px"
 					/>
 					<figcaption>Anatomy frame</figcaption>
 				</figure>
 				<figure>
-					<img
-						src="/images/projects/voyager/decoded-fish.png"
+					<Image
+						src={decodedFish}
 						alt="Decoded Voyager Golden Record fish image"
-						loading="lazy"
+						widths={[320, 480, 640]}
+						sizes="(max-width: 760px) 100vw, 320px"
 					/>
 					<figcaption>Fish frame</figcaption>
 				</figure>
 				<figure>
-					<img
-						src="/images/projects/voyager/decoded-record-instructions.png"
+					<Image
+						src={decodedRecordInstructions}
 						alt="Decoded Voyager Golden Record instruction diagram"
-						loading="lazy"
+						widths={[320, 480, 640]}
+						sizes="(max-width: 760px) 100vw, 320px"
 					/>
 					<figcaption>Instruction diagram</figcaption>
 				</figure>
