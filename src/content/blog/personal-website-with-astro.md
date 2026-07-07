@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
 title: 'Personal Website with Astro'
 pubDate: 2023-05-07
 description: 'Creating a Personal Website with Astro'
