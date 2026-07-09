@@ -1,0 +1,6 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	hotkey["Hold-to-dictate hotkey<br>GlobalShortcuts desktop portal"] --> engine["Dictation state machine<br>idle, recording, transcribing, inserting<br>typed error stages always return to idle"]
+	engine --> capture["CPAL microphone capture<br>lock-free channel to a dedicated WAV writer thread"]
+	capture --> transcribe["Transcription<br>local server first, direct Codex session fallback"]
+	transcribe --> inject["Wayland paste injection<br>RemoteDesktop portal keycodes, clipboard snapshot and restore"]

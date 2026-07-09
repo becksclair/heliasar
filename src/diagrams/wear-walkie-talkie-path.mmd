@@ -1,0 +1,5 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	watch["Watch: tap the orb and talk<br>the watch holds no credentials"] -->|"PCM16, 24 kHz mono, 200 ms chunks<br>turn-scoped over the Wearable Data Layer"| relay["Phone relay<br>reorder-tolerant reassembly, drop detection"]
+	relay -->|"inherits trust from the paired phone node"| gateway["Gateway session on the phone<br>speech-to-text, agent, text-to-speech"]
+	gateway -->|"format-negotiated audio<br>Ogg-Opus preferred, decoded on-watch"| back["Watch playback<br>1.5x speaker gain applied only at the output"]

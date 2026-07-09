@@ -1,0 +1,180 @@
+---
+import architectureSvg from "../../assets/diagrams/skynet-architecture.svg?raw";
+import frameTransportSvg from "../../assets/diagrams/skynet-frame-transport.svg?raw";
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
+import ProjectCTA from "../../components/ProjectCTA.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="Skynet"
+	description="Skynet is Rebecca Clair's from-scratch reimplementation of the architecture behind OpenAI's Atlas browser: a C++23/Qt shell, an out-of-process CEF runtime service, zero-copy GPU frame transport on Linux, and an authenticated CDP gateway for AI agents."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">Browser engineering · GPU systems · AI-agent infrastructure</p>
+			<h1>Skynet</h1>
+			<p class="lede">
+				Skynet is a from-scratch reimplementation of the architecture behind
+				OpenAI's Atlas browser: a native C++23/Qt Quick shell, a separate
+				runtime service that owns all Chromium state, zero-copy GPU frame
+				transport, and an authenticated control surface that lets AI agents
+				drive the browser — the same runtime that also backs a patched Codex
+				Desktop as a second embedder.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				An AI-powered browser is really two problems wearing one trench coat.
+				The first is architectural: if agents, embedders, and the browser
+				engine all live in one process, every crash, upgrade, and security
+				decision is entangled. Atlas solves this by splitting the app from a
+				browser runtime service, but that runtime is proprietary and
+				macOS-shaped. The second is brutally practical: getting
+				Chromium-rendered frames onto the screen without copying them through
+				the CPU, on Linux, across Intel and NVIDIA — the part with the
+				reputation for being impossible.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A two-process design: a Qt 6 Quick shell that owns no browser state,
+					and a <code>skynet-runtime</code> sidecar that owns every CEF
+					browser, client, and off-screen rendering surface.
+				</li>
+				<li>
+					An OWL-compatible, versioned JSON-RPC 2.0 protocol between them —
+					profiles, sessions, pages, surfaces, and input — carried over stdio,
+					Unix sockets, or loopback WebSocket, derived by reverse engineering
+					the real Atlas application bundle.
+				</li>
+				<li>
+					A zero-copy GPU frame lane: CEF renders off-screen in the sidecar
+					and frames cross the process boundary as DRM dma-buf file
+					descriptors with plane, stride, and modifier metadata, fenced with
+					native sync and presented directly in Qt's Vulkan scene graph.
+				</li>
+				<li>
+					An authenticated Chrome DevTools Protocol gateway for agents, with
+					bearer tokens and an epoch-based replay guard, so a driver like
+					Codex Desktop can control pages without ever touching raw CEF
+					internals.
+				</li>
+				<li>
+					Crash-resilient surfaces: the frame stream survives GPU-process and
+					renderer crashes in the sidecar and re-establishes itself instead of
+					leaving the shell staring at a dead texture.
+				</li>
+				<li>
+					A second embedder, running today: the same runtime embedded into a
+					patched Codex Desktop, handing the Electron app real GPU frames over
+					a dma-buf file-descriptor-passing socket and taking input back — one
+					runtime backing both the Qt shell and an Electron app.
+				</li>
+			</ul>
+
+			<h2>How it works</h2>
+			<p>
+				One rule holds everything up: the UI process owns no browser objects —
+				not one. The shell renders chrome and forwards intent; the runtime host
+				owns CEF, off-screen rendering, page lifecycle, and input injection.
+				That boundary is what makes the rest possible: the runtime can crash,
+				restart, or be swapped without taking the shell down, and any embedder
+				that speaks the protocol gets a browser.
+			</p>
+			<p>
+				The protocol itself came out of research, not guesswork. I extracted
+				the actual Atlas application bundle and derived its object model —
+				sessions, profiles, web views, layer hosts — from the binaries, then
+				reimplemented that shape as an authenticated, versioned JSON-RPC
+				surface. Skynet contains none of Atlas's code; it speaks the
+				architecture, not the implementation.
+			</p>
+
+			<MermaidDiagram
+				title="Architecture"
+				caption="The shell and the agent are both just clients: every browser object lives in the runtime sidecar, and frames flow back over the zero-copy lane."
+				svg={architectureSvg}
+			/>
+
+			<p>
+				The frame transport is where the GPU work lives. On Linux the
+				production default is the <code>gpu-dmabuf</code> lane on both Intel
+				and NVIDIA: frames leave CEF as dma-buf descriptors and are imported
+				straight into Qt's Vulkan scene graph, never touching the CPU. That
+				default exists because of validation, not optimism — GLX dma-buf
+				imports sampled black on NVIDIA PRIME under X11, so the policy requires
+				Vulkan there and refuses the broken OpenGL path with a clear error
+				rather than shipping black surfaces. A shared-memory BGRA lane exists
+				as a deliberate, policy-selected fallback, not a silent one.
+			</p>
+
+			<MermaidDiagram
+				title="Frame transport"
+				caption="One frame contract, three lanes: zero-copy dma-buf as the default, shared memory as an explicit policy fallback, and structured-clone frames for Electron embedders."
+				svg={frameTransportSvg}
+			/>
+
+			<h2>How it achieves the goal</h2>
+			<p>
+				The goal is a browser runtime that AI can drive and any app can embed,
+				without trusting either one with the engine's internals. The CDP
+				gateway gives agents real DevTools-grade control, but every exposed
+				target maps to a runtime page identifier, every mutating call must
+				present the current runtime epoch, and native CEF DevTools stays
+				walled off as a development-only oracle. The agent gets capability;
+				the runtime keeps custody.
+			</p>
+			<p>
+				It already does the thing it exists to do: a single live surface
+				navigates, the GPU zero-copy path works on both Intel and NVIDIA under
+				Linux with no CPU copy in the frame path, and the runtime is embedded
+				and running inside my daily-driver Codex Desktop. The limits are real
+				and worth stating plainly — tabs are still metadata over that one
+				surface, extensions are a declared seam rather than a runtime, and the
+				OWL parity flags stay off until their conformance suites pass. The
+				foundations came first on purpose: process isolation, an authenticated
+				protocol, crash recovery, and cross-vendor zero-copy GPU presentation on
+				Linux — the part that is not hard so much as unforgiving.
+			</p>
+
+			<ProjectCTA />
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

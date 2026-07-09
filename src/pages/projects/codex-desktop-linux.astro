@@ -1,0 +1,179 @@
+---
+import patchPipelineSvg from "../../assets/diagrams/codex-desktop-patch-pipeline.svg?raw";
+import skynetEmbedSvg from "../../assets/diagrams/codex-desktop-skynet-embed.svg?raw";
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
+import ProjectCTA from "../../components/ProjectCTA.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="Codex Desktop for Linux"
+	description="Rebecca Clair made OpenAI's macOS-first Codex Desktop a first-class Linux application: native-toolchain fixes, a full KDE desktop-shell integration, a Wayland/GPU compatibility layer, a deterministic AST-based patch framework, and an embedded GPU-accelerated browser runtime."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">Linux porting · Build systems · Electron internals</p>
+			<h1>Codex Desktop for Linux</h1>
+			<p class="lede">
+				OpenAI's Codex Desktop ships for macOS. I made it a first-class Linux
+				application — native-toolchain fixes, a full KDE desktop-shell
+				integration, a Wayland and GPU compatibility layer, and a deterministic
+				patch framework that survives upstream updates — then embedded my own
+				GPU-accelerated browser runtime into it for computer-use workflows.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				The app is a macOS-first Electron build with minified bundles and no
+				Linux target. Making it a real Linux citizen is not one fix; it is a
+				hundred small ones — native modules that won't compile, a missing
+				system tray, no close-to-tray or explicit quit, single-instance locks,
+				CLI binaries under different names, Wayland/GPU quirks, and a
+				mac-specific "app sunset" gate that would disable the build outright.
+				And because it is someone else's app that ships new versions
+				constantly, every fix has to re-apply cleanly against next week's
+				bundle — or the whole thing goes stale in a fortnight.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A build pipeline that downloads the official app locally, extracts
+					its bundles, applies my patch set, and repackages it for macOS,
+					Windows, Linux, and a bespoke Arch package — driven by a flat
+					feature-flag map of roughly 66 toggles.
+				</li>
+				<li>
+					A deterministic patch framework: JavaScript targets are rewritten
+					only through the AST — parsed with acorn, located by syntactic shape,
+					spliced by AST-derived ranges — with textual find-and-replace banned
+					and enforced by tests. Every patch is idempotent and fails loudly on
+					drift.
+				</li>
+				<li>
+					A determinism gate that re-applies every patch in an isolated
+					workspace and byte-diffs the result against the committed tree, so a
+					patch that has quietly stopped matching upstream is caught
+					immediately rather than shipping a silent no-op.
+				</li>
+				<li>
+					A full Linux desktop-shell reconstruction rewritten into the minified
+					bundle: system tray, close-to-tray, explicit quit, multi-instance
+					support, a native Linux settings page, and open-target discovery for
+					terminals, file managers, and editors.
+				</li>
+				<li>
+					A native-toolchain and Wayland compatibility layer: node-gyp and
+					electron-rebuild ordering fixes for <code>better-sqlite3</code> and
+					<code>node-pty</code>, shell-environment hydration, CLI path
+					resolution, and GPU feature negotiation on Wayland.
+				</li>
+				<li>
+					A KDE "codexblur" compositor effect written from scratch in C++ and
+					GLSL, publishing app window geometry to KWin and adapting glass tint
+					to backdrop luminance with hysteresis.
+				</li>
+				<li>
+					An embedded GPU-accelerated browser: my Skynet runtime wired into the
+					Electron app over a zero-copy surface transport, giving computer-use
+					workflows a real browser instead of a screenshot.
+				</li>
+			</ul>
+
+			<h2>How it works</h2>
+			<p>
+				The pipeline treats the upstream app as an input, never a fork. It
+				pulls the official build from the vendor's own distribution at build
+				time, unpacks it, and runs the patch manifest — an ordered set of
+				roughly 55 patches with declared inter-dependencies. Because
+				the bundles are minified and change every release, the discipline is
+				strict: no patch is allowed to grep-and-replace source text. Each one
+				parses the bundle into a syntax tree, finds its seam by structure, and
+				edits ranges the parser hands back, so a patch either finds its exact
+				target or reports a clean miss.
+			</p>
+
+			<MermaidDiagram
+				title="Patch pipeline"
+				caption="The upstream app is an input, not a fork: downloaded fresh, patched through the AST only, and proven deterministic before it is ever repackaged."
+				svg={patchPipelineSvg}
+			/>
+
+			<p>
+				The browser embedding is where the systems work gets deepest. Skynet renders web
+				pages off-screen in a separate CEF process, and rather than screenshot
+				them, it hands the Electron app the actual GPU frame: dma-buf and fence
+				file descriptors passed over a sequential-packet socket via
+				<code>SCM_RIGHTS</code>, imported into the renderer as a shared texture
+				and drawn to a canvas with no CPU copy. A broker in the Electron main
+				process speaks browser-use JSON-RPC to the runtime behind an
+				epoch/nonce/token handshake, and pointer, wheel, and keyboard events
+				route back to the live surface. It is the same runtime that backs my
+				standalone browser shell — one runtime, two embedders.
+			</p>
+
+			<MermaidDiagram
+				title="Embedded browser surface"
+				caption="The browser lives in its own process and hands the app real GPU frames over a file-descriptor-passing socket — a genuine live surface with input routed back, not a picture of one."
+				svg={skynetEmbedSvg}
+			/>
+
+			<h2>How it achieves the goal</h2>
+			<p>
+				The measure of this project is not the first successful build; it is the
+				twentieth, against an upstream that never stopped moving. That is what
+				the AST discipline and the determinism gate buy — drift shows up as a
+				precise conflict at the exact seam, and a patch is deleted the release
+				upstream ships the fix itself. Roughly 80 test
+				files hold that contract, covering first-apply, idempotency, and
+				drift-error behavior for each patch.
+			</p>
+			<p>
+				It is worth being precise about what this is: interoperability and
+				porting work. The tooling operates on a copy downloaded to my own
+				machine, authenticated with my own account, and run on an operating
+				system the vendor did not target — making an app I use work where it
+				should, and fixing the rough edges along the way. The embedded browser
+				is opt-in behind a feature flag and advanced-experimental; the Linux
+				port is what I run every day.
+			</p>
+
+			<ProjectCTA />
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

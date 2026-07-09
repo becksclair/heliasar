@@ -1,0 +1,171 @@
+---
+import replayLedgerSvg from "../../assets/diagrams/openclaw-replay-ledger.svg?raw";
+import ttsHookSvg from "../../assets/diagrams/openclaw-tts-hook.svg?raw";
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
+import ProjectCTA from "../../components/ProjectCTA.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="OpenClaw Fork"
+	description="Rebecca Clair's production fork of the OpenClaw agent framework: a disciplined replay-ledger methodology for surviving a fast-moving upstream, a realtime full-duplex voice subsystem, and a plugin hook added at the speech-synthesis chokepoint."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">AI agents · Fork maintenance · Realtime voice</p>
+			<h1>OpenClaw Fork</h1>
+			<p class="lede">
+				OpenClaw is a fast-moving open-source AI agent framework. I maintain a
+				production fork of it — around forty distinct behavioral seams,
+				a whole new realtime-voice subsystem, and a plugin hook added to the
+				public package surface — kept alive against an upstream that ships
+				constantly, through a replay methodology disciplined enough that the
+				fork converges with upstream instead of rotting away from it.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				A large fork of an active project is usually a slow death. Every
+				upstream release drifts your changes further out of alignment, merge
+				conflicts compound, and eventually nobody remembers why a given patch
+				exists or whether upstream has since solved it — so the fork calcifies
+				and falls behind. Carrying dozens of real feature seams across hundreds
+				of upstream commits, without that decay, is not a merge problem. It is a
+				bookkeeping-and-judgment problem, and it needs a system.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A machine-consumable replay ledger: every delta my fork carries is
+					recorded as a behavioral seam, classified as a runtime carry, a
+					partial overlap, or a support proof, with per-version file-and-line
+					evidence and rebase instructions.
+				</li>
+				<li>
+					A disciplined replay workflow that re-homes the whole fork onto each
+					new upstream release, resolves conflicts against recorded intent, and
+					retires seams the moment upstream absorbs the behavior — so the fork
+					shrinks toward upstream rather than growing away from it.
+				</li>
+				<li>
+					A realtime full-duplex voice subsystem spanning the TypeScript
+					gateway, an Android app, and a provider-generic realtime relay, with
+					batch speech-to-text and text-to-speech demoted to fallback.
+				</li>
+				<li>
+					A first-class <code>tts_prepare</code> plugin hook added at the
+					speech-synthesis chokepoint, routed as a threaded callback across a
+					package import boundary it was not otherwise allowed to cross.
+				</li>
+				<li>
+					Concurrency-lifecycle fixes with matching implementations on both the
+					TypeScript and Android sides: text-to-speech delivery that survives
+					per-turn teardown, and a gateway send-gate that holds frames until the
+					connection handshake completes.
+				</li>
+				<li>
+					Agent-runtime depth: persistent memory recall against a warm
+					app-server client, context-engine prompt-budget accounting, and
+					heartbeat and notification-wake seams for an always-available agent.
+				</li>
+			</ul>
+
+			<h2>How it works</h2>
+			<p>
+				The ledger is the heart of it. It is not a changelog; it is a carry
+				contract, consumed by my own replay tooling. Each seam names the exact
+				behavior it preserves, why it exists, and how to re-apply it, and it is
+				tagged with its relationship to upstream. When a new release lands, the
+				fork is replayed onto it seam by seam, and the interesting work is the
+				triage: which carries still earn their keep, which upstream has quietly
+				made redundant, which now conflict and need re-derivation. Seams that
+				upstream absorbs are deliberately dropped, with a note, so the fork
+				never accumulates dead weight.
+			</p>
+
+			<MermaidDiagram
+				title="Replay ledger"
+				caption="Each upstream release triggers a full replay: every carried behavior is re-homed or retired, so a large fork keeps pace with a fast-moving upstream instead of falling behind."
+				svg={replayLedgerSvg}
+			/>
+
+			<p>
+				The <code>tts_prepare</code> hook is a small change made under a real
+				constraint, which is exactly why it is worth describing. I wanted a
+				plugin to be able to shape speech right at the synthesis point — for an
+				out-of-tree plugin that runs an LLM pass to add emotional delivery — but
+				the speech package is import-restricted from the plugin dispatcher for
+				good architectural reasons. Rather than break that boundary, the hook is
+				delivered as a threaded callback through a single bridge file, the only
+				place allowed to touch the global hook runner. The emotional-delivery
+				plugin behind it carries its own integrity guards, so it can never make
+				the agent speak fabricated or meaning-inverted text — on any failure it
+				falls back to the unmodified words.
+			</p>
+
+			<MermaidDiagram
+				title="Speech-synthesis hook"
+				caption="A first-class plugin seam at the synthesis chokepoint, routed as a threaded callback so it respects the package import boundary instead of breaking it."
+				svg={ttsHookSvg}
+			/>
+
+			<h2>How it achieves the goal</h2>
+			<p>
+				A fork is only worth as much as its ability to take upstream's next
+				release. This one can, and does, on a sustained cadence across many
+				betas — because the ledger turns an unbounded merge problem into a
+				bounded, evidence-backed review each cycle, and because seams are
+				written with the intent to converge: several are explicitly framed as
+				upstream-PR candidates rather than permanent divergence. New test files
+				accompany the net-new subsystems, and the whole thing is designed to be
+				re-derivable rather than merely merged.
+			</p>
+			<p>
+				What it demonstrates is the part of engineering that does not show up in
+				a feature demo: the judgment to carry a change, the discipline to retire
+				it, and the layering instinct to add capability without breaking the
+				boundaries that keep a system understandable. Maintaining someone else's
+				fast-moving framework as if it were production infrastructure is a
+				specific skill, and this is where I practice it.
+			</p>
+
+			<ProjectCTA />
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

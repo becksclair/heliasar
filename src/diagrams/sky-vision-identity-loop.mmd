@@ -1,0 +1,6 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	detect["Detection published<br>by a supervised detector plugin"] --> gate["Identity gate<br>pure and unit-tested: cooldown, in-flight dedup, transition-only emission"]
+	gate -->|"try_send onto a bounded queue<br>never blocks the event path"| derive["Embedding derived out of process<br>ONNX sidecar, 30 second timeout, queue depth 4"]
+	derive --> match["Cosine match against enrolled people<br>confirmed, ambiguous, or unknown with explicit caveats"]
+	match --> emit["IdentityEvent emitted<br>presence enriched with the known person"]

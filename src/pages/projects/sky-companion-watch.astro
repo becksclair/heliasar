@@ -1,0 +1,172 @@
+---
+import statePath from "../../assets/diagrams/wear-turn-state-machine.svg?raw";
+import signalPath from "../../assets/diagrams/wear-walkie-talkie-path.svg?raw";
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
+import ProjectCTA from "../../components/ProjectCTA.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="Sky Companion Watch"
+	description="Sky Companion Watch is Rebecca Clair's Wear OS voice client for her AI agent, Sky: raise your wrist, talk, and Sky talks back — an on-device endpointing state machine, a reorder-tolerant relay over the Wearable Data Layer, and a watch that holds no credentials."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">Wear OS · Realtime voice · Android systems</p>
+			<h1>Sky Companion Watch</h1>
+			<p class="lede">
+				Sky Companion Watch is a Wear OS voice client for my AI agent, Sky —
+				a walkie-talkie for her on your wrist: raise your arm, tap the orb,
+				talk, and she talks back. It is a capture-and-playback endpoint on the
+				watch that relays each turn through the paired phone to Sky — with an
+				on-device endpointing detector so you never hold a button, and a
+				privilege model where the watch itself holds no credentials at all.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				A watch is a hostile place to build a voice client. The mic and speaker
+				are tiny, the CPU and battery are small, the network stack you actually
+				get is a quirky peer-to-peer Data Layer to the phone rather than the
+				internet, and messages over it arrive out of order, duplicated, or
+				capped at around 100KB. On top of that, a smartwatch audio HAL will
+				happily jank your UI or leak the microphone if you tear it down
+				carelessly. The goal — press, talk, hear a reply — hides a genuine
+				embedded-systems problem.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A Wear OS app built around a six-state turn machine — idle, checking
+					phone, recording, processing, playing, error — with a Compose "voice
+					orb" that reacts to speech, rotary-crown volume control, and
+					state-driven screen-wake that dims while the agent talks.
+				</li>
+				<li>
+					An on-device voice-activity endpointing detector: 20ms frames, an
+					adaptive noise floor, and dual absolute/relative speech gates end the
+					turn automatically — the walkie-talkie feel, with no button to hold.
+				</li>
+				<li>
+					A turn-scoped relay over the Wearable Data Layer that tolerates the
+					reality of that transport: monotonic per-turn chunk indices,
+					reorder-correcting reassembly, real-drop detection that fails a turn
+					rather than transcribing a hole, and staleness gates so late chunks
+					can't revive a finished turn.
+				</li>
+				<li>
+					A jank-proof audio lifecycle: every blocking capture and playback
+					teardown is serialized on a dedicated thread under atomic ownership,
+					so a slow vendor HAL can never double-release or leak the mic or
+					stutter the UI.
+				</li>
+				<li>
+					Format-negotiated playback: the watch advertises what it can decode,
+					the relay prefers Ogg-Opus for wire size and native decode, and a
+					loudness gain is applied only at the speaker so the tiny driver is
+					audible without touching the wire audio.
+				</li>
+				<li>
+					Native assistant entrypoints so a wrist-raise gesture launches the
+					app, plus a privilege-separation model where the watch holds no
+					gateway credentials and inherits trust entirely from the paired
+					phone node.
+				</li>
+			</ul>
+
+			<h2>How it works</h2>
+			<p>
+				The watch is deliberately dumb about the cloud and smart about audio. It
+				captures PCM at 24kHz in 200ms chunks and streams them to the phone over
+				the Data Layer, each tagged with a turn id and a monotonic index. The
+				phone owns the gateway connection and runs the actual pipeline —
+				speech-to-text, the agent, then text-to-speech — and streams compressed
+				audio back for the watch to decode and play. Because the watch carries
+				no credentials, losing it leaks nothing; trust lives on the paired phone
+				and is revocable there.
+			</p>
+
+			<MermaidDiagram
+				title="Turn signal path"
+				caption="The watch captures and plays; the phone holds the connection and the credentials. Each turn is scoped and reorder-tolerant across a transport that guarantees neither."
+				svg={signalPath}
+			/>
+
+			<p>
+				Walkie-talkie is the right shape here, and the endpointing detector is
+				what makes it feel natural: you tap once, talk, and it decides when
+				you are done. It tracks an adaptive noise floor and decides when you
+				have started and stopped speaking from the audio itself: a short
+				speech-start threshold, a minimum utterance length, and about a second
+				of trailing silence to end the turn, all computed frame-by-frame with no
+				allocation. (The phone has a separate full-duplex realtime mode with
+				barge-in for continuous conversation; on the wrist, the discrete
+				tap-to-talk turn is the right interaction.)
+			</p>
+
+			<MermaidDiagram
+				title="Turn state machine"
+				caption="Every turn is a clean traversal with an error branch that always returns to idle — the watch is never left with a hot mic or a dimmed, wedged screen."
+				svg={statePath}
+			/>
+
+			<h2>How it achieves the goal</h2>
+			<p>
+				The whole thing is judged on whether you ever have to think about the
+				machinery. Serving
+				that is mostly embedded-systems discipline — frame-accurate endpointing,
+				a HAL teardown that cannot jank or leak, a relay that assumes its
+				transport will misbehave, and loudness compensation applied at exactly
+				the right boundary. The pure-logic pieces — the endpoint detector, the
+				PCM math, the relay assembler, the state machine — are unit-tested
+				directly, which is most of where correctness on a device like this comes
+				from.
+			</p>
+			<p>
+				Two caveats worth stating outright: the watch path runs a batch turn
+				pipeline rather than the phone's streaming realtime engine, and its speech transport is
+				downsampled for the recognizer, which caps transcription fidelity. But
+				the experience it set out to deliver — Sky on my wrist, a tap away,
+				anywhere my phone has signal — works.
+			</p>
+
+			<ProjectCTA />
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

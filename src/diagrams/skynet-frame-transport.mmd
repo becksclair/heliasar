@@ -1,0 +1,8 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	osr["CEF off-screen render pass<br>in the runtime sidecar"] --> surface["Surface transport<br>one frame contract, latest-frame-wins backpressure"]
+	surface -->|"gpu-dmabuf lane<br>production default on Intel and NVIDIA"| dmabuf["DRM dma-buf export<br>plane, stride, and modifier metadata with native fences"]
+	surface -->|"shm-bgra8 lane<br>policy fallback for NVIDIA PRIME on X11 OpenGL"| shm["Shared-memory frames"]
+	surface -->|"structured-clone lane"| electron["Electron embedder<br>MessagePort frames at 30fps"]
+	dmabuf --> vulkan["Qt shell<br>zero-copy present in the Vulkan scene graph"]
+	shm --> vulkan

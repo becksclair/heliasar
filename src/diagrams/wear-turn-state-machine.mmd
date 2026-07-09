@@ -1,0 +1,9 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	idle["Idle<br>breathing voice orb, screen kept awake"] -->|"tap the orb"| check["Checking phone<br>wait up to 10 s for the paired link"]
+	check --> record["Recording<br>on-device VAD ends the turn, no button-up needed"]
+	record --> processing["Processing<br>relayed to the agent, screen may dim"]
+	processing --> playing["Playing<br>orb reacts to Sky's speech"]
+	playing --> idle
+	record -->|"no speech, or link lost"| error["Error<br>returns cleanly to idle"]
+	error --> idle

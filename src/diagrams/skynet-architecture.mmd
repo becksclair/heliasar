@@ -1,0 +1,6 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	agent["Agent client<br>Codex Desktop or any CDP driver"] -->|"authenticated CDP gateway<br>bearer tokens and an epoch replay guard"| runtime["skynet-runtime host"]
+	shell["Qt Quick shell<br>C++23 and Qt 6 Quick"] -->|"OWL-shaped JSON-RPC 2.0<br>profiles, sessions, pages, surfaces, input"| runtime
+	runtime --> cef["CEF off-screen renderer<br>all browser state lives out of process"]
+	cef --> frames["Zero-copy frame lane<br>dma-buf and native fences return to the embedder"]

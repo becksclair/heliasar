@@ -1,0 +1,173 @@
+---
+import architectureSvg from "../../assets/diagrams/sky-vision-architecture.svg?raw";
+import identityLoopSvg from "../../assets/diagrams/sky-vision-identity-loop.svg?raw";
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
+import ProjectCTA from "../../components/ProjectCTA.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="sky-vision"
+	description="sky-vision is Rebecca Clair's daemon-first home computer-vision system in Rust: supervised inference plugins, bounded work streams, typed events, an autonomous identity loop, and an opt-in agent bridge."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">Rust · Computer vision · Daemon architecture</p>
+			<h1>sky-vision</h1>
+			<p class="lede">
+				sky-vision is a daemon-first home computer-vision system in Rust: a
+				17-crate workspace where a single daemon owns the cameras, supervises a
+				fleet of out-of-process inference plugins, tracks who is where in the
+				house, and forwards useful events to an AI agent — with a hard
+				requirement that an 8-camera setup stays responsive even when a detector
+				stalls or crashes.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				Home CV systems usually die one of two deaths: the monolith, where the
+				UI, cameras, and models share a process and one slow inference run
+				freezes everything; or the pile of scripts, where nothing supervises
+				anything and the system quietly stops working on a Tuesday. The
+				interesting constraints are architectural — inference must not block
+				capture, model crashes must not take down the daemon, and identity
+				must be opt-in and local, because this thing watches your house.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A Tokio/Tonic daemon over a Unix socket that owns all runtime state,
+					with roughly 49 gRPC RPCs across a control-plane service and a
+					plugin-registry service; the GTK4 operator client is deliberately a
+					thin view, never the source of truth.
+				</li>
+				<li>
+					A plugin supervisor with sidecar and OCI-container launch modes
+					(containers run with networking disabled), exponential restart
+					backoff, and device gating — a plugin that needs an absent Hailo NPU
+					is parked and retried instead of crash-looped.
+				</li>
+				<li>
+					Work-stream inversion: detectors and embedders subscribe to
+					daemon-pushed gRPC work streams, and the schedulers feed bounded
+					per-plugin queues that drop and count rather than block the frame
+					producer — latency stays bounded no matter how slow a model gets.
+				</li>
+				<li>
+					A pure, fully unit-tested core: greedy IoU tracking and
+					cosine-similarity identity matching with confirmed/ambiguous/unknown
+					verdicts and explicit caveat strings, isolated from all I/O.
+				</li>
+				<li>
+					An autonomous identity loop — detect, track, derive an embedding out
+					of process, match, emit — built on a tested event-ordering invariant
+					so the enqueue hook never awaits and never blocks the event path.
+				</li>
+				<li>
+					Inference across CUDA, CPU, and a Hailo-8L NPU (via a hand-written
+					HailoRT C runner), all behind the same manifest and capability
+					abstraction; models include YOLO11, SCRFD, SFace, and ArcFace.
+				</li>
+			</ul>
+
+			<h2>How it works</h2>
+			<p>
+				The daemon never runs model inference itself. Detectors and embedders
+				are separate processes that ask the daemon for work over gRPC streams,
+				which inverts the usual dependency: the daemon controls dispatch, owns
+				the queues, and measures end-to-end latency per request, while a
+				misbehaving model can only hurt itself. Supervision closes the loop —
+				each plugin gets its own task with restart backoff that resets after a
+				stable run, and operators can disable or restart plugins live.
+			</p>
+			<p>
+				Everything downstream consumes one typed event stream: five event
+				kinds — detection, track, identity, presence, face signal — in a
+				single envelope that carries the camera id, so consumers can route
+				without decoding payloads. The broadcast is bounded and lagging
+				consumers drop; nothing in the pipeline is allowed to apply
+				backpressure to capture.
+			</p>
+
+			<MermaidDiagram
+				title="Architecture"
+				caption="One daemon owns the cameras and the queues; models live in supervised processes that can crash without taking anything with them."
+				svg={architectureSvg}
+			/>
+
+			<p>
+				Identity is where the privacy and concurrency design meet. People,
+				aliases, embeddings, and enrollment samples are local, opt-in, and
+				cascade on delete down to the face-crop files. The live loop hangs off
+				a pure identity gate — per-track cooldown, in-flight dedup,
+				transition-only emission — and hands derivation to an ONNX sidecar.
+				The measured win from moving face inference to the GPU: helper CPU
+				dropped from roughly 2000% to 350% with embedding parity verified at
+				cosine similarity 1.0000.
+			</p>
+
+			<MermaidDiagram
+				title="Autonomous identity loop"
+				caption="The loop closes detect-to-identity without ever blocking the event path: the gate is pure, the queue is bounded, and derivation happens out of process."
+				svg={identityLoopSvg}
+			/>
+
+			<h2>How it achieves the goal</h2>
+			<p>
+				The mandate was bounded intelligence: useful CV that degrades honestly.
+				Every seam in the system is a place where slowness turns into counted
+				drops instead of stalls, and every crash domain is a process boundary.
+				That discipline is tested — 362 test functions across the workspace,
+				CI running fmt, clippy with warnings as errors, and the full test
+				suite, plus 8-camera smoke and 24-hour soak scripts for the parts CI
+				can't reach.
+			</p>
+			<p>
+				None of it pretends to be finished, and the gaps are deliberate: the
+				tracker is simple greedy IoU (a ByteTrack placeholder was considered and removed),
+				security is a documented local-trust model on a Unix socket rather
+				than app-level auth, and the in-process plugin mode is a recognized
+				seam without a real plugin yet. Those are recorded decisions with
+				revisit conditions, not accidents.
+			</p>
+
+			<ProjectCTA />
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

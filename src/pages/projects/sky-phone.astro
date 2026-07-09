@@ -1,0 +1,165 @@
+---
+import sessionSvg from "../../assets/diagrams/sky-phone-session.svg?raw";
+import signalPathSvg from "../../assets/diagrams/sky-phone-signal-path.svg?raw";
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
+import ProjectCTA from "../../components/ProjectCTA.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="sky-phone"
+	description="sky-phone is Rebecca Clair's hardware hack that gives AI agents real GSM phone calls: a Raspberry Pi Zero 2 W impersonating a USB headset bridges live call audio to voice agents — no root, no telephony provider."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">Hardware hacking · USB gadget · Voice agents</p>
+			<h1>sky-phone</h1>
+			<p class="lede">
+				sky-phone answers a question most people solve with a telephony
+				provider and a prayer: how does an AI agent get on a real GSM call,
+				from a real number, without rooting the phone, without carrier APIs,
+				and without VoIP latency? The answer: a
+				Raspberry Pi Zero 2 W that lies to the phone about being a USB
+				headset.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				The obvious paths are all bad. Hosted telephony gets you a VoIP number
+				that carriers flag and robocall filters eat. Rooting the phone to tap
+				call audio breaks the device's security model and every update.
+				Meanwhile the phone already owns a perfectly good GSM radio, a real
+				SIM, and — crucially — a completely standard behavior: hand call
+				audio to a USB headset, no permissions, no prompts, no questions
+				asked. So the trick is to become the headset.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A USB Audio Class 2 gadget built with Linux ConfigFS and
+					<code>usb_f_uac2</code>: the Pi enumerates on the phone as a
+					high-speed "VocalisHeadset," and Android routes live cellular call
+					audio through it — validated in both directions on real calls,
+					including a test tone confirmed audible by the remote caller.
+				</li>
+				<li>
+					A Go gateway that is a deliberate dumb pipe: PCM16 at 48kHz mono in
+					20ms frames, zero codecs, zero format negotiation, bridging the
+					gadget's ALSA endpoints to a WebSocket API with binary audio frames
+					and JSON control events.
+				</li>
+				<li>
+					Backpressure semantics chosen per direction: capture drops the
+					oldest frames, playback drops the newest, and both are counted in
+					live health stats instead of hidden.
+				</li>
+				<li>
+					Session detection that survived contact with reality: after
+					discovering that ALSA status files reflect the local client rather
+					than the Android host, detection moved to direct stream-open
+					probing — a session exists only once the first PCM chunk actually
+					bridges.
+				</li>
+				<li>
+					One-shot provisioning for a fresh SD card — WiFi (with the PSK
+					required via environment, never hardcoded), gadget modules, boot
+					config, deployed scripts — plus the hardware footgun ledger:
+					board-specific UDC names, the USB-C-to-OTG conflict that requires a
+					hub, and the single-gadget-driver limit.
+				</li>
+			</ul>
+
+			<h2>How it works</h2>
+			<p>
+				From the phone's perspective nothing unusual is happening: a headset
+				was plugged in, and calls route to it, exactly as they would for any
+				commuter's earbuds. The Pi's gadget exposes playback and capture
+				endpoints; the caller's voice arrives on what the phone treats as
+				headset playback — the gadget's capture side — and is read from ALSA,
+				while agent audio is written to ALSA playback and leaves through what
+				the phone believes is the headset microphone, straight into the
+				cellular uplink.
+			</p>
+
+			<MermaidDiagram
+				title="Signal path"
+				caption="Audio flows both directions along this chain — the phone keeps custody of the call; the Pi only ever handles what a headset would."
+				svg={signalPathSvg}
+			/>
+
+			<p>
+				The gateway refuses to know about codecs, and that restraint is the
+				design. MP3 was rejected because its encoder lookahead alone eats the
+				latency budget, and Opus was deliberately pushed out to the adapters
+				even though the Pi could run it — because a dumb pipe is testable,
+				debuggable, and never the reason two endpoints disagree about formats.
+				Adapters connect one at a time over WebSocket, receive the format
+				contract up front, and must explicitly enable bridging before any
+				audio flows.
+			</p>
+
+			<MermaidDiagram
+				title="Session lifecycle"
+				caption="The gateway promotes to a live session only on proof — the first actually-bridged PCM chunk — because the polite ways of asking turned out to lie."
+				svg={sessionSvg}
+			/>
+
+			<h2>How it achieves the goal</h2>
+			<p>
+				The hard invariant — live bidirectional call audio through an
+				impersonated headset with no root and no special app — is proven on
+				real hardware and real calls. What remains is the software on top,
+				and it is early, plainly: the only adapter so far is a mock test
+				harness, the OpenClaw adapter that will make Sky answer the phone is
+				the current roadmap frontier, dialing is still a human's job, and the
+				sub-300ms mouth-to-ear latency target is a target, not a measurement.
+			</p>
+			<p>
+				But that ordering is the point. The risky bet was the hardware path —
+				whether a phone would really hand its calls to a gadget without
+				complaint — and that bet is settled. Everything left is the kind of
+				software I build constantly. It is also, and I say this with
+				professional objectivity, an extremely funny way to give an AI a
+				phone.
+			</p>
+
+			<ProjectCTA />
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

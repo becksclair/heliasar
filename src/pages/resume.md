@@ -1,9 +1,9 @@
 ---
 layout: ../layouts/ResumeLayout.astro
 title: 'Rebecca Clair'
-subtitle: 'Senior Systems Engineer · AI Infrastructure · Automation · Distributed Systems'
-pubDate: 2023-05-09
-description: 'Rebecca Clair - Senior Systems Engineer · AI Infrastructure · Automation · Distributed Systems'
+subtitle: 'Staff Systems Software Engineer · AI Infrastructure · Automation · Platform Engineering'
+pubDate: 2026-07-07
+description: 'Rebecca Clair - Staff Systems Software Engineer · AI Infrastructure · Automation · Platform Engineering'
 author: 'Rebecca Clair'
 image:
     url: '/images/rebecca_clair5.webp'
@@ -12,11 +12,11 @@ image:
 
 ## Introduction
 
-Senior systems engineer with 20+ years of experience designing software that spans operating systems, native applications, distributed services, embedded devices, browsers, cloud infrastructure, and AI-enabled automation.
+Staff-level systems software engineer with 15+ years of professional experience building native applications, developer platforms, and AI-enabled automation. I specialize in understanding unfamiliar systems quickly, exposing clean abstractions around them, and turning them into reliable platforms that other engineers and AI agents can build upon.
 
-I specialize in understanding unfamiliar systems quickly, exposing clean abstractions around them, and turning them into reliable platforms that other engineers and AI agents can build upon. My work sits at the intersection of systems engineering, developer tooling, automation, and AI infrastructure, where many moving parts need to behave like one coherent product.
+Most recently I've been building a complete platform for a personal AI agent — its own GPU-accelerated browser, computer-use automation, home vision, voice on the phone and the wrist, a cross-channel memory ledger, and the runtime that ties them together. It is the clearest demonstration of what I do: take many hard, unrelated systems and make them behave as one coherent product.
 
-Equally effective working across the entire engineering stack, from protocol reverse engineering and systems debugging through product architecture, developer experience, and technical leadership.
+Organizations have repeatedly trusted me with their most sensitive systems: mission-critical RFID infrastructure for JPL (NASA) and Boeing, confidential data platforms for a major automotive manufacturer, and secure enterprise browser internals. Roughly eight of those years were spent as a technical lead, owning architecture and unblocking teams from protocol-level debugging up through product delivery.
 
 [Personal Website](https://heliasar.com/)
 
@@ -25,20 +25,52 @@ Equally effective working across the entire engineering stack, from protocol rev
 
 ## Projects
 
+A personal AI-agent platform — browser, computer-use, and cross-channel memory — alongside standalone reverse-engineering and systems work. Full set at [heliasar.com/projects](https://heliasar.com/projects/).
+
+### Skynet
+
+Reimplemented the architecture behind OpenAI's Atlas browser from scratch: a native C++23/Qt shell, an out-of-process CEF runtime service, zero-copy GPU frame transport, and an authenticated control surface for AI agents.
+
+→ [Full write-up](https://heliasar.com/projects/skynet/)
+
+**Architecture Highlights**
+
+- Designed a two-process browser: a Qt Quick shell owning no browser state and a runtime sidecar owning all CEF browsers, exposed through an OWL-compatible, versioned JSON-RPC 2.0 protocol over stdio, Unix sockets, or WebSocket.
+- Engineered a zero-copy GPU frame lane — CEF off-screen frames cross the process boundary as DRM dma-buf descriptors with native-fence synchronization, presented directly in Qt's Vulkan scene graph on both Intel and NVIDIA under Linux.
+- Built an authenticated Chrome DevTools Protocol gateway for AI agents with bearer tokens and an epoch-based replay guard, plus surface recovery that survives GPU-process and renderer crashes.
+- Derived the protocol's object model by reverse engineering the Atlas application bundle, and embedded the same runtime into a patched Codex Desktop — handing an Electron app real GPU frames over a dma-buf file-descriptor socket, one runtime backing both hosts.
+
 ### sky-cua
 
-Designed and built a complete cross-platform computer-use platform for AI agents, spanning native desktop automation, browser control, Android integration, packaging, deployment, diagnostics, and developer tooling.
+Designed and built a cross-platform computer-use platform for AI agents, spanning native desktop automation, browser control, Android integration, packaging, deployment, diagnostics, and developer tooling.
+
+→ [Full write-up](https://heliasar.com/projects/sky-cua/)
 
 **Architecture Highlights**
 
 - Created a long-lived Rust client/service architecture with platform IPC, backend abstraction, structured diagnostics, and host-portable MCP tools for desktop, browser, and phone workflows.
-- Defined an agent tool surface with schema-validated actions, semantic and physical input modes, screenshot delivery, browser tab control, Android ADB integration, and explicit readiness/fallback reporting.
+- Defined an agent tool surface with schema-validated actions, semantic and physical input modes, screenshot delivery, browser tab control, Android ADB integration, and explicit readiness/fallback reporting — consolidated from 66 tools to 34 through a unified action surface.
 - Architected native Linux and Windows automation foundations across AT-SPI, Wayland/X11 capture and input, browser native-host validation, Win32/UIA discovery, GDI capture, and SendInput.
 - Packaged the runtime for Codex, OpenClaw, Claude Code, OpenCode, and other MCP hosts with installer validation and VM smoke-test workflows.
 
+### Sky Smart Comms
+
+Built the cross-channel memory system for a personal AI agent: it ingests email, WhatsApp, SMS, phone, LinkedIn, and postal mail and unifies them into durable topics with research, linked notes, and next actions.
+
+→ [Full write-up](https://heliasar.com/projects/sky-smart-comms/)
+
+**Architecture Highlights**
+
+- Designed a SQLite ledger with a case/item/entity/link/event schema and hybrid retrieval — full-text search, vector embeddings, and exact thread matching — kept in sync by database triggers.
+- Built cross-surface entity resolution that unifies one person across mail, messaging, phone, and social identities, with alias and merge handling.
+- Engineered a two-stage triage engine (per-item classification, then per-topic consolidation) with an adversarial verification step before destructive actions and a next-action queue gated by human confirmation.
+- Created a closed-loop preference-learning pipeline — revealed preferences, induction proposals, human accept/reject, policy update, and drift-based retirement — measured by shadow metrics and a layered evaluation harness.
+
 ### emeet-cam / EMEET PIXY Controller
 
-Reverse engineered an undocumented USB camera protocol and transformed it into a complete automation platform including native Linux tooling, browser interfaces, diagnostics, protocol replay, live preview pipelines, and workflows controllable by AI agents.
+Reverse engineered an undocumented USB camera protocol and turned it into an automation platform: native Linux tooling, browser interfaces, diagnostics, protocol replay, live preview pipelines, and workflows controllable by AI agents.
+
+→ [Full write-up](https://heliasar.com/projects/emeet-pixy-controller/)
 
 **Architecture Highlights**
 
@@ -47,42 +79,31 @@ Reverse engineered an undocumented USB camera protocol and transformed it into a
 - Designed repeatable observe/replay/verify workflows using protocol fixtures, JSONL capture logs, fakeable transport boundaries, CLI probes, browser controls, and a native GTK/libadwaita UI.
 - Designed a real-time enhancement pipeline with GPU ONNX/TensorRT super-resolution, motion-adaptive temporal denoising, and low-light tone mapping/local contrast enhancement tuned for live-preview constraints.
 
-### Voyager Golden Record Explorer
-
-Created a Rust/egui signal-processing application and diagnostics suite for recovering the images encoded in NASA's Voyager Golden Record audio, turning noisy analog source material into inspectable, exportable image reconstructions.
-
-**Architecture Highlights**
-
-- Designed a baseband slow-scan video decoding pipeline with per-line sync detection, slant correction, anti-aliased resampling, polarity/gamma controls, and percentile normalization.
-- Implemented audio-device-clock anchored playback, zero-copy WAV loading, waveform navigation, sync markers, live decode windows, and PNG export for responsive exploration of large audio assets.
-- Created CLI and batch diagnostics for reproducible analysis, including decode, spectrogram generation, sync detection, signal classification, statistics, segmentation, and excerpt carving.
-- Engineered worker orchestration with queue-depth tracking, health monitoring, restart logic, cancellation, stale-result suppression, and independent forward-model validation.
-
-
 ## Experience
 
 ### Sumwall
 
 #### *SENIOR SOFTWARE ENGINEER | 2025 - 2026*
-Worked on a secure Windows browser for enterprise SASE providers, bridging deep web platform knowledge with native C++ development, Chromium/CEF  integration, and Windows systems behavior.
+Worked on a secure Windows browser for enterprise SASE providers, bridging deep web platform knowledge with native C++ development, Chromium/CEF integration, and Windows systems behavior.
 
 - Debugged and patched a custom CEF offscreen rendering pipeline, restoring reliable software rendering in virtualized environments where GPU acceleration was unavailable or constrained.
 
-- Implemented Traffic Steering functionality to route browser activity through managed enterprise security policies, connecting browser behavior, networking constraints, and SASE product requirements.
-
 - Designed an AI-driven browser validation framework that automated complex end-to-end testing across native and web surfaces.
+
+- Implemented Traffic Steering functionality to route browser activity through managed enterprise security policies, connecting browser behavior, networking constraints, and SASE product requirements.
 
 - Turned a basic encrypted file store into a Chromium-backed VFS storage layer, securing browser profiles, local storage, and persistent web data without breaking Chromium storage expectations.
 
 ### Xplore Group Spain
 
-#### *SENIOR BACKEND ENGINEER | 2024 - 2025*
+#### *SENIOR BACKEND ENGINEER (CONSULTANT) | 2024 - 2025*
+Consultant on a confidential data platform for a major automotive manufacturer, working under strict confidentiality and data-handling controls.
 
-- Designed reliable high-volume data pipelines for a major automotive data warehouse, processing billions of records with robust recovery and operational safeguards.
+- Designed reliable high-volume data pipelines processing billions of records with robust recovery and operational safeguards.
 
-- Collaborated effectively within a distributed team (Belgium, Spain) to build scalable, highly tested, and modular solutions.
+- Collaborated within a distributed team (Belgium, Spain) to build scalable, highly tested, and modular solutions.
 
-- Partnered with Cloud Infrastructure teams to enhance deployment pipelines, optimizing resource usage and achieving significant cost savings for the company.
+- Partnered with Cloud Infrastructure teams to enhance deployment pipelines, optimizing resource usage and achieving significant cost savings for the client.
 
 ### Latency Data
 
@@ -137,19 +158,6 @@ Worked on a secure Windows browser for enterprise SASE providers, bridging deep 
 
 - CodeCrafters.io prize for building an HTTP server from scratch in Rust in 1 month
 
-## Courses
-
-- Deepened understanding of Accessibility Principles  
-&rarr; 2016 **MICROSOFT ONLINE LECTURES**
-- UX Design Best Practices  
-&rarr; 2016 **MICROSOFT ONLINE LECTURES**
-- Introduction to Neuroscience  
-&rarr; 2013 **BERKELEY**
-- Introduction to Artificial Intelligence  
-&rarr; 2012 **STANFORD**
-- iPad and iPhone App Development  
-&rarr; 2012 **STANFORD**
-
 ## Languages
 
 - **Spanish (Native)**
@@ -162,17 +170,15 @@ Worked on a secure Windows browser for enterprise SASE providers, bridging deep 
 
 **Core Languages:** Rust, TypeScript, C++, Go, Python
 
-**Strong Experience:** JavaScript, C, C#, SQL, D, Ruby
+**Strong Experience:** JavaScript, C, C#, SQL
 
-**Familiar / Legacy:** Java, Kotlin, PHP, Swift, Pascal, Delphi, Assembly
-
-**Systems & Architecture:** Distributed systems, platform engineering, systems architecture, IPC, concurrency, protocol design, state machines, observability, reliability, fault tolerance, diagnostics, native desktop automation, browser automation
+**Systems & Architecture:** Platform engineering, systems architecture, distributed systems, IPC, concurrency, protocol design, state machines, observability, reliability, fault tolerance, diagnostics, native desktop automation, browser automation
 
 **AI Infrastructure & Automation:** MCP, AI-agent tool surfaces, computer-use automation, workflow orchestration, evaluation harnesses, browser control, Android ADB automation, CLI tooling
 
 **Web & Product:** React, NextJS, Svelte, Vue, SolidJS, HTMX, HTML, CSS, WebSocket, REST APIs, D3, Three.js
 
-**Data & Storage:** PostgreSQL, MySQL, SQLite, MongoDB, Elasticsearch, SQL
+**Data & Storage:** PostgreSQL, MySQL, SQLite, MongoDB, Elasticsearch
 
 **Operating Systems & Cloud:** Linux, RedHat/RHEL, Windows, macOS, Android, iOS, AWS, Azure
 

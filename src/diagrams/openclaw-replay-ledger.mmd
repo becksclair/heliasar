@@ -1,0 +1,8 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	release["New upstream release<br>a fast-moving agent framework"] --> replay["Replay the fork onto the new tag<br>each carried behavior re-homed in order"]
+	replay --> classify["Classify every fork delta<br>runtime carry, partial overlap, or support proof"]
+	classify -->|"upstream now provides it"| retire["Retire the seam<br>dropped from the carry contract"]
+	classify -->|"still mine to maintain"| carry["Carry forward<br>with per-version file and line proof"]
+	carry --> ledger["Machine-consumable replay ledger<br>the fork stays alive instead of rotting"]
+	retire --> ledger

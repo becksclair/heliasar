@@ -1,0 +1,170 @@
+---
+import learningLoopSvg from "../../assets/diagrams/smart-comms-learning-loop.svg?raw";
+import unificationSvg from "../../assets/diagrams/smart-comms-unification.svg?raw";
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
+import ProjectCTA from "../../components/ProjectCTA.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="Sky Smart Comms"
+	description="Sky Smart Comms is Rebecca Clair's cross-channel graph memory system for her AI agent, Sky: it unifies email, WhatsApp, SMS, phone, LinkedIn, and postal mail into topics with hybrid retrieval, entity resolution, and closed-loop preference learning."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">AI infrastructure · Retrieval · Agent memory</p>
+			<h1>Sky Smart Comms</h1>
+			<p class="lede">
+				Sky Smart Comms is the cross-channel memory system for my AI agent, Sky.
+				It ingests communications from email, WhatsApp, SMS, phone, LinkedIn,
+				and postal mail, and unifies them into durable topics — each with a
+				summary, the people involved, linked notes, and a next action. Retrieval
+				is hybrid, identity is resolved across every surface, and a closed-loop
+				pipeline improves Sky's own judgment over time.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				Real life does not arrive in one inbox. A single matter — a landlord
+				dispute, a job thread, a repair — shows up as an email today, a
+				WhatsApp message tomorrow, an SMS confirmation, a phone call, and
+				eventually a physical letter. Every channel has its own identity model
+				and its own thread IDs, none of them agree on who a person is, and an
+				agent asked to help is really being asked to reconstruct one coherent
+				story from six fragmented ones — then decide what actually needs doing.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A ledger over SQLite with a deliberate schema: cases are the durable
+					topics, items are the individual messages and artifacts, entities are
+					people and organizations, and typed edges link them into a graph —
+					all keyed by internal identifiers, never by messy subject strings.
+				</li>
+				<li>
+					Hybrid retrieval combining full-text search, vector embeddings, and
+					exact thread-and-token matching, kept in sync by database triggers, so
+					a topic can be found by wording, by meaning, or by precise thread
+					lineage.
+				</li>
+				<li>
+					Cross-surface entity resolution: aliases across mail, WhatsApp,
+					phone, and LinkedIn schemes resolve to one entity, with a merge model
+					for when the same person is discovered twice.
+				</li>
+				<li>
+					A two-stage triage engine — per-item classification, then a per-topic
+					consolidation pass that clusters related activity and emits a single
+					topic-level decision (keep visible, archive candidates, or watch
+					until something changes).
+				</li>
+				<li>
+					An adversarial verification step: before any uncertain or destructive
+					action, the engine poses itself a skeptical question and scores the
+					answer, guarding against burying something that mattered.
+				</li>
+				<li>
+					A closed-loop learning pipeline: revealed preferences become
+					induction proposals, proposals go to a human accept/reject gate,
+					accepted rules update policy, and stale rules are retired by drift
+					detection — all measured by shadow metrics and a layered eval harness.
+				</li>
+			</ul>
+
+			<h2>How it works</h2>
+			<p>
+				The design rule that took the longest to earn: subject lines are hints,
+				never keys. Everything is identified internally, and messages attach to
+				topics through a ladder of increasingly fuzzy matches — exact thread ID
+				first, then sender and tracking tokens, then full-text, then semantic
+				similarity — with the method and confidence of each attachment recorded.
+				The engine only ever mutates its own ledger; the live inboxes are
+				strictly read-only, so a triage mistake can never send, delete, or alter
+				a real message.
+			</p>
+
+			<MermaidDiagram
+				title="Cross-channel unification"
+				caption="Six surfaces, one story: messages are ingested read-only, attached to durable topics by a confidence-scored ladder, and unified into a graph of people and threads."
+				svg={unificationSvg}
+			/>
+
+			<p>
+				The hardest part to get right was letting it improve itself without
+				letting it run wild. It watches which topics a human actually engages
+				with and treats that as weak signal, induces candidate preferences from
+				the pattern, and asks before adopting them. Accepted
+				preferences become policy expressed as structural rails (things provable
+				from headers, sender, and ledger state) plus an agentic decision pass,
+				and preferences that stop matching reality are retired automatically.
+				Layered evaluations, from plumbing up through a live canary, keep the
+				whole loop honest.
+			</p>
+
+			<MermaidDiagram
+				title="Closed-loop preference learning"
+				caption="Self-improving, but never unsupervised: behavior becomes proposals, proposals need human sign-off, policy drifts and retires, and every stage is measured."
+				svg={learningLoopSvg}
+			/>
+
+			<h2>How it achieves the goal</h2>
+			<p>
+				The goal is an agent that holds the thread of your life across every
+				channel and surfaces the right thing at the right moment, without you
+				having to trust it blindly. It gets there by separating the machinery
+				from the judgment: the retrieval, schema, and entity model are
+				deterministic and testable, while the decisions run through explicit
+				gates — human confirmation for actions, adversarial questions before
+				destructive moves, and evals that would catch a regression before it
+				reached anything live. Roughly a one-to-one test-to-code ratio holds
+				that contract in place.
+			</p>
+			<p>
+				Its limits are structural: it is single-user infrastructure, so its
+				scale is in the architecture rather than in throughput, and its
+				effectiveness is tracked by internal shadow metrics rather than an
+				external benchmark. But it is real, it runs on a schedule every day, and
+				it is the clearest expression of what I think agent memory should be: a
+				curated, self-correcting ledger that assumes it can be wrong.
+			</p>
+
+			<ProjectCTA />
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

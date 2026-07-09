@@ -2,16 +2,59 @@
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
-const projects = [
+const skyPlatform = [
+	{
+		title: "Skynet",
+		body: "Sky's browser: a from-scratch reimplementation of the architecture behind OpenAI's Atlas browser — C++23/Qt shell, out-of-process CEF runtime, zero-copy GPU frame transport, and an authenticated CDP gateway.",
+		href: "/projects/skynet/",
+	},
+	{
+		title: "Sky Smart Comms",
+		body: "Sky's memory: a cross-channel graph ledger that unifies email, WhatsApp, SMS, phone, LinkedIn, and postal mail into topics, with hybrid retrieval, entity resolution, and closed-loop preference learning.",
+		href: "/projects/sky-smart-comms/",
+	},
+	{
+		title: "sky-vision",
+		body: "Sky's eyes: a daemon-first home computer-vision system in Rust — supervised inference plugins, bounded gRPC work streams, an autonomous identity loop, and an opt-in agent bridge.",
+		href: "/projects/sky-vision/",
+	},
 	{
 		title: "sky-cua",
-		body: "A cross-platform computer-use platform for AI agents, spanning desktop automation, browser control, Android integration, diagnostics, and MCP host packaging.",
+		body: "Sky's hands: a cross-platform computer-use platform spanning desktop automation, browser control, Android integration, diagnostics, and MCP host packaging.",
 		href: "/projects/sky-cua/",
+	},
+	{
+		title: "OpenClaw Fork",
+		body: "Sky's runtime: a production fork of a fast-moving AI agent framework — a disciplined replay-ledger methodology, a realtime full-duplex voice subsystem, and a plugin hook at the speech-synthesis chokepoint.",
+		href: "/projects/openclaw-fork/",
+	},
+	{
+		title: "Sky Companion Watch",
+		body: "Talk to Sky from your wrist: a Wear OS voice client with on-device endpointing, a reorder-tolerant relay over the Wearable Data Layer, and a watch that holds no credentials.",
+		href: "/projects/sky-companion-watch/",
+	},
+	{
+		title: "sky-phone",
+		body: "Sky's phone line: a Raspberry Pi impersonating a USB headset to place and take real GSM calls — live bidirectional call audio with no root and no telephony provider.",
+		href: "/projects/sky-phone/",
+	},
+];
+
+const otherWork = [
+	{
+		title: "Codex Desktop for Linux",
+		body: "Making OpenAI's macOS-first Codex Desktop a first-class Linux app: a deterministic AST-based patch framework, a KDE desktop-shell integration, and an embedded GPU-accelerated browser runtime.",
+		href: "/projects/codex-desktop-linux/",
 	},
 	{
 		title: "EMEET PIXY Controller",
 		body: "A reverse-engineered USB camera automation platform with native Linux tooling, browser controls, diagnostics, protocol replay, and live-preview enhancement design.",
 		href: "/projects/emeet-pixy-controller/",
+	},
+	{
+		title: "codex-voice",
+		body: "A Rust-native, Linux-first hold-to-dictate voice utility: Wayland portal integration, a lock-free audio pipeline, and a local OpenAI-compatible audio server.",
+		href: "/projects/codex-voice/",
 	},
 	{
 		title: "Voyager Golden Record Explorer",
@@ -23,15 +66,20 @@ const projects = [
 
 <Layout
 	title="Projects"
-	description="Selected software projects by Rebecca Clair — AI-agent infrastructure, native automation, reverse engineering, and signal-processing tools."
+	description="Selected software projects by Rebecca Clair — the infrastructure behind Sky, a personal AI agent, plus standalone work in reverse engineering, signal processing, and systems porting."
 >
 	<main>
 		<h1>Projects</h1>
 		<div class="content intro">
 			<p>
-				Selected engineering projects with more room to breathe than a resume allows:
-				the systems work, architecture decisions, reverse engineering, diagnostics,
-				and platform thinking behind them.
+				Much of my recent work adds up to one thing: the infrastructure behind
+				Sky, my personal AI agent. Over the past year I've built her a way to
+				see, act, speak, remember, and reach the physical world — a browser of
+				her own, computer-use hands, home vision, a phone line, a memory that
+				unifies every channel I communicate on, and a wrist to talk to her
+				from. The rest is standalone systems work — reverse engineering, signal
+				processing, and porting — with more room to breathe than a resume
+				allows.
 			</p>
 			<p>
 				You can also find my open-source work on <a
@@ -41,13 +89,36 @@ const projects = [
 				>.
 			</p>
 		</div>
-		<ul class="link-card-grid">
-			{
-				projects.map((project) => (
-					<Card title={project.title} body={project.body} href={project.href} />
-				))
-			}
-		</ul>
+
+		<section class="project-group" aria-label="The Sky platform">
+			<h2>The Sky platform</h2>
+			<p class="group-lede">
+				The capability stack for one agent: sight, hands, voice, memory, a
+				phone line, and the runtime it all lives in.
+			</p>
+			<ul class="link-card-grid">
+				{
+					skyPlatform.map((project) => (
+						<Card title={project.title} body={project.body} href={project.href} />
+					))
+				}
+			</ul>
+		</section>
+
+		<section class="project-group" aria-label="Other systems work">
+			<h2>Other systems work</h2>
+			<p class="group-lede">
+				Standalone projects — reverse engineering, signal processing, and
+				systems porting.
+			</p>
+			<ul class="link-card-grid">
+				{
+					otherWork.map((project) => (
+						<Card title={project.title} body={project.body} href={project.href} />
+					))
+				}
+			</ul>
+		</section>
 	</main>
 </Layout>
 
@@ -60,10 +131,25 @@ const projects = [
 	}
 
 	.intro {
-		margin-bottom: 1.5rem;
+		margin-bottom: 2rem;
 
 		& a {
 			color: rgb(var(--accent));
+		}
+	}
+
+	.project-group {
+		margin-bottom: 2.5rem;
+
+		& h2 {
+			font-size: 1.4rem;
+			margin-bottom: 0.25rem;
+		}
+
+		& .group-lede {
+			margin-top: 0;
+			margin-bottom: 1rem;
+			color: var(--grey-mid);
 		}
 	}
 

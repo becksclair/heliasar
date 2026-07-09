@@ -1,0 +1,7 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	observe["Revealed preferences<br>weak labels from observed behavior"] --> induce["Preference induction<br>proposes rules automatically"]
+	induce -->|"accept or reject<br>human in the loop"| policy["Policy update<br>structural rails plus an agentic decision pass"]
+	policy --> drift["Drift detection<br>stale preferences are retired"]
+	drift --> observe
+	policy -->|"measured by"| evals["Shadow metrics and layered evals<br>plumbing, decision, retrieval, synthesis, live canary"]

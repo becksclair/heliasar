@@ -1,0 +1,6 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	cef["skynet-runtime-host<br>CEF rendering off-screen"] -->|"GPU dma-buf and fence file descriptors<br>passed over a SEQPACKET socket via SCM_RIGHTS"| bridge["Native N-API surface bridge<br>C++, per-plane fd ownership and fence sync"]
+	broker["Electron main broker<br>epoch, nonce, and token handshake<br>browser-use JSON-RPC to the runtime"] --> cef
+	bridge -->|"importSharedTexture"| renderer["Renderer canvas<br>presents imported frames"]
+	renderer -->|"pointer, wheel, keyboard<br>routed back as input JSON-RPC"| broker

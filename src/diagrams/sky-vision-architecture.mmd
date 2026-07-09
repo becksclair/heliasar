@@ -1,0 +1,8 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	cameras["Household cameras<br>V4L2 and RTSP over GStreamer"] --> daemon["sky-visiond<br>owns all runtime state"]
+	daemon -->|"gRPC work streams<br>bounded queues that drop and count"| plugins["Supervised plugin fleet<br>sidecar or OCI container, restart backoff"]
+	plugins -->|"detections and embeddings"| core["Pure core<br>IoU tracking and cosine identity matching"]
+	core --> events["Typed event broadcast<br>detection, track, identity, presence, face signal"]
+	events --> gtk["GTK4 operator client<br>thin, never the source of truth"]
+	events --> bridge["OpenClaw agent bridge<br>opt-in, filtered, key-redacting"]

@@ -1,0 +1,171 @@
+---
+import dictationSvg from "../../assets/diagrams/codex-voice-dictation.svg?raw";
+import serverSvg from "../../assets/diagrams/codex-voice-server.svg?raw";
+import MermaidDiagram from "../../components/MermaidDiagram.astro";
+import ProjectCTA from "../../components/ProjectCTA.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title="codex-voice"
+	description="codex-voice is Rebecca Clair's Rust-native, Linux-first hold-to-dictate voice utility: Wayland portal integration, a lock-free audio pipeline, reused Codex session auth, and a local OpenAI-compatible audio server."
+>
+	<main class="project-page">
+		<a class="back-link" href="/projects/">← Projects</a>
+		<article class="content project-detail">
+			<p class="eyebrow">Rust · Voice infrastructure · Linux desktop</p>
+			<h1>codex-voice</h1>
+			<p class="lede">
+				codex-voice is a Rust-native, Linux-first voice utility: hold a hotkey,
+				speak, release, and the transcript lands in whatever app has focus. A
+				second hotkey speaks your selected text aloud. Underneath the simple
+				gesture is an 8-crate workspace, because the hard part — doing any of
+				this on Wayland, where synthetic input is forbidden by design — is not
+				simple at all.
+			</p>
+
+			<h2>The problem</h2>
+			<p>
+				Dictation tools assume they can read your keys and type into your
+				windows. Wayland assumes they should not. There is no global keyboard
+				hook, no synthetic input, and no "just XTestFakeKeyEvent" escape
+				hatch — every capability has to be negotiated through desktop portals.
+				Add the practical constraints — no separate transcription API key, no
+				GPU-hungry local model, and other tools wanting to reuse the same
+				capability — and the one-line utility turns out to have an
+				infrastructure problem hiding inside it.
+			</p>
+
+			<h2>What I built</h2>
+			<ul>
+				<li>
+					A trait-driven dictation engine in a pure core crate — recorder,
+					transcriber, injector as swappable ports — with a state machine
+					whose typed error stages always return to idle, and an event loop
+					whose state guards discard hotkey presses arriving mid-transition.
+				</li>
+				<li>
+					A real-time-safe capture pipeline: the CPAL audio callback pushes
+					buffers over a lock-free bounded channel to a dedicated WAV writer
+					thread, recycling buffers through a pool so the callback never
+					allocates.
+				</li>
+				<li>
+					Wayland integration done the sanctioned way: global shortcuts via
+					the GlobalShortcuts portal, and text insertion via a RemoteDesktop
+					portal session injecting raw keycodes for Ctrl+V — with the portal
+					restore token persisted so the user approves exactly once.
+				</li>
+				<li>
+					Auth piggybacking instead of key management: transcription reuses
+					the existing Codex/ChatGPT session, refreshing it by driving a
+					spawned <code>codex app-server</code> over stdio JSON-RPC with a
+					deadline-authoritative reader tested against hanging subprocesses.
+				</li>
+				<li>
+					A local OpenAI-compatible audio server on
+					<code>127.0.0.1:3845</code> — <code>/v1/audio/transcriptions</code>
+					and <code>/v1/audio/speech</code> — so any Whisper-shaped tool gets
+					transcription and TTS for free, with health-probed fallback and
+					ffmpeg chunking for oversized audio.
+				</li>
+				<li>
+					Persona-aware TTS across Google Gemini and ElevenLabs with a
+					fallback policy that swaps providers on failure while preserving
+					the voice persona, plus an installable web PWA embedded into the
+					binary at build time.
+				</li>
+			</ul>
+
+			<h2>How it works</h2>
+			<p>
+				The insertion path is the distinctive trick. Since Wayland will not
+				let an app type into another app, codex-voice snapshots your
+				clipboard, places the transcript on it, opens a RemoteDesktop portal
+				keyboard session, sends the raw keycodes for Ctrl+V, waits 250ms, and
+				restores your original clipboard. Reading a selection inverts the same
+				idea with a twist: it writes a randomized sentinel to the clipboard,
+				sends Ctrl+C, and checks whether the clipboard changed away from the
+				sentinel — cleanly distinguishing "the user had a selection" from
+				"the copy did nothing."
+			</p>
+
+			<MermaidDiagram
+				title="Dictation path"
+				caption="Every stage that can fail has a typed error branch back to idle; a hotkey pressed mid-transcription is discarded, not queued into a surprise second recording."
+				svg={dictationSvg}
+			/>
+
+			<p>
+				The server turns a personal utility into shared infrastructure. Tools
+				that already speak the OpenAI audio API point at localhost and get the
+				same transcription and TTS the hotkeys use, discovered via a
+				permission-locked state file. Audio beyond the backend's 24MiB cap is
+				split by ffmpeg into 16kHz mono chunks and reassembled; a stale or
+				failing local server falls back transparently to the direct backend
+				path.
+			</p>
+
+			<MermaidDiagram
+				title="Local audio server"
+				caption="One capability, three consumers: the hotkey engine, any OpenAI-compatible tool, and an installable PWA embedded in the same binary."
+				svg={serverSvg}
+			/>
+
+			<h2>How it achieves the goal</h2>
+			<p>
+				A dictation tool succeeds when you stop thinking about it, and the
+				engineering serving that is mostly about failure: recordings
+				under 120ms are discarded, temp audio is deleted on every path,
+				empty transcripts skip insertion, and the engine cannot wedge in a
+				non-idle state. The discipline is enforced by 224 Rust tests plus
+				Playwright coverage for the web app, and CI that runs fmt, clippy with
+				warnings as errors, tests, and cargo-deny on every push.
+			</p>
+			<p>
+				What isn't done yet: Linux is the only proven target — the macOS port
+				is explicitly on hold and Windows compiles but is unvalidated in a real
+				session — and packaging is still a roadmap phase. I built the
+				foundations in the order that survives: correct engine, sanctioned
+				platform integration, shared server, and the packaging and extra
+				platforms after.
+			</p>
+
+			<ProjectCTA />
+		</article>
+	</main>
+</Layout>
+
+<style lang="scss">
+	.project-page {
+		max-width: 980px;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1rem;
+		color: rgb(var(--accent));
+	}
+
+	.project-detail {
+		padding-bottom: 2rem;
+	}
+
+	.eyebrow {
+		margin-bottom: 0.5rem;
+		color: var(--grey-mid);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
+	}
+
+	h1 {
+		font-size: 2.4rem;
+		margin-top: 0;
+	}
+
+	.lede {
+		font-size: 1.2rem;
+		color: var(--color-fg-copy);
+	}
+</style>

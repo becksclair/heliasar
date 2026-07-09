@@ -1,0 +1,6 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	synth["Speech synthesis chokepoint<br>in the import-restricted speech-core package"] -->|"threaded callback across the import boundary"| bridge["A single bridge file<br>the only thing touching the global hook runner"]
+	bridge --> hook["tts_prepare plugin hook<br>a first-class seam at the synthesis point"]
+	hook --> plugin["Out-of-tree voice-emotion plugin<br>LLM-driven emotional delivery"]
+	plugin -->|"integrity guards<br>never speak fabricated or meaning-inverted text"| out["Spoken output"]

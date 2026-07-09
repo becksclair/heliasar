@@ -2,7 +2,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildMarkdown, stripResumeHeader } from "./lib/resume.mjs";
+import { buildMarkdown, parseResumeHeader } from "./lib/resume.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const sourcePath =
@@ -19,12 +19,18 @@ assertFile(sourcePath);
 assertFile(`${root}/package.json`);
 
 const source = readFileSync(sourcePath, "utf8");
-const body = stripResumeHeader(source);
+const { subtitle, body } = parseResumeHeader(source);
+if (!subtitle) {
+	throw new Error(
+		`No subtitle line found in ${sourcePath} — expected an emphasized (*...*) line after the "# Rebecca Clair" heading.`,
+	);
+}
 
 const websiteMarkdown = buildMarkdown({
 	body,
 	layout: "../layouts/ResumeLayout.astro",
 	title: "Rebecca Clair",
+	subtitle,
 	imageUrl: "/images/rebecca_clair5.webp",
 });
 
@@ -32,6 +38,7 @@ const printMarkdown = buildMarkdown({
 	body,
 	layout: "../layouts/ResumePrintLayout.astro",
 	title: "Rebecca Clair",
+	subtitle,
 	imageUrl: "/images/rebecca_clair5.webp",
 });
 

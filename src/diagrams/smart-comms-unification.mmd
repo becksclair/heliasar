@@ -1,0 +1,7 @@
+%% Generated diagram source - run `pnpm generate:diagrams` after editing and commit the updated SVG.
+flowchart TD
+	channels["Communication surfaces<br>email, WhatsApp, SMS, phone, LinkedIn, postal mail"] -->|"read-only ingestion<br>the live inboxes are never mutated"| triage["Contextual triage engine<br>per-item, then a per-topic consolidation pass"]
+	triage -->|"cross-channel attach ladder<br>thread id, sender, tokens, lexical, semantic"| ledger["Ledger store<br>cases as topics, items as messages, typed graph edges"]
+	ledger --> retrieval["Hybrid retrieval<br>full-text plus vector embeddings plus exact-thread match"]
+	ledger --> entities["Entity resolution<br>one person unified across every surface, with merges"]
+	ledger --> followups["Next actions<br>a queue gated by human confirmation"]
