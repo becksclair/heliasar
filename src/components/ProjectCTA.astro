@@ -18,17 +18,22 @@
 		gap: 0.75rem 2rem;
 		margin-top: 2.5rem;
 		padding-top: 1.25rem;
-		border-top: 1px solid rgba(var(--accent), 24%);
+		border-top: 1px solid var(--line);
 
 		a {
-			font-family: Chicago, sans-serif;
-			font-size: 1rem;
-			color: rgb(var(--accent));
+			border-radius: 999px;
+			padding: 0.5rem 0.8rem;
+			color: var(--grey-mid);
+			background: color-mix(in srgb, var(--accent-color) 8%, transparent);
+			font-family: var(--font-family-body);
+			font-size: 0.88rem;
+			font-weight: 750;
 			text-decoration: none;
 
 			&:hover,
 			&:focus-visible {
-				text-decoration: underline;
+				color: var(--color-fg);
+				background: color-mix(in srgb, var(--pink) 12%, transparent);
 			}
 		}
 	}

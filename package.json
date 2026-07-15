@@ -21,9 +21,9 @@
 		"test": "node --test \"tools/**/*.test.mjs\""
 	},
 	"dependencies": {
-		"@astrojs/rss": "^4.0.19",
 		"@astrojs/sitemap": "^3.7.3",
 		"@astrojs/vercel": "^11.0.0",
+		"@phosphor-icons/web": "2.1.2",
 		"@vercel/analytics": "^2.0.1",
 		"astro": "^7.0.4",
 		"astro-robots-txt": "^1.0.0"

@@ -69,6 +69,7 @@ const otherWork = [
 	description="Selected software projects by Rebecca Clair — the infrastructure behind Sky, a personal AI agent, plus standalone work in reverse engineering, signal processing, and systems porting."
 >
 	<main>
+		<p class="page-eyebrow">Selected systems work</p>
 		<h1>Projects</h1>
 		<div class="content intro">
 			<p>
@@ -123,15 +124,17 @@ const otherWork = [
 </Layout>
 
 <style lang="scss">
-	h1 {
-		text-align: center;
-		padding-top: 1rem;
-		padding-bottom: 1rem;
-		font-size: 2rem;
+	main > h1 {
+		max-width: 12ch;
+		margin-bottom: 2rem !important;
+		font-size: clamp(1.75rem, 2vw, 2rem) !important;
 	}
 
 	.intro {
-		margin-bottom: 2rem;
+		max-width: 1100px;
+		margin-bottom: 3rem;
+		padding: clamp(1.5rem, 2.6vw, 2.5rem);
+		font-size: 1rem;
 
 		& a {
 			color: rgb(var(--accent));
@@ -139,24 +142,35 @@ const otherWork = [
 	}
 
 	.project-group {
-		margin-bottom: 2.5rem;
+		margin-bottom: 4rem;
 
 		& h2 {
-			font-size: 1.4rem;
-			margin-bottom: 0.25rem;
+			margin: 0 0 0.4rem;
+			font-size: clamp(1.5rem, 1.8vw, 1.75rem);
 		}
 
 		& .group-lede {
 			margin-top: 0;
-			margin-bottom: 1rem;
+			margin-bottom: 1.5rem;
 			color: var(--grey-mid);
+			font-size: 1.05rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		main > h1 {
+			font-size: clamp(1.75rem, 7vw, 2rem) !important;
+		}
+
+		.project-group h2 {
+			font-size: clamp(1.5rem, 6vw, 1.75rem);
 		}
 	}
 
 	.link-card-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(28ch, 1fr));
-		gap: 1rem;
+		gap: 1.25rem;
 		padding: 0;
 		margin: 0;
 	}

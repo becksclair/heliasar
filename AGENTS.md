@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 Commands and traps for this repo. See `README.md` for the full project overview.
 

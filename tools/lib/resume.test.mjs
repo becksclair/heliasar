@@ -53,17 +53,17 @@ test("buildMarkdown round-trips a title containing an apostrophe and embeds the 
 	const markdown = buildMarkdown({
 		body: "Body text.",
 		layout: "../layouts/ResumeLayout.astro",
-		title: "Rebecca's Résumé",
+		title: "Rebecca's Resume",
 		subtitle: "Staff Systems Software Engineer",
 		imageUrl: "/images/rebecca_clair5.webp",
 	});
 
 	assert.ok(markdown.startsWith("---\nlayout: ../layouts/ResumeLayout.astro"));
-	assert.ok(markdown.includes("title: 'Rebecca''s Résumé'"));
+	assert.ok(markdown.includes("title: 'Rebecca''s Resume'"));
 	assert.ok(markdown.includes("subtitle: 'Staff Systems Software Engineer'"));
 	assert.ok(
 		markdown.includes(
-			"description: 'Rebecca''s Résumé - Staff Systems Software Engineer'",
+			"description: 'Rebecca''s Resume - Staff Systems Software Engineer'",
 		),
 	);
 

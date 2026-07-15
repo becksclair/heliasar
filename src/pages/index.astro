@@ -1,250 +1,758 @@
 ---
-import Social from "../components/Social.astro";
+import "@phosphor-icons/web/regular";
 import Layout from "../layouts/Layout.astro";
+
+const approach = [
+	{
+		number: "01",
+		title: "Understand",
+		body: "Reverse-engineer the real constraints and failure modes.",
+	},
+	{
+		number: "02",
+		title: "Operate",
+		body: "Build observability, automation, and recovery into the architecture.",
+	},
+	{
+		number: "03",
+		title: "Extend",
+		body: "Turn the solution into a durable platform with clear contracts and tooling.",
+	},
+];
+
+const proof = [
+	{
+		icon: "ph-stack",
+		title: "Sky platform",
+		body: "A personal AI platform that unifies browser, computer-use, vision, voice, and cross-channel memory—and runs every day.",
+	},
+	{
+		icon: "ph-shield-check",
+		title: "Secure browser systems",
+		body: "Work across CEF, Windows, rendering pipelines, traffic steering, and the diagnostics needed to ship secure browser software.",
+	},
+	{
+		icon: "ph-globe",
+		title: "Mission-critical systems",
+		body: "Technical leadership for confidential systems, including RFID platforms used by JPL (NASA) and Boeing.",
+	},
+];
+
+const capabilities = [
+	{
+		icon: "ph-globe-simple",
+		title: "Browser",
+		body: "Navigation, automation, and authenticated agent control.",
+	},
+	{
+		icon: "ph-cursor-click",
+		title: "Computer use",
+		body: "Desktop, browser, and Android control through one tool surface.",
+	},
+	{
+		icon: "ph-eye",
+		title: "Vision",
+		body: "Screens, images, and the physical environment around me.",
+	},
+	{
+		icon: "ph-database",
+		title: "Memory",
+		body: "Cross-channel context that survives the conversation.",
+	},
+	{
+		icon: "ph-waveform",
+		title: "Voice",
+		body: "Natural interaction across phone, desktop, and wrist.",
+	},
+];
+
+const contributions = [
+	{
+		icon: "ph-stack-simple",
+		title: "Architecture ownership",
+		body: "Define system boundaries, interfaces, and contracts that hold up in production.",
+	},
+	{
+		icon: "ph-users-three",
+		title: "Cross-team unblocking",
+		body: "Remove systemic friction and give teams a shared operating model.",
+	},
+	{
+		icon: "ph-magnifying-glass",
+		title: "Production diagnostics",
+		body: "Make failures legible, reproducible, and faster to resolve.",
+	},
+	{
+		icon: "ph-code",
+		title: "Developer-facing platforms",
+		body: "Create tooling other engineers can use without inheriting the original complexity.",
+	},
+];
+
+const outcomes = [
+	{
+		title: "Safe to extend",
+		body: "Clear boundaries and responsibilities keep change local and deliberate.",
+	},
+	{
+		title: "Observable failure modes",
+		body: "Useful signals make problems obvious, diagnosable, and fixable.",
+	},
+	{
+		title: "Systems others can evolve",
+		body: "Practical platforms, documentation, and tooling enable independent progress.",
+	},
+];
 ---
 
 <Layout
 	title="Home"
-	description="Rebecca Clair designs software systems where operating systems, devices, browsers, cloud services, and AI work together as one coherent product."
+	description="Rebecca Clair turns unfamiliar, failure-prone systems into platforms teams can operate, trust, and extend."
 >
-	<main>
-		<section class="hero-thesis" aria-label="Professional focus">
-			<p>
-				I design software systems where operating systems, devices, browsers,
-				cloud services, and AI work together as one coherent product.
-			</p>
+	<main class="home-page">
+		<section class="home-hero" aria-labelledby="home-title">
+			<div class="hero-portrait">
+				<img
+					src="/images/rebecca_clair5.webp"
+					alt="Rebecca Clair"
+					width="900"
+					height="1121"
+					fetchpriority="high"
+				/>
+			</div>
+
+			<div class="hero-copy">
+				<p class="page-eyebrow">
+					Staff systems engineer · from unknown system to operating model
+				</p>
+				<h1 id="home-title">
+					The hard part is rarely the code.<br />
+					I find the boundary that makes the whole system <span>make sense.</span>
+				</h1>
+				<p class="hero-summary">
+					I work where operating systems, browsers, devices, cloud services,
+					and AI meet. I trace failures across boundaries, create the abstraction
+					the system was missing, and turn one-off technical wins into platforms
+					teams can operate and extend.
+				</p>
+				<div class="hero-actions" aria-label="Primary actions">
+					<a class="site-btn primary" href="/projects">
+						Selected work <i class="ph ph-arrow-right" aria-hidden="true"></i>
+					</a>
+					<a class="site-btn" href="/resume">View resume</a>
+					<a class="contact-link" href="mailto:rebecca@heliasar.com">
+						Contact <i class="ph ph-arrow-right" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
 		</section>
 
-		<div class="bio-container">
-			<img
-				class="shadow-img"
-				src="/images/rebecca_clair5.webp"
-				alt="Rebecca Clair"
-			/>
-
-			<div class="bio">
-				<div class="window " style="">
-					<div class="title-bar">
-						<button class="close" aria-hidden="true" tabindex="-1"></button>
-						<h1 class="title">Hello !!</h1>
-						<button class="resize" aria-hidden="true" tabindex="-1"></button>
-					</div>
-					<div class="separator"></div>
-
-					<div class="window-pane unselectable-text">
-						<p>
-							<img
-								class="inline-img"
-								loading="lazy"
-								src="/images/rebecca_clair5.webp"
-								alt="Rebecca Clair"
-							/>
-							Hi! 👋🏻<br/>
-							I'm <b>Rebecca Clair,</b><br />
-							<br />
-							A staff-level systems software engineer with 15+ years of
-							experience building native applications, developer platforms,
-							and AI-enabled automation.
-						</p>
-
-						<p>
-							I specialize in connecting complex components into coherent,
-							production-ready systems: developer tooling, automation,
-							AI infrastructure, diagnostics, platform engineering, and the
-							low-level debugging that makes the whole thing actually behave.
-						</p>
-						<p>
-							Lately that's meant building a whole platform for a personal
-							AI agent — its own browser, computer-use, home vision, voice
-							on the phone and the wrist, and a cross-channel memory —
-							and running it every day.
-						</p>
-						<p>
-							Much of that time I've spent as a technical lead, trusted with
-							mission-critical and confidential systems for organizations
-							like NASA's JPL and Boeing.
-						</p>
-						<p>
-							In my free time I enjoy practicing extreme sports, creating music
-							and painting.
-						</p>
-
-						<div class="center bio-actions">
-							<Social url="https://github.com/becksClair" platform="GitHub" />
-							<Social
-								url="https://www.linkedin.com/in/rebecca-clair/"
-								platform="Linkedin"
-							/>
-							<Social
-								url="https://bsky.app/profile/becksclair.bsky.social"
-								platform="BlueSky"
-							/>
-							<Social url="https://x.com/becksClair" platform="X (Twitter)" />
-						</div>
-					</div>
+		<section class="story-section" aria-label="Engineering approach and proof">
+			<div class="story-column">
+				<h2 class="section-label">How the work compounds</h2>
+				<div class="approach-list">
+					{
+						approach.map((step) => (
+							<article class="approach-row">
+								<p class="step-number">{step.number}</p>
+								<div>
+									<h3>{step.title}</h3>
+									<p>{step.body}</p>
+								</div>
+							</article>
+						))
+					}
 				</div>
-
 			</div>
-		</div>
+
+			<div class="story-column proof-column">
+				<h2 class="section-label">Selected proof</h2>
+				<div class="proof-list">
+					{
+						proof.map((item) => (
+							<article class="proof-row">
+								<div class="icon-frame" aria-hidden="true">
+									<i class={`ph ${item.icon}`} />
+								</div>
+								<div>
+									<h3>{item.title}</h3>
+									<p>{item.body}</p>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="sky-section" aria-labelledby="sky-title">
+			<div class="section-heading">
+				<div>
+					<p class="section-label">The Sky platform</p>
+					<h2 id="sky-title">One agent. One coherent operating model.</h2>
+				</div>
+				<p>
+					I design software systems where operating systems, devices, browsers,
+					cloud services, and AI infrastructure work together as one coherent
+					product. Sky is that philosophy made concrete—not a chatbot, but a
+					platform I operate every day.
+				</p>
+			</div>
+
+			<div class="capability-list">
+				{
+					capabilities.map((capability) => (
+						<article class="capability">
+							<i class={`ph ${capability.icon}`} aria-hidden="true" />
+							<h3>{capability.title}</h3>
+							<p>{capability.body}</p>
+						</article>
+					))
+				}
+			</div>
+
+			<a class="inline-cta" href="/projects">
+				See how the systems fit together
+				<i class="ph ph-arrow-right" aria-hidden="true"></i>
+			</a>
+		</section>
+
+		<section class="impact-section" aria-labelledby="impact-title">
+			<p class="section-label">What I leave behind</p>
+			<h2 id="impact-title">
+				The work is finished when the system no longer depends on me.
+			</h2>
+
+			<div class="contribution-list">
+				{
+					contributions.map((contribution) => (
+						<article class="contribution">
+							<i class={`ph ${contribution.icon}`} aria-hidden="true" />
+							<h3>{contribution.title}</h3>
+							<p>{contribution.body}</p>
+						</article>
+					))
+				}
+			</div>
+
+			<div class="outcome-list">
+				{
+					outcomes.map((outcome) => (
+						<article class="outcome">
+							<i class="ph ph-check-circle" aria-hidden="true" />
+							<div>
+								<h3>{outcome.title}</h3>
+								<p>{outcome.body}</p>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</section>
+
+		<footer class="home-footer">
+			<p>
+				<span>Outside systems work:</span> extreme sports, music, and painting.
+			</p>
+			<a class="site-btn" href="mailto:rebecca@heliasar.com">
+				Let’s connect <i class="ph ph-arrow-right" aria-hidden="true"></i>
+			</a>
+		</footer>
 	</main>
 </Layout>
 
 <style lang="scss">
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
+	.home-page {
+		padding-top: clamp(2rem, 3vw, 3rem);
+		padding-bottom: 0;
+	}
 
-		@media (max-width: 990px) {
-			text-align: center;
+	.home-hero {
+		display: grid;
+		grid-template-columns: minmax(260px, 0.64fr) minmax(0, 1.36fr);
+		align-items: start;
+		gap: clamp(2.5rem, 5vw, 4.5rem);
+		padding-bottom: clamp(2rem, 3vw, 3rem);
+	}
+
+	.hero-portrait {
+		width: min(100%, 420px);
+		height: clamp(380px, 28vw, 420px);
+		justify-self: start;
+		border-radius: 1.5rem;
+		overflow: hidden;
+		background: var(--page-surface-muted);
+		box-shadow: var(--shadow-soft);
+
+		img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center 16%;
 		}
 	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0;
+
+	.hero-copy {
+		max-width: 780px;
+
+		h1 {
+			margin: 0;
+			font-family: var(--font-family-body);
+			font-size: clamp(2.35rem, 4vw, 3rem);
+			font-weight: 820;
+			letter-spacing: -0.055em;
+			line-height: 1.04;
+			text-wrap: balance;
+
+			span {
+				color: transparent;
+				background: linear-gradient(100deg, var(--accent-color), var(--pink));
+				background-clip: text;
+				-webkit-background-clip: text;
+			}
+		}
 	}
 
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
+	@media (min-width: 721px) {
+		.hero-copy {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: 100%;
+
+			.page-eyebrow {
+				position: absolute;
+				top: 0;
+				left: 0;
+				margin: 0;
+			}
+		}
 	}
 
-	.hero-thesis {
-		max-width: 980px;
-		margin: 2.5rem auto 1rem;
-		padding: 0 1rem;
+	.hero-summary {
+		max-width: 680px;
+		margin: 1.35rem 0 0;
+		color: var(--color-fg-copy);
+		font-size: clamp(1rem, 1.35vw, 1.125rem);
+		line-height: 1.68;
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.85rem;
+		margin-top: 1.5rem;
+
+		.primary {
+			border-color: transparent;
+			color: white;
+			background: linear-gradient(100deg, var(--accent-color), var(--pink));
+		}
+
+		.ph {
+			margin-left: 0.45rem;
+			font-size: 1rem;
+		}
+	}
+
+	.contact-link,
+	.inline-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		padding: 0.65rem 0.45rem;
+		font-size: 0.9rem;
+		font-weight: 750;
+		text-decoration: none;
+	}
+
+	.story-section {
+		display: grid;
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		gap: clamp(3rem, 7vw, 7rem);
+		border-top: 1px solid var(--line);
+		padding: clamp(1.5rem, 2vw, 2rem) 0 clamp(3rem, 5vw, 4.25rem);
+
+		.section-label {
+			margin-bottom: 0.75rem;
+		}
+	}
+
+	.section-label {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin: 0 0 1rem;
+		color: var(--accent-color);
+		font-family: var(--font-family-display);
+		font-size: 0.8rem;
+		font-weight: 800;
+		letter-spacing: 0.12em;
+		line-height: 1.2;
+		text-transform: uppercase;
+
+		&::before {
+			content: "";
+			width: 1.75rem;
+			height: 2px;
+			background: linear-gradient(90deg, var(--accent-color), var(--pink));
+		}
+	}
+
+	.approach-row,
+	.proof-row {
+		display: grid;
+		align-items: start;
+		border-top: 1px solid var(--line);
+		padding: 1.15rem 0;
+
+		h3 {
+			margin: 0 0 0.35rem;
+			font-family: var(--font-family-body);
+			font-size: 1.05rem;
+			font-weight: 780;
+			letter-spacing: -0.02em;
+		}
+
+		p {
+			margin: 0;
+			color: var(--color-fg-copy);
+			font-size: 0.95rem;
+			line-height: 1.55;
+		}
+	}
+
+	.approach-row {
+		grid-template-columns: 5.5rem minmax(0, 1fr);
+		gap: 1.35rem;
+
+		.step-number {
+			color: transparent;
+			background: linear-gradient(120deg, var(--accent-color), var(--pink));
+			background-clip: text;
+			-webkit-background-clip: text;
+			font-family: var(--font-family-display);
+			font-size: 2.5rem;
+			font-weight: 900;
+			letter-spacing: -0.06em;
+			line-height: 1;
+		}
+	}
+
+	.proof-row {
+		grid-template-columns: 3.6rem minmax(0, 1fr);
+		gap: 1.2rem;
+	}
+
+	.icon-frame {
+		display: grid;
+		width: 3.1rem;
+		height: 3.1rem;
+		place-items: center;
+		border: 1px solid var(--line-strong);
+		border-radius: 1rem;
+		color: var(--accent-color);
+		font-size: 1.65rem;
+		background: color-mix(in srgb, var(--accent-color) 5%, var(--page-surface));
+	}
+
+	.sky-section,
+	.impact-section {
+		border-top: 1px solid var(--line);
+		padding: clamp(3rem, 5vw, 4.25rem) 0;
+	}
+
+	.section-heading {
+		display: grid;
+		grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
+		align-items: end;
+		gap: clamp(2rem, 6vw, 6rem);
+
+		h2 {
+			max-width: 460px;
+			margin: 0;
+			font-family: var(--font-family-body);
+			font-size: clamp(1.75rem, 3vw, 2.5rem);
+			font-weight: 800;
+			letter-spacing: -0.045em;
+			line-height: 1.05;
+		}
+
+		> p {
+			max-width: 700px;
+			margin: 0;
+			color: var(--color-fg-copy);
+			font-size: 1.05rem;
+			line-height: 1.65;
+		}
+	}
+
+	.capability-list {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		margin-top: clamp(2.5rem, 5vw, 4.5rem);
+		border-block: 1px solid var(--line);
+	}
+
+	.capability {
+		padding: 1.75rem clamp(1rem, 2.25vw, 2rem);
 		text-align: center;
 
-		& p {
+		& + & {
+			border-left: 1px solid var(--line);
+		}
+
+		> .ph {
+			color: var(--accent-color);
+			font-size: 2rem;
+		}
+
+		h3 {
+			margin: 0.75rem 0 0.35rem;
+			font-family: var(--font-family-body);
+			font-size: 0.95rem;
+			font-weight: 780;
+			letter-spacing: -0.02em;
+		}
+
+		p {
 			margin: 0;
-			color: rgb(var(--accent));
-			font-size: clamp(2rem, 4vw, 4rem);
+			color: var(--color-fg-copy);
+			font-size: 0.82rem;
+			line-height: 1.5;
+		}
+	}
+
+	.inline-cta {
+		margin-top: 1.5rem;
+	}
+
+	.impact-section {
+		> h2 {
+			max-width: 760px;
+			margin: 0;
+			font-family: var(--font-family-body);
+			font-size: clamp(1.75rem, 3vw, 2.5rem);
 			font-weight: 800;
+			letter-spacing: -0.045em;
+			line-height: 1.08;
+		}
+	}
+
+	.contribution-list {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		margin-top: clamp(2.5rem, 5vw, 4rem);
+		border-block: 1px solid var(--line);
+	}
+
+	.contribution {
+		padding: 1.75rem clamp(1rem, 2.5vw, 2.25rem);
+
+		& + & {
+			border-left: 1px solid var(--line);
+		}
+
+		> .ph {
+			color: var(--accent-color);
+			font-size: 1.75rem;
+		}
+
+		h3 {
+			margin: 0.8rem 0 0.35rem;
+			font-family: var(--font-family-body);
+			font-size: 0.95rem;
+			font-weight: 780;
+			letter-spacing: -0.02em;
+		}
+
+		p {
+			margin: 0;
+			color: var(--color-fg-copy);
+			font-size: 0.84rem;
+			line-height: 1.5;
+		}
+	}
+
+	.outcome-list {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		border-bottom: 1px solid var(--line);
+	}
+
+	.outcome {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 0.85rem;
+		padding: 1.5rem clamp(1rem, 2.5vw, 2.25rem);
+
+		& + & {
+			border-left: 1px solid var(--line);
+		}
+
+		> .ph {
+			color: var(--accent-color);
+			font-size: 1.45rem;
+		}
+
+		h3 {
+			margin: 0 0 0.3rem;
+			font-family: var(--font-family-body);
+			font-size: 0.92rem;
+			font-weight: 780;
+			letter-spacing: -0.015em;
+		}
+
+		p {
+			margin: 0;
+			color: var(--color-fg-copy);
+			font-size: 0.8rem;
+			line-height: 1.45;
+		}
+	}
+
+	.home-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		border-top: 1px solid var(--line);
+		padding: 1.5rem 0;
+
+		p {
+			margin: 0;
+			color: var(--color-fg-copy);
+			font-size: 0.9rem;
+		}
+
+		span {
+			margin-right: 0.35rem;
+			color: var(--accent-color);
+			font-family: var(--font-family-display);
+			font-size: 0.78rem;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.ph {
+			margin-left: 0.45rem;
+		}
+	}
+
+	@media (max-width: 960px) {
+		.home-hero {
+			grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+			gap: 2rem;
+		}
+
+		.story-section {
+			gap: 3rem;
+		}
+
+		.capability-list {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.capability {
+			border-bottom: 1px solid var(--line);
+
+			&:nth-child(4) {
+				border-left: 0;
+			}
+		}
+
+		.contribution-list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.contribution:nth-child(3) {
+			border-top: 1px solid var(--line);
+			border-left: 0;
+		}
+
+		.contribution:nth-child(4) {
+			border-top: 1px solid var(--line);
+		}
+	}
+
+	@media (max-width: 720px) {
+		.home-page {
+			padding-top: 2rem;
+		}
+
+		.home-hero,
+		.story-section,
+		.section-heading {
+			grid-template-columns: 1fr;
+		}
+
+		.home-hero {
+			min-height: 0;
+			gap: 2rem;
+			padding-bottom: 3.5rem;
+		}
+
+		.hero-portrait {
+			height: min(68vw, 390px);
+			max-height: none;
+		}
+
+		.hero-copy h1 {
+			font-size: clamp(2rem, 9vw, 2.55rem);
 			letter-spacing: -0.05em;
-			line-height: 0.98;
-		}
-	}
-
-	.bio-container {
-		display: flex;
-		margin-top: 2.5rem;
-		gap: 40px;
-
-		& img {
-			width: auto;
-			height: 300px;
-			// filter: sepia(0.3) saturate(0.7) contrast(1.2) brightness(0.9)
-			// 	hue-rotate(10deg) blur(0.4px) grayscale(0.1);
 		}
 
-		& .inline-img {
-			border-radius: 15px;
-			height: 192px;
-			box-shadow: 0px 2px 2px 2px #d1d1d1;
-			// filter: sepia(0.4) saturate(0.7) contrast(0.9) brightness(1.1)
-			// 	hue-rotate(-10deg);
-			display: none;
-			float: left;
-			margin-right: 1rem;
+		.story-section {
+			gap: 3.5rem;
 		}
 
-		@media (max-width: 990px) {
+		.section-heading {
+			align-items: start;
+		}
+
+		.capability-list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.capability:nth-child(odd) {
+			border-left: 0;
+		}
+
+		.capability:nth-child(4) {
+			border-left: 1px solid var(--line);
+		}
+
+		.outcome-list {
+			grid-template-columns: 1fr;
+		}
+
+		.outcome + .outcome {
+			border-top: 1px solid var(--line);
+			border-left: 0;
+		}
+
+		.home-footer {
+			align-items: flex-start;
 			flex-direction: column;
-			margin-top: 1rem;
-			align-items: center;
-
-			& .shadow-img {
-				display: none;
-				width: 0;
-				height: 0;
-			}
-
-			& .inline-img {
-				display: inline;
-			}
-		}
-
-		@media (max-width: 700px) {
-			display: inline-flex;
-			padding: 0;
-			width: 100%;
-			flex-direction: column;
-			margin-top: 0rem;
-
-			& img {
-				width: auto;
-				height: 300px;
-			}
-
-			.title-bar {
-				display: none;
-			}
-			.separator {
-				display: none;
-			}
-			// .content {
-			// 	border: none !important;
-			// 	width: unset !important;
-			// }
 		}
 	}
 
-	.bio {
-		line-height: 1.1;
-		// border: 1px solid rgba(var(--accent), 25%);
-		// background-color: white;
-		// padding: 1rem;
-		// padding-top: 4px;
-		// padding-bottom: 4px;
-		// border-radius: 0.4rem;
-		// box-shadow:
-		// 	0 4px 6px -1px rgba(0, 0, 0, 0.1),
-		// 	0 2px 4px -2px rgba(0, 0, 0, 0.1);
-		// font-size: 18px;
-
-		& .window {
-				box-shadow: 2px 2px;
-				margin: 0 auto;
-			}
-
-			& .window-pane {
-				overflow: auto;
-			}
-
-		@media (max-width: 700px) {
-			width: 100%;
-			padding: 0;
-			box-shadow: none;
-			border: none;
-			border-radius: 0;
-			background-color: transparent;
-
-			& .window {
-				margin: 0.5rem;
-			}
+	@media (max-width: 480px) {
+		.approach-row {
+			grid-template-columns: 4rem minmax(0, 1fr);
 		}
-	}
 
-	.bio-actions {
-		line-height: unset;
-		margin-top: 2rem;
-		margin-bottom: 1rem;
-		display: flex;
-		gap: 1rem;
-		justify-content: center;
+		.contribution-list {
+			grid-template-columns: 1fr;
+		}
 
-		@media (max-width: 700px) {
-			flex-wrap: wrap;
+		.contribution + .contribution {
+			border-top: 1px solid var(--line);
+			border-left: 0;
 		}
 	}
 </style>

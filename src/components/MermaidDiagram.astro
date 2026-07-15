@@ -20,11 +20,12 @@ const { title, svg, caption } = Astro.props;
 <style lang="scss">
 	.mermaid-diagram {
 		margin: 1.75rem 0;
-		padding: 1rem;
-		border: 1px solid rgba(var(--accent), 24%);
+		padding: 1.25rem;
+		border: 1px solid var(--line);
 		border-radius: var(--border-radius-base);
-		background: linear-gradient(180deg, #fff, #fff7ff);
+		background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 7%, var(--page-surface-solid)), var(--page-surface-solid));
 		overflow-x: auto;
+		box-shadow: var(--shadow-soft);
 
 		figcaption {
 			display: grid;
@@ -34,7 +35,7 @@ const { title, svg, caption } = Astro.props;
 			font-size: 0.95rem;
 
 			strong {
-				color: var(--black);
+				color: var(--color-fg);
 				font-family: Chicago, sans-serif;
 				font-size: 1rem;
 			}

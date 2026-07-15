@@ -12,4 +12,11 @@ export default defineConfig({
 	],
 	output: "static",
 	adapter: vercel(),
+	vite: {
+		server: {
+			watch: {
+				ignored: ["**/output/**", "**/.playwright-cli/**", "**/artifacts/**"],
+			},
+		},
+	},
 });

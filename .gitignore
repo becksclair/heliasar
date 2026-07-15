@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 # editor / local tooling
 .claude/
+.playwright-cli/
+output/

@@ -5,9 +5,20 @@ import Layout from "./Layout.astro";
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={frontmatter.title} description={frontmatter.description}>
+<Layout title="Resume" description={frontmatter.description}>
 	<main>
-		<h1>{frontmatter.title}</h1>
+		<div class="resume-header">
+			<div class="resume-heading">
+				<p class="page-eyebrow">Experience · selected work · capabilities</p>
+				<h1>Resume</h1>
+			</div>
+			<div class="resume-actions" aria-label="Resume actions">
+				<a class="site-btn primary" href="/Rebecca_Clair_Resume.pdf" download>
+					Download resume
+				</a>
+				<a class="site-btn" href="mailto:rebecca@heliasar.com">Contact</a>
+			</div>
+		</div>
 		<div class="content">
 			{
 				frontmatter.image && (
@@ -28,57 +39,89 @@ const { frontmatter } = Astro.props;
 </Layout>
 
 <style lang="scss">
-	body {
-		height: fit-content;
+	.resume-header {
+		display: flex;
+		max-width: 1120px;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 2rem;
+		margin: 0 auto 1.5rem;
 	}
 
-	h1 {
-		text-align: center;
-		padding-top: 1rem;
-		padding-bottom: 1rem;
-		font-size: 2rem;
-	}
+	.resume-heading {
+		min-width: 0;
 
-	main {
-		color: #444;
-
-		& h2,
-		& h3 {
-			color: rgb(var(--accent));
+		.page-eyebrow {
+			margin-bottom: 0.75rem;
 		}
 
-		&a {
-			border-radius: 5px;
-			padding: 0.5rem 1rem;
-			color: rgb(var(--accent));
-			background-color: #e1e1e9;
-			text-decoration: none;
-			transition: all 0.2s ease-in-out;
-			font-weight: 500;
+		h1 {
+			margin: 0 !important;
+			padding: 0 !important;
+			font-size: clamp(1.75rem, 2vw, 2rem) !important;
+			line-height: 1 !important;
+		}
+	}
 
-			&:hover {
-				box-shadow:
-					0 4px 6px -1px rgba(0, 0, 0, 0.1),
-					0 2px 4px -2px rgba(0, 0, 0, 0.1);
-			}
-			&:active {
-				transform: translateY(2px);
-			}
+	.resume-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		justify-content: flex-end;
+		margin: 0;
+
+		.primary {
+			border-color: transparent;
+			color: white;
+			background: linear-gradient(100deg, var(--accent-color), var(--pink));
+		}
+	}
+
+	main .content {
+		max-width: 1120px;
+		margin: 0 auto;
+
+		:global(a) {
+			font-weight: 650;
+		}
+
+		:global(h3) {
+			font-size: 1.1rem !important;
+			line-height: 1.25;
+		}
+
+		:global(h2:first-of-type) {
+			margin-top: 0;
 		}
 	}
 	.post-image-container {
 		float: left;
-		margin-right: 2rem;
+		margin-right: 2.25rem;
 		margin-bottom: 1rem;
-		margin-top: 1.5rem;
+		margin-top: 0;
 	}
 	.post-img {
-		height: 142px;
+		display: block;
+		height: 170px;
 		width: auto;
-		margin-bottom: 1rem;
+		margin: 0;
 
 		@media (max-width: 700px) {
 			height: 192px;
+		}
+	}
+
+	@media (max-width: 700px) {
+		.resume-header {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+
+		.resume-actions {
+			width: 100%;
+			justify-content: flex-start;
+
 		}
 	}
 </style>
