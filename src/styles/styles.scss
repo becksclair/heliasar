@@ -3,19 +3,9 @@
 @font-face {
 	font-family: "Chicago";
 	src:
-		url("/systemcss/ChicagoFLF.woff2") format("woff2"),
-		url("/systemcss/ChicagoFLF.woff") format("woff");
+		url("/fonts/ChicagoFLF.woff2") format("woff2"),
+		url("/fonts/ChicagoFLF.woff") format("woff");
 	font-weight: 400 900;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "ChiKareGo2";
-	src:
-		url("/systemcss/ChiKareGo2.woff2") format("woff2"),
-		url("/systemcss/ChiKareGo2.woff") format("woff");
-	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
@@ -86,6 +76,14 @@
 	--body-horizontal-padding-lg: 2.5rem;
 	--global-transition-time: 0.18s;
 	--scroll-behaviour: smooth;
+	--scrollbar-track: #e6dced;
+	--scrollbar-checker: rgba(124, 58, 237, 0.18);
+	--scrollbar-thumb: #d6bee1;
+	--scrollbar-thumb-hover: #c8b0d2;
+	--scrollbar-thumb-active: #a88fb4;
+	--scrollbar-edge: #927fa0;
+	--scrollbar-arrow-up: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' shape-rendering='crispEdges'%3E%3Cpath d='M10 16V5M5 10l5-5 5 5' fill='none' stroke='%235b21b6' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+	--scrollbar-arrow-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' shape-rendering='crispEdges'%3E%3Cpath d='M10 4v11m-5-5 5 5 5-5' fill='none' stroke='%235b21b6' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -124,6 +122,14 @@
 		--line-strong: rgba(196, 181, 253, 0.3);
 		--shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
 		--shadow-soft: 0 12px 34px rgba(0, 0, 0, 0.24);
+		--scrollbar-track: #08050d;
+		--scrollbar-checker: rgba(196, 181, 253, 0.2);
+		--scrollbar-thumb: #1d1026;
+		--scrollbar-thumb-hover: #2a1734;
+		--scrollbar-thumb-active: #100916;
+		--scrollbar-edge: #685979;
+		--scrollbar-arrow-up: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' shape-rendering='crispEdges'%3E%3Cpath d='M10 16V5M5 10l5-5 5 5' fill='none' stroke='%23f9a8d4' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+		--scrollbar-arrow-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' shape-rendering='crispEdges'%3E%3Cpath d='M10 4v11m-5-5 5 5 5-5' fill='none' stroke='%23f9a8d4' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
 		--accent-gradient: linear-gradient(
 			100deg,
 			#ffffff 0%,
@@ -399,6 +405,116 @@ blockquote {
 	transition-duration: 60ms;
 }
 
+/*
+ * Desktop scrollbars use a neo-noir pixel rail inspired by classic desktop UI.
+ * Mobile is intentionally left untouched so the browser and OS retain control.
+ */
+@media (min-width: 769px) {
+	:root {
+		scrollbar-color: var(--scrollbar-edge) var(--scrollbar-track);
+		scrollbar-width: auto;
+	}
+
+	@supports selector(::-webkit-scrollbar) {
+		:root {
+			/* Let the richer WebKit pseudo-elements render in Chromium and Safari. */
+			scrollbar-color: auto;
+		}
+
+		::-webkit-scrollbar {
+			width: 23px;
+			height: 23px;
+			background: var(--scrollbar-track);
+		}
+
+		::-webkit-scrollbar-track {
+			border-left: 1px solid var(--line-strong);
+			background:
+				linear-gradient(
+					45deg,
+					var(--scrollbar-checker) 25%,
+					transparent 25%,
+					transparent 75%,
+					var(--scrollbar-checker) 75%
+				),
+				linear-gradient(
+					45deg,
+					var(--scrollbar-checker) 25%,
+					transparent 25%,
+					transparent 75%,
+					var(--scrollbar-checker) 75%
+				),
+				var(--scrollbar-track);
+			background-position: 0 0, 2px 2px;
+			background-size: 4px 4px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			min-height: 48px;
+			border: 1px solid var(--scrollbar-edge);
+			border-radius: 0;
+			background: var(--scrollbar-thumb);
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			background: var(--scrollbar-thumb-hover);
+		}
+
+		::-webkit-scrollbar-thumb:active {
+			background: var(--scrollbar-thumb-active);
+		}
+
+		::-webkit-scrollbar-button {
+			display: none;
+			width: 23px;
+			height: 26px;
+			border: 1px solid var(--scrollbar-edge);
+			border-radius: 0;
+			background-color: var(--scrollbar-thumb);
+		}
+
+		::-webkit-scrollbar-button:vertical:start:decrement {
+			display: block;
+			background-image: var(--scrollbar-arrow-up);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 14px 14px;
+		}
+
+		::-webkit-scrollbar-button:vertical:end:increment {
+			display: block;
+			background-image: var(--scrollbar-arrow-down);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 14px 14px;
+		}
+
+		::-webkit-scrollbar-button:vertical:start:decrement:hover,
+		::-webkit-scrollbar-button:vertical:end:increment:hover {
+			background-color: var(--scrollbar-thumb-hover);
+		}
+
+		::-webkit-scrollbar-button:vertical:start:decrement:active,
+		::-webkit-scrollbar-button:vertical:end:increment:active {
+			background-color: var(--scrollbar-thumb-active);
+			background-position: center calc(50% + 1px);
+			transform: translateY(1px);
+		}
+
+		::-webkit-scrollbar-corner {
+			border-top: 1px solid var(--line-strong);
+			border-left: 1px solid var(--line-strong);
+			background: var(--scrollbar-track);
+		}
+	}
+}
+
+@media (forced-colors: active) {
+	:root {
+		scrollbar-color: auto;
+	}
+}
+
 @media (max-width: 768px) {
 	body {
 		padding-bottom: 2rem;
@@ -417,14 +533,5 @@ blockquote {
 	.content {
 		border-radius: 1.25rem;
 		padding: 1.35rem;
-	}
-
-	::-webkit-scrollbar,
-	::-webkit-scrollbar-track,
-	::-webkit-scrollbar-thumb,
-	::-webkit-scrollbar-corner {
-		width: 0 !important;
-		height: 0 !important;
-		background: transparent !important;
 	}
 }
