@@ -7,6 +7,23 @@
 		url("/fonts/ChicagoFLF.woff") format("woff");
 	font-weight: 400 900;
 	font-style: normal;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Proxima Vara";
+	src: url("/fonts/proxima-vara.woff2") format("woff2-variations");
+	font-weight: 100 900;
+	font-stretch: 50% 100%;
+	font-style: normal;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Berkeley Mono NF";
+	src: url("/fonts/berkeley-mono-nf-regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
 	font-display: swap;
 }
 
@@ -57,7 +74,7 @@
 		var(--pink) 100%
 	);
 	--font-family-body:
-		Inter,
+		"Proxima Vara",
 		ui-sans-serif,
 		system-ui,
 		-apple-system,
@@ -65,9 +82,17 @@
 		"Segoe UI",
 		sans-serif;
 	--font-family-display: Chicago, ui-monospace, monospace;
-	--font-weight-bold: 760;
-	--font-weight-mid: 650;
-	--font-weight-main: 400;
+	--font-family-mono:
+		"Berkeley Mono NF",
+		"Berkeley Mono",
+		Menlo,
+		Monaco,
+		"Liberation Mono",
+		"Courier New",
+		monospace;
+	--font-weight-bold: 620;
+	--font-weight-mid: 500;
+	--font-weight-main: 340;
 	--border-radius-base: 1.25rem;
 	--global-max-width: 1340px;
 	--feed-max-width: 720px;
@@ -218,7 +243,7 @@ code {
 	padding: 0.12em 0.35em;
 	color: var(--accent-strong);
 	background: var(--page-surface-muted);
-	font-family: Menlo, Monaco, "Liberation Mono", "Courier New", monospace;
+	font-family: var(--font-family-mono);
 }
 
 main {

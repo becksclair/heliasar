@@ -3,96 +3,169 @@ export interface Props {
 	title: string;
 	body: string;
 	href: string;
+	icon: string;
+	label: string;
 }
 
-const { href, title, body } = Astro.props;
+const { href, title, body, icon, label } = Astro.props;
 ---
 
 <li class="link-card">
 	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
+		<div class="card-header">
+			<div class="card-heading">
+				<p class="card-label">{label}</p>
+				<h3>{title}</h3>
+			</div>
+			<span class="icon-frame" aria-hidden="true">
+				<i class={`ph ${icon}`}></i>
+			</span>
+		</div>
+		<p class="card-copy">{body}</p>
 	</a>
 </li>
+
 <style>
 	.link-card {
-		--card-frame: white;
-		--card-surface: white;
-		--card-title: #111;
-		--card-copy: #444;
-		--card-hover-mid: #da62c4;
-		--card-hover-end: white;
+		--card-frame: var(--line);
+		--card-surface: color-mix(
+			in srgb,
+			var(--page-surface-solid) 78%,
+			transparent
+		);
+		--card-copy: var(--color-fg-copy);
+		--card-hover-mid: var(--pink);
+		--card-hover-end: var(--page-surface-solid);
 
-		list-style: none;
+		position: relative;
 		display: flex;
-		padding: 0.25rem;
+		min-width: 0;
+		min-height: 11.5rem;
+		padding: 1px;
+		overflow: hidden;
+		border-radius: 1.1rem;
 		background-color: var(--card-frame);
-		background-image: none;
-		background-size: 400%;
-		border-radius: 0.6rem;
 		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+		background-size: 400%;
+		box-shadow: var(--shadow-soft);
+		list-style: none;
+		transition:
+			background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow var(--global-transition-time),
+			transform var(--global-transition-time);
 	}
 
 	.link-card > a {
+		display: flex;
 		width: 100%;
+		min-width: 0;
+		flex-direction: column;
+		border-radius: calc(1.1rem - 1px);
+		padding: 1.35rem;
+		color: var(--color-fg);
+		background: var(--card-surface);
 		text-decoration: none;
-		line-height: 1.4;
-		padding: 1rem 1.3rem;
-		border-radius: 0.35rem;
-		color: var(--card-title);
-		background-color: var(--card-surface);
-		opacity: 0.8;
 	}
-	h2 {
+
+	.card-header {
+		display: flex;
+		margin-bottom: 0.8rem;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.card-heading {
+		min-width: 0;
+	}
+
+	.icon-frame {
+		display: grid;
+		width: 2.75rem;
+		height: 2.75rem;
+		flex: 0 0 2.75rem;
+		place-items: center;
+		border: 1px solid var(--line-strong);
+		border-radius: 0.8rem;
+		color: var(--accent-strong);
+		background: color-mix(
+			in srgb,
+			var(--accent-color) 8%,
+			var(--page-surface-solid)
+		);
+		font-size: 1.35rem;
+		transition:
+			border-color var(--global-transition-time),
+			color var(--global-transition-time),
+			background var(--global-transition-time);
+	}
+
+	.card-label {
+		margin: 0 0 0.3rem;
+		color: var(--pink);
+		font-size: 0.68rem;
+		font-weight: 850;
+		letter-spacing: 0.14em;
+		line-height: 1.2;
+		text-transform: uppercase;
+	}
+
+	h3 {
+		min-width: 0;
 		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+		color: var(--color-fg);
+		font-size: 1.18rem;
+		line-height: 1.15;
+		transition: color var(--global-transition-time);
 	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
+
+	.card-copy {
+		margin: 0;
 		color: var(--card-copy);
+		font-size: 0.9rem;
+		line-height: 1.55;
 	}
+
 	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
 		background-image: linear-gradient(
 			45deg,
 			rgb(var(--accent)),
-			var(--card-hover-mid) 30%,
-			var(--card-hover-end) 60%
+			var(--card-hover-mid) 35%,
+			var(--card-hover-end) 70%
 		);
+		background-position: 0;
+		box-shadow: var(--shadow);
+		transform: translateY(-3px);
 	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent));
+
+	.link-card:is(:hover, :focus-within) .icon-frame {
+		border-color: color-mix(in srgb, var(--pink) 55%, var(--line-strong));
+		color: var(--pink);
+		background: color-mix(
+			in srgb,
+			var(--pink) 10%,
+			var(--page-surface-solid)
+		);
 	}
 
 	@media (prefers-color-scheme: dark) {
 		.link-card {
-			--card-frame: #2b2038;
-			--card-surface: rgba(21, 16, 32, 0.86);
-			--card-title: #f8f4ff;
-			--card-copy: #cfc5dc;
-			--card-hover-mid: #f472d0;
+			--card-surface: color-mix(
+				in srgb,
+				var(--page-surface-solid) 90%,
+				transparent
+			);
 			--card-hover-end: #24172f;
+		}
+	}
 
-			box-shadow:
-				0 10px 28px rgba(0, 0, 0, 0.3),
-				inset 0 0 0 1px rgba(196, 181, 253, 0.08);
+	@media (max-width: 640px) {
+		.link-card {
+			min-height: 0;
 		}
 
 		.link-card > a {
-			opacity: 1;
-		}
-
-		.link-card:is(:hover, :focus-within) h2 {
-			color: #c4b5fd;
+			padding: 1.2rem;
 		}
 	}
 </style>

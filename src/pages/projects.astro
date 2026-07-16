@@ -1,41 +1,56 @@
 ---
+import "@phosphor-icons/web/regular";
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
 const skyPlatform = [
 	{
 		title: "Skynet",
-		body: "Sky's browser: a from-scratch reimplementation of the architecture behind OpenAI's Atlas browser — C++23/Qt shell, out-of-process CEF runtime, zero-copy GPU frame transport, and an authenticated CDP gateway.",
+		label: "Browser platform",
+		icon: "ph-browser",
+		body: "A native C++23/Qt browser platform with an isolated CEF runtime, zero-copy GPU transport, and authenticated agent control.",
 		href: "/projects/skynet/",
 	},
 	{
 		title: "Sky Smart Comms",
-		body: "Sky's memory: a cross-channel graph ledger that unifies email, WhatsApp, SMS, phone, LinkedIn, and postal mail into topics, with hybrid retrieval, entity resolution, and closed-loop preference learning.",
+		label: "Memory system",
+		icon: "ph-chat-circle-dots",
+		body: "A cross-channel memory ledger that turns messages, calls, and mail into durable topics with hybrid retrieval.",
 		href: "/projects/sky-smart-comms/",
 	},
 	{
 		title: "sky-vision",
-		body: "Sky's eyes: a daemon-first home computer-vision system in Rust — supervised inference plugins, bounded gRPC work streams, an autonomous identity loop, and an opt-in agent bridge.",
+		label: "Computer vision",
+		icon: "ph-eye",
+		body: "A Rust home-vision daemon with supervised inference plugins, bounded work streams, and autonomous identity.",
 		href: "/projects/sky-vision/",
 	},
 	{
 		title: "sky-cua",
-		body: "Sky's hands: a cross-platform computer-use platform spanning desktop automation, browser control, Android integration, diagnostics, and MCP host packaging.",
+		label: "Computer use",
+		icon: "ph-cursor-click",
+		body: "One portable control surface for desktop, browser, and Android automation—with diagnostics and deployment built in.",
 		href: "/projects/sky-cua/",
 	},
 	{
 		title: "OpenClaw Fork",
-		body: "Sky's runtime: a production fork of a fast-moving AI agent framework — a disciplined replay-ledger methodology, a realtime full-duplex voice subsystem, and a plugin hook at the speech-synthesis chokepoint.",
+		label: "Agent runtime",
+		icon: "ph-cpu",
+		body: "A production agent runtime fork with replay-ledger discipline, full-duplex voice, and carefully maintained extension seams.",
 		href: "/projects/openclaw-fork/",
 	},
 	{
 		title: "Sky Companion Watch",
-		body: "Talk to Sky from your wrist: a Wear OS voice client with on-device endpointing, a reorder-tolerant relay over the Wearable Data Layer, and a watch that holds no credentials.",
+		label: "Wearable voice",
+		icon: "ph-watch",
+		body: "A credential-free Wear OS voice client with on-device endpointing and a reorder-tolerant phone relay.",
 		href: "/projects/sky-companion-watch/",
 	},
 	{
 		title: "sky-phone",
-		body: "Sky's phone line: a Raspberry Pi impersonating a USB headset to place and take real GSM calls — live bidirectional call audio with no root and no telephony provider.",
+		label: "Physical telephony",
+		icon: "ph-phone-call",
+		body: "A Raspberry Pi USB-headset bridge that places and receives real GSM calls with live bidirectional audio.",
 		href: "/projects/sky-phone/",
 	},
 ];
@@ -43,22 +58,30 @@ const skyPlatform = [
 const otherWork = [
 	{
 		title: "Codex Desktop for Linux",
-		body: "Making OpenAI's macOS-first Codex Desktop a first-class Linux app: a deterministic AST-based patch framework, a KDE desktop-shell integration, and an embedded GPU-accelerated browser runtime.",
+		label: "Platform adaptation",
+		icon: "ph-terminal-window",
+		body: "A first-class Linux port built through deterministic AST patches, KDE integration, and an embedded GPU browser runtime.",
 		href: "/projects/codex-desktop-linux/",
 	},
 	{
 		title: "EMEET PIXY Controller",
-		body: "A reverse-engineered USB camera automation platform with native Linux tooling, browser controls, diagnostics, protocol replay, and live-preview enhancement design.",
+		label: "Reverse engineering",
+		icon: "ph-video-camera",
+		body: "A reverse-engineered camera-control platform spanning native Linux tooling, browser control, diagnostics, and protocol replay.",
 		href: "/projects/emeet-pixy-controller/",
 	},
 	{
 		title: "codex-voice",
-		body: "A Rust-native, Linux-first hold-to-dictate voice utility: Wayland portal integration, a lock-free audio pipeline, and a local OpenAI-compatible audio server.",
+		label: "Audio systems",
+		icon: "ph-waveform",
+		body: "A Rust-native Wayland dictation utility with a lock-free audio path and local OpenAI-compatible server.",
 		href: "/projects/codex-voice/",
 	},
 	{
 		title: "Voyager Golden Record Explorer",
-		body: "A Rust/egui signal-processing application for recovering NASA Voyager Golden Record images from audio, with diagnostics, export, and responsive visual exploration.",
+		label: "Signal processing",
+		icon: "ph-radio",
+		body: "A Rust/egui signal-processing explorer that recovers Voyager Golden Record imagery directly from audio.",
 		href: "/projects/voyager-golden-record-explorer/",
 	},
 ];
@@ -68,54 +91,82 @@ const otherWork = [
 	title="Projects"
 	description="Selected software projects by Rebecca Clair — the infrastructure behind Sky, a personal AI agent, plus standalone work in reverse engineering, signal processing, and systems porting."
 >
-	<main>
-		<p class="page-eyebrow">Selected systems work</p>
-		<h1>Projects</h1>
-		<div class="content intro">
-			<p>
-				Much of my recent work adds up to one thing: the infrastructure behind
-				Sky, my personal AI agent. Over the past year I've built her a way to
-				see, act, speak, remember, and reach the physical world — a browser of
-				her own, computer-use hands, home vision, a phone line, a memory that
-				unifies every channel I communicate on, and a wrist to talk to her
-				from. The rest is standalone systems work — reverse engineering, signal
-				processing, and porting — with more room to breathe than a resume
-				allows.
-			</p>
-			<p>
-				You can also find my open-source work on <a
+	<main class="projects-page">
+		<header class="projects-hero">
+			<div class="projects-heading">
+				<p class="page-eyebrow">Selected systems work</p>
+				<h1>Projects</h1>
+			</div>
+
+			<div class="projects-intro">
+				<p>
+					Sky is the main thread: one personal AI platform with its own
+					browser, computer-use hands, vision, memory, voice, and phone line.
+					The rest explores the same problem from different angles—reverse
+					engineering, signal processing, and making unfamiliar systems
+					operable.
+				</p>
+				<a
+					class="github-link"
 					href="https://github.com/becksClair"
 					target="_blank"
-					rel="noopener noreferrer">GitHub</a
-				>.
-			</p>
-		</div>
+					rel="noopener noreferrer"
+				>
+					Open-source work on GitHub
+					<i class="ph ph-arrow-right" aria-hidden="true"></i>
+				</a>
+			</div>
+		</header>
 
-		<section class="project-group" aria-label="The Sky platform">
-			<h2>The Sky platform</h2>
-			<p class="group-lede">
-				The capability stack for one agent: sight, hands, voice, memory, a
-				phone line, and the runtime it all lives in.
-			</p>
+		<section class="project-group" aria-labelledby="sky-platform-title">
+			<div class="group-heading">
+				<div>
+					<p class="section-index">01 · One connected platform</p>
+					<h2 id="sky-platform-title">The Sky platform</h2>
+				</div>
+				<p>
+					Seven systems that give one agent a way to browse, act, perceive,
+					remember, speak, and reach the physical world.
+				</p>
+			</div>
+
 			<ul class="link-card-grid">
 				{
 					skyPlatform.map((project) => (
-						<Card title={project.title} body={project.body} href={project.href} />
+						<Card
+							title={project.title}
+							label={project.label}
+							icon={project.icon}
+							body={project.body}
+							href={project.href}
+						/>
 					))
 				}
 			</ul>
 		</section>
 
-		<section class="project-group" aria-label="Other systems work">
-			<h2>Other systems work</h2>
-			<p class="group-lede">
-				Standalone projects — reverse engineering, signal processing, and
-				systems porting.
-			</p>
+		<section class="project-group" aria-labelledby="other-work-title">
+			<div class="group-heading">
+				<div>
+					<p class="section-index">02 · Independent systems</p>
+					<h2 id="other-work-title">Other systems work</h2>
+				</div>
+				<p>
+					Standalone work in reverse engineering, signal processing, native
+					applications, and platform adaptation.
+				</p>
+			</div>
+
 			<ul class="link-card-grid">
 				{
 					otherWork.map((project) => (
-						<Card title={project.title} body={project.body} href={project.href} />
+						<Card
+							title={project.title}
+							label={project.label}
+							icon={project.icon}
+							body={project.body}
+							href={project.href}
+						/>
 					))
 				}
 			</ul>
@@ -124,54 +175,145 @@ const otherWork = [
 </Layout>
 
 <style lang="scss">
-	main > h1 {
-		max-width: 12ch;
-		margin-bottom: 2rem !important;
-		font-size: clamp(1.75rem, 2vw, 2rem) !important;
+	.projects-page {
+		padding-top: clamp(2.75rem, 5vw, 4.25rem);
 	}
 
-	.intro {
-		max-width: 1100px;
-		margin-bottom: 3rem;
-		padding: clamp(1.5rem, 2.6vw, 2.5rem);
-		font-size: 1rem;
+	.projects-hero {
+		display: grid;
+		grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.3fr);
+		gap: clamp(2rem, 6vw, 7rem);
+		margin-bottom: clamp(3.25rem, 5vw, 4.5rem);
+		padding-bottom: clamp(2rem, 3vw, 2.75rem);
+		border-bottom: 1px solid var(--line);
+		align-items: start;
+	}
 
-		& a {
-			color: rgb(var(--accent));
-		}
+	.projects-heading h1 {
+		margin: 0;
+		font-size: clamp(2.35rem, 4vw, 3.5rem);
+		line-height: 0.95;
+	}
+
+	.projects-intro {
+		max-width: 48rem;
+		padding-top: 0.1rem;
+	}
+
+	.projects-intro > p {
+		margin: 0;
+		color: var(--color-fg-copy);
+		font-size: clamp(1.05rem, 1.45vw, 1.25rem);
+		line-height: 1.62;
+	}
+
+	.github-link {
+		display: inline-flex;
+		margin-top: 1.35rem;
+		align-items: center;
+		gap: 0.55rem;
+		font-size: 0.9rem;
+		font-weight: 780;
+		text-decoration: none;
+	}
+
+	.github-link i {
+		transition: transform var(--global-transition-time);
+	}
+
+	.github-link:hover i {
+		transform: translateX(0.2rem);
 	}
 
 	.project-group {
-		margin-bottom: 4rem;
-
-		& h2 {
-			margin: 0 0 0.4rem;
-			font-size: clamp(1.5rem, 1.8vw, 1.75rem);
-		}
-
-		& .group-lede {
-			margin-top: 0;
-			margin-bottom: 1.5rem;
-			color: var(--grey-mid);
-			font-size: 1.05rem;
-		}
+		margin-bottom: clamp(4.5rem, 8vw, 7rem);
 	}
 
-	@media (max-width: 768px) {
-		main > h1 {
-			font-size: clamp(1.75rem, 7vw, 2rem) !important;
-		}
+	.group-heading {
+		display: grid;
+		grid-template-columns: minmax(17rem, 0.9fr) minmax(0, 1.1fr);
+		gap: clamp(2rem, 6vw, 7rem);
+		margin-bottom: 1.75rem;
+		padding-bottom: 1.4rem;
+		border-bottom: 1px solid var(--line);
+		align-items: end;
+	}
 
-		.project-group h2 {
-			font-size: clamp(1.5rem, 6vw, 1.75rem);
-		}
+	.section-index {
+		margin: 0 0 0.55rem;
+		color: var(--pink);
+		font-size: 0.68rem;
+		font-weight: 850;
+		letter-spacing: 0.14em;
+		line-height: 1.2;
+		text-transform: uppercase;
+	}
+
+	.group-heading h2 {
+		margin: 0;
+		font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+	}
+
+	.group-heading > p {
+		max-width: 42rem;
+		margin: 0;
+		color: var(--grey-mid);
+		font-size: 0.95rem;
+		line-height: 1.55;
 	}
 
 	.link-card-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(28ch, 1fr));
-		gap: 1.25rem;
-		padding: 0;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 2rem;
 		margin: 0;
+		padding: 0;
+	}
+
+	@media (min-width: 1101px) {
+		.link-card-grid > :global(.link-card:last-child:nth-child(3n + 1)) {
+			grid-column: 2;
+		}
+	}
+
+	@media (max-width: 1100px) {
+		.projects-hero,
+		.group-heading {
+			gap: 3rem;
+		}
+
+		.link-card-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1.5rem;
+		}
+	}
+
+	@media (max-width: 700px) {
+		.projects-page {
+			padding-top: 2.75rem;
+		}
+
+		.projects-hero,
+		.group-heading {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+
+		.projects-hero {
+			margin-bottom: 3.5rem;
+			padding-bottom: 2.5rem;
+		}
+
+		.projects-heading h1 {
+			font-size: clamp(2.25rem, 12vw, 3rem);
+		}
+
+		.group-heading {
+			align-items: start;
+		}
+
+		.link-card-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

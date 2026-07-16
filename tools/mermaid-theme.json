@@ -1,5 +1,18 @@
 {
 	"theme": "base",
+	"look": "classic",
+	"htmlLabels": false,
+	"flowchart": {
+		"diagramPadding": 16,
+		"nodeSpacing": 52,
+		"rankSpacing": 56,
+		"useMaxWidth": true
+	},
+	"sequence": {
+		"diagramMarginX": 24,
+		"diagramMarginY": 20,
+		"useMaxWidth": true
+	},
 	"themeVariables": {
 		"background": "#ffffff",
 		"primaryColor": "#faefff",
@@ -8,8 +21,8 @@
 		"lineColor": "#475467",
 		"secondaryColor": "#f7d9ff",
 		"tertiaryColor": "#fff7ed",
-		"fontFamily": "ChiKareGo2, Geneva, sans-serif",
-		"fontSize": "16px",
+		"fontFamily": "Arial, Liberation Sans, sans-serif",
+		"fontSize": "15px",
 		"clusterBkg": "#fdf7ff",
 		"clusterBorder": "#c4b5fd"
 	}
